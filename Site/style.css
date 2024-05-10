@@ -33,7 +33,7 @@ header{
     top: 0;
     left: 0;
     position: fixed;
-    background-color: white;
+    background-color: white ;
     z-index: 1;
   
 }
@@ -512,8 +512,14 @@ header ul :hover{
     transform: scale(1.05);
 }
 
-.btn{
+.btn-cadastro{
     width: 100%;
+}
+
+.btn{
+    width: 49%;
+    padding: 10px;
+ 
 }
 
 .logo-login{
@@ -583,8 +589,9 @@ input[type="checkbox"] {
 }
 
 .checkbox-group {
-    display: flex;
+    display: block;
     align-items: center;
+    
 }
 
 
@@ -592,7 +599,7 @@ input[type="checkbox"] {
     margin-top: 20px;
 }
 
-.btn-cadastrar {
+.btn-proximo {
     width: 100%;
     padding: 10px;
     background-color: #2cb3f1;
@@ -606,11 +613,11 @@ input[type="checkbox"] {
     
 }
 
-.btn-cadastrar:hover {
+.btn-proximo:hover {
     background-color: #0fe4f3;
 }
 
-.btn-cadastrar button{
+.btn-proximo button{
    margin: 0 auto;
 }
 
@@ -620,4 +627,19 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
     width: 100%;
     height: 100vh;
+}
+
+/*Agendar consulta*/
+
+.btn-agendar{
+    width: 180px;
+    height: 65px;
+    background-color:#2cb3f1;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .4s;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
 }

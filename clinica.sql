@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/05/2024 às 22:12
+-- Tempo de geração: 10/05/2024 às 04:58
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -103,29 +103,6 @@ CREATE TABLE `medicos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `necessidades`
---
-
-CREATE TABLE `necessidades` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `necessidades_pacientes`
---
-
-CREATE TABLE `necessidades_pacientes` (
-  `id` int(11) NOT NULL,
-  `id_necessidades` int(11) NOT NULL,
-  `id_pacientes` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estrutura para tabela `pacientes`
 --
 
@@ -139,7 +116,8 @@ CREATE TABLE `pacientes` (
   `email` varchar(100) NOT NULL,
   `necessidadeEspecial` char(1) NOT NULL,
   `necessidadeTipo` varchar(100) DEFAULT NULL,
-  `genero` char(1) NOT NULL
+  `genero` char(1) NOT NULL,
+  `senha` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -178,20 +156,6 @@ ALTER TABLE `medicos`
   ADD KEY `id_endereco` (`id_endereco`);
 
 --
--- Índices de tabela `necessidades`
---
-ALTER TABLE `necessidades`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices de tabela `necessidades_pacientes`
---
-ALTER TABLE `necessidades_pacientes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_necessidades` (`id_necessidades`),
-  ADD KEY `id_pacientes` (`id_pacientes`);
-
---
 -- Índices de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
@@ -228,18 +192,6 @@ ALTER TABLE `medicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `necessidades`
---
-ALTER TABLE `necessidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `necessidades_pacientes`
---
-ALTER TABLE `necessidades_pacientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
@@ -267,13 +219,6 @@ ALTER TABLE `funcionarios`
 --
 ALTER TABLE `medicos`
   ADD CONSTRAINT `medicos_ibfk_1` FOREIGN KEY (`id_endereco`) REFERENCES `enderecos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Restrições para tabelas `necessidades_pacientes`
---
-ALTER TABLE `necessidades_pacientes`
-  ADD CONSTRAINT `necessidades_pacientes_ibfk_1` FOREIGN KEY (`id_necessidades`) REFERENCES `necessidades` (`id`),
-  ADD CONSTRAINT `necessidades_pacientes_ibfk_2` FOREIGN KEY (`id_pacientes`) REFERENCES `pacientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrições para tabelas `pacientes`

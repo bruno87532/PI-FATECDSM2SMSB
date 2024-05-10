@@ -60,8 +60,8 @@
                 <label for="retorno">Retorno</label>
             </div>
         </form>
-        <div class="btn">
-            <a href="#"><button class="btn-cadastrar">Agendar Consulta</button></a>
+        <div class="btn-consulta">
+            <a href="#"><button>Agendar Consulta</button></a>
         </div>
     </div>
 </div>

@@ -32,18 +32,30 @@
                 <option value="outro">Outro</option>
             </select>
             <div class="checkbox-group">
-                <input type="checkbox" id="idoso" name="idoso">
-                <label for="idoso">Sou Idoso</label>
-            </div>
-            <div class="checkbox-group">
                 <input type="checkbox" id="pcd" name="pcd">
                 <label for="pcd">Sou PCD</label>
             </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="idoso" name="idoso">
+                <label for="idoso">Sou Idoso</label>
+            </div>
+            <div id="areaDeficiencia" style="display: none;">
+                <label for="deficiencia">Tipo de Deficiência:</label>
+                <input type="text" id="deficiencia" name="deficiencia" >
+            </div>
         </form>
-        <div class="btn">
-            <a href="#"><button class="btn-cadastrar">Cadastrar</button></a>
+        <div class="btn-cadastro">
+            <a href="proximo.html"><button class="btn-proximo">Proximo</button></a>
         </div>
     </div>
 </div>
+
+<script>
+    // Adicione um evento de clique ao checkbox "Sou PCD"
+    document.getElementById('pcd').addEventListener('click', function() {
+        var areaDeficiencia = document.getElementById('areaDeficiencia');
+        areaDeficiencia.style.display = this.checked ? 'block' : 'none';
+    });
+</script>
 </body>
 </html>

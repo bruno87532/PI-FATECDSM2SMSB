@@ -1,13 +1,21 @@
 <?php
+
 $nome = $_POST["nome"];
 $cpf = $_POST["cpf"];
 $email = $_POST["email"];
 $telefone = $_POST["telefone"];
 $data_nascimento = $_POST["data_nascimento"];
 $sexo = $_POST["sexo"];
-$pcd = $_POST["pcd"];
-$idoso = $_POST["idoso"];
-$deficiencia = $_POST["deficiencia"];
+if(isset($_POST["pcd"])){
+    $pcd = $_POST["pcd"];
+}
+if(isset($_POST["idoso"])){
+    $idoso = $_POST["idoso"];
+    if($_POST["deficiencia"] = ""){
+        header("Location: Cadastre-se.php");
+        exit();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,8 +37,9 @@ $deficiencia = $_POST["deficiencia"];
                 <input type="hidden" name="telefone" value="<?php echo $_POST["telefone"]?>">
                 <input type="hidden" name="data_nascimento" value="<?php echo $_POST["data_nascimento"]?>"> 
                 <input type="hidden" name="sexo" value="<?php echo $_POST["sexo"]?>">
-                <input type="hidden" name="idoso" value="<?php echo $_POST["idoso"]?>">
-                <input type="hidden" name="deficiencia" value="<?php echo $_POST["deficiencia"]?>">
+                <input type="hidden" name="idoso" value="<?php echo $idoso?>">
+                <input type="hidden" name="deficiencia" value="<?php echo $deficiencia?>">
+                <input type="hidden" name="valida_entrada" value=1>
                 <label for="cidade">Cidade:</label>
                 <input type="text" id="cidade" name="cidade" required>
                 
@@ -55,10 +64,6 @@ $deficiencia = $_POST["deficiencia"];
                 </select>
                 <input type="submit" value="Cadastrar" class="btn-proximo">
             </form>
-
-            <div class="btn">
-                <a href="Cadastre-se.html" ><button class="btn-proximo">Voltar</button></a>
-            </div>
             
         </div>
     </div>

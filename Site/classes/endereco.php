@@ -1,13 +1,13 @@
 <?php
 class Endereco {
-    private $id;
-    private $cep;
-    private $estado;
-    private $cidade;
-    private $bairro;
-    private $rua;
-    private $numero;
-    private $complemento;
+    public $id;
+    public $cep;
+    public $estado;
+    public $cidade;
+    public $bairro;
+    public $rua;
+    public $numero;
+    public $complemento;
 
     // Métodos getters
     public function getId() {
@@ -73,5 +73,16 @@ class Endereco {
 
     public function setComplemento($complemento) {
         $this->complemento = $complemento;
+    }
+    public function preencheRetorno($cep, $estado, $cidade, $bairro, $rua, $numero, $complemento = NULL){
+        $this->setCep($cep);
+        $this->setEstado($estado);
+        $this->setCidade($cidade);
+        $this->setBairro($bairro);
+        $this->setRua($rua);
+        $this->setNumero($numero);
+        if($complemento != NULL){
+            $this->setComplemento($complemento);
+        }
     }
 }

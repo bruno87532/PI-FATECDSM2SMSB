@@ -1,5 +1,4 @@
 <?php
-require("endereco.php");
 
 class Paciente{
 
@@ -110,6 +109,21 @@ class Paciente{
 
     public function setSenha($senha) {
         $this->senha = $senha;
+    }
+    public function preencheRetorno($nome, $cpf, $email, $telefone, $nascimento, $sexo, $pcd = NULL, $idoso = NULL, $deficiencia = NULL){
+        $this->setNome($nome);
+        $this->setCpf($cpf);
+        $this->setEmail($email);
+        $this->setTelefone($telefone);
+        $this->setNascimento($nascimento);
+        $this->setGenero($sexo);
+        if($pcd != NULL){
+            $this->setNecessidadeEspecial(1);
+            $this->setNecessidade($deficiencia);
+        }
+        if($idoso != NULL){
+            $this->setIdoso(1);
+        }
     }
 }
 

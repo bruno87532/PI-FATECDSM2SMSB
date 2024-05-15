@@ -26,7 +26,7 @@
                 </div>
                 <nav>
                     <ul class="link-login">
-                        <li><img src="imagens/icons8-male-user-24.png" width="30px" height="30px" alt=""><a href="login.html"> Login </a></li>
+                        <li><img src="imagens/icons8-male-user-24.png" width="30px" height="30px" alt=""><a href="login.php"> Login </a></li>
                     </ul>
                 </nav>
             </div>

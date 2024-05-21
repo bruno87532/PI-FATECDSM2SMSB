@@ -1,28 +1,11 @@
 <?php
-$estilocpf = "color: red; display: none";
-$estiloemail = "color: red; display: none";
-$estilotelefone = "color: red; display: none";
-$estilonascimento = "color: red; display: none";
-
-
-require("classes/paciente.php");
-require("classes/pacienteRepository.php");
-
-$pacienteRepository = new PacienteRepository();
-
-$paciente = new Paciente();
-
-$paciente->setNome("Arnaldo");
-$paciente->setCpf("123.456.789-12");
-
-try{
-    $pacienteRepository->createPaciente($paciente);
-    echo "Paciente cadastrado com sucesso!";
-}
-catch (Exception $e)
-{
-    echo "Erro: ".e->getMessage();
-}
+require_once("classes/validadora.php");
+$validacao = new valida_cadastro();
+$estilocpf = $validacao->cpf_valido();
+$estiloemail = $validacao->email_valido();
+$estilotelefone = $validacao->telefone_valido();
+$estilonascimento = $validacao->nascimento_valido();
+$estilonome = $validacao->nome_valido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,21 +23,22 @@ catch (Exception $e)
     <div class="imgfundocadastro">
     <div class="container-cadastro">
         <h2>Cadastre-se</h2><br>
-        <form class="formulario-cadastro" method="POST">
+        <form class="formulario-cadastro" action="proximo.php" method="POST">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+            <p style="<?php echo $estilonome?>">Nome inválido!</p>
+            <input type="text" id="nome" name="nome" required value="<?php echo isset($retornoPaciente->nome) ? $retornoPaciente->getNome() : ""; ?>">
             <label for="cpf">CPF:</label>
-            <p style="<?php echo $estilocpf?>">Campo inválido!</p>
-            <input type="text" id="cpf" name="cpf" required>
+            <p style="<?php echo $estilocpf?>">CPF não existe!</p>
+            <input type="text" id="cpf" name="cpf" required value="<?php echo isset($retornoPaciente->cpf) ? $retornoPaciente->getCpf() : ""; ?>">
             <label for="email">E-mail:</label>
             <p style="<?php echo $estiloemail?>">Campo inválido!</p>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required value="<?php echo isset($retornoPaciente->email) ? $retornoPaciente->getEmail() : ""; ?>">
             <label for="telefone">Telefone:</label>
-            <p style="<?php echo $estilotelefone ?>">Campo inválido!</p>
-            <input type="tel" id="telefone" name="telefone" required>
+            <p style="<?php echo $estilotelefone ?>">Telefone inválido!</p>
+            <input type="tel" id="telefone" name="telefone" required value="<?php echo isset($retornoPaciente->telefone) ? $retornoPaciente->getTelefone() : ""; ?>">
             <label for="data_nascimento">Data de Nascimento:</label>
-            <p style="<?php echo $estilonascimento?>">Campo inválido!</p>
-            <input type="date" id="data_nascimento" name="data_nascimento" required>
+            <p style="<?php echo $estilonascimento?>">Data de nascimento inválida!</p>
+            <input type="date" id="data_nascimento" name="data_nascimento" required value="<?php echo isset($retornoPaciente->nascimento) ? $retornoPaciente->getNascimento() : ""; ?>">
             <label for="sexo">Sexo:</label>
             <select id="sexo" name="sexo" required>
                 <option value="masculino">Masculino</option>
@@ -62,16 +46,16 @@ catch (Exception $e)
                 <option value="outro">Outro</option>
             </select>
             <div class="checkbox-group">
-                <input type="checkbox" id="pcd" name="pcd">
+                <input type="checkbox" id="pcd" name="pcd" value="<?php echo isset($retornoPaciente->necessidadeEspecial) ? 1 : 0 ?>">
                 <label for="pcd">Sou PCD</label>
             </div>
             <div class="checkbox-group">
-                <input type="checkbox" id="idoso" name="idoso">
+                <input type="checkbox" id="idoso" name="idoso" value="<?php echo isset($retornoPaciente->idoso) ? 1 : 0 ?>">
                 <label for="idoso">Sou Idoso</label>
             </div>
             <div id="areaDeficiencia" style="display: none;">
                 <label for="deficiencia">Tipo de Deficiência:</label>
-                <input type="text" id="deficiencia" name="deficiencia" >
+                <input type="text" id="deficiencia" name="deficiencia" value="<?php echo isset($retornoPaciente->necessidade) ? $retornoPaciente->getNecessidade() : ""; ?>">
             </div>
             <div class="btn-cadastro">
                 <input type="submit" class="btn-proximo" value="Próximo">

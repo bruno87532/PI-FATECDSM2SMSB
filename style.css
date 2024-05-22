@@ -1,0 +1,721 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.container-top{
+    width: 100% ;
+
+}
+
+
+.image-container-top{
+
+    margin-left: 30px;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.flex img{
+    text-align: left;
+
+}
+header{
+    width: 100%;
+    padding: 2px  !important;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: white ;
+    z-index: 1;
+  
+}
+
+
+/* Estilos padrão para o navbar */
+header ul {
+    margin-bottom: 0 !important;
+    list-style-type: none;
+    padding: 0;
+    text-align: center; 
+   
+}
+
+header ul li {
+    display: inline-block;
+    margin: 0 60px;
+   
+    
+}
+ul li:hover{
+    transform: scale(1.1); 
+}
+
+header ul li a {
+    color: rgb(100, 100, 100);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 20px;
+
+}
+
+header ul :hover{
+   
+    color:#0fe4f3;
+}
+
+.link-login{
+    height: 40px;
+}
+
+/* Estilos para o navbar em telas pequenas (responsivo) */
+@media screen and (max-width: 768px) {
+    header ul {
+        display: flex; 
+        flex-direction: column; 
+        text-align: left; 
+    }
+
+    header ul li {
+        display: block; 
+        margin: 10px 0; 
+    }
+}
+
+
+.btn-contato button{
+    width: 160px;
+    height: 40px;
+    background-color:#2cb3f1;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .4s;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+}
+
+.btn-contato button:hover{
+    background-color: #0fe4f3;
+}
+
+.btnhover:hover {
+    transform: scale(1.1); /* Aumenta o tamanho em 10% */
+}
+
+
+.banner-image {
+    height: 90vh;
+    width: 100%; 
+    
+}
+
+
+
+/* Section quem somos */
+
+.image-with-text {
+    display: flex;
+    align-items: center; 
+    margin-top: 100px; 
+    margin-bottom: 80px;
+    
+}
+
+.image-container {
+    text-align: center;
+    flex: 1; 
+    margin-right: 20px; 
+}
+
+.image-container img {
+    width: 80%; 
+    border-radius: 7px;
+    -webkit-box-shadow: 9px 7px 5px rgba(50, 50, 50, 0.77);
+	-moz-box-shadow:    9px 7px 5px rgba(50, 50, 50, 0.77);
+	box-shadow:         9px 7px 5px rgba(43, 81, 99, 0.77);
+}
+
+.text-container {
+    flex: 1; 
+    margin-right: 20px; 
+    margin-left: 50px; 
+    
+    
+}
+
+.text-container h2 {
+    font-size: 54px; 
+    color: #d3ad45;
+    margin-bottom: 10px; 
+}
+
+.text-container p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 450px;
+    color: rgb(100, 100, 100);
+    font-size: 16px;
+}
+
+
+
+
+/* ESPECIALIDADES */
+
+.especialidades {
+    margin-top: 80px;
+    position: relative;
+    
+}
+
+.especialidades::after {
+    content: ""; 
+    background-image: url(imagens/teste.webp);
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3; 
+    z-index: -1;
+}
+
+
+
+
+.especialidades h1 {
+    font-size: 54px;
+    text-align: center;
+    color: rgb(71, 73, 73);
+}
+
+.botoes {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+.link-login {
+    display: flex; 
+    align-items: center; 
+}
+
+.link-login img {
+    margin-right: 5px; 
+}
+.row {
+    display: flex; 
+    justify-content: center; 
+    margin: 100px;
+    margin-top: 20px;
+}
+
+.especialidades .botoes button {
+    width: 220px;
+    height: 90px;
+    background-color: transparent; 
+    border: 3px solid #706f6f; 
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 80px; 
+    color: #595a5a; 
+    font-weight: bold;
+}
+
+.especialidades .botoes button span{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.especialidades .botoes button:hover {
+    background-color: #0fe4f3;
+    color: white; 
+    transform: scale(1.1);
+}
+
+
+.carousel-item img {
+    width: 100%;
+    height: 120vh;
+    object-fit: cover;
+    animation: kenburns 10s infinite alternate;
+  }
+
+@keyframes kenburns {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        transform: scale(1.2) translate(20px, 20px);
+    }
+}
+
+.text-container2{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    text-align: left;
+    left: 0;
+    background-image: linear-gradient(70deg, #bdd4ebe3 10%, #f3e9e914 50%);
+    padding: 80px;
+    color: #030303; 
+    
+}
+
+.text-container2 h1{
+    font-family: "Montserrat", Sans-serif;
+    font-weight: bold;
+    font-size: 54px;
+    color: #303335;
+}
+
+.dores{
+    color: #2cb3f1;
+}
+
+.text-container2 p{
+    font-size: 24px;
+    width: 52%;
+    border-radius: 10px;
+}
+
+
+.btn-contato2 button{
+    width: 180px;
+    height: 65px;
+    background-color:#2cb3f1;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .4s;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+
+}
+
+.btn-contato2 button:hover{
+    background-color: #0fe4f3 ;
+}
+
+
+/*Planos*/
+.planos{
+    text-align: center;
+    padding: 20px;
+    font-size: 50px;
+    color: #e4eaee;
+    font-weight: bold;
+}
+
+.precos {
+    padding: 50px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    background-color: #1f4055;
+ 
+
+}
+
+.containerplanos {
+    max-width: 1500px;
+    padding: 20px;
+    color: white;
+
+
+}
+
+.row {
+    max-width: 1800px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    
+}
+
+.col {
+    flex: 1.5;
+    text-align: center;
+    padding: 20px;
+    margin: 0 40px; 
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+
+
+}
+
+.col h3 {
+    font-size: 24px;
+    color: white;
+    background-color: #2e93ce;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.col p {
+    font-size: 18px;
+    color: white;
+    text-align: left;
+}
+
+.col span{
+    font-size: 13px;
+}
+
+.btn-contratar {
+    background-color: #239dd6;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-contratar:hover {
+    background-color: #0fe4f3;
+    transform: scale(1.1);
+}
+
+
+/* Footer */
+
+
+.footerh2{
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Estilos para a imagem centralizada */
+.centered-image {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Estilos para os contêineres de texto */
+.text-containers3{
+    justify-content: center;
+    display: flex;
+    margin-top: 120px;
+ 
+}
+
+.text-container3{
+    margin: 0 80px;
+    padding: 20px;
+    text-align: center;
+   
+}
+
+
+/* Estilos para os ícones das redes sociais */
+.social-icons {
+    text-align: center;
+    margin-top: 20px;
+    
+}
+
+.social-icons img {
+    margin: 0 50px; 
+    cursor: pointer;
+}
+
+.social-icons img:hover{
+    transform: scale(1.1);
+}
+
+
+.copyright{
+    margin-top: 40px;
+    text-align: center;
+    background-color: #1e82bd;
+    color: white;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    
+}
+
+.copyright h5{
+    font-size: 12px;
+   
+}
+
+.copyright a{
+    text-decoration: none;
+    color: white;
+}
+
+
+/*=-================================Login *=-==========================*/
+.imgfundologin {
+    background-image: url(imagens/fundologin.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+
+.container-login {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+}
+
+.form-container {
+    width: 22%; 
+    padding: 30px; 
+    background-color: rgba(255, 255, 255, 0.61); 
+    border-radius: 10px; 
+}
+
+.btn-entrar-login {
+    background-color: #2cb3f1; 
+    color: white; 
+    border: none;
+    padding: 10px 20px; 
+    font-size: 16px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    width: 100%;
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+.btn-entrar-login:hover {
+    background-color: #0fe4f3; 
+    transform: scale(1.05);
+}
+
+.btn-cadastro{
+    width: 100%;
+}
+
+.btn{
+    width: 49%;
+    padding: 10px;
+ 
+}
+
+.logo-login{
+    display: block;
+    margin: 0 auto;
+ 
+    
+}
+
+.register-link p{
+    text-align: center;
+
+}
+
+
+/* Cadastre-se =========================================*/
+
+.container-cadastro {
+    width: 35%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.81);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container-cadastro h2{
+    text-align: center;
+}
+
+.formulario-cadastro {
+    justify-content: center;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr); 
+    align-items: center;
+    
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%; 
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.checkbox-group {
+    display: block;
+    align-items: center;
+    
+}
+
+
+.btn-login{
+    margin-top: 20px;
+}
+
+.btn-proximo {
+    width: 100%;
+    padding: 10px;
+    background-color: #2cb3f1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 25px;
+    
+}
+
+.btn-proximo:hover{
+    background-color: #0fe4f3;
+}
+
+.btn-proximo button{
+   margin: 0 auto;
+}
+
+.imgfundocadastro {
+    background-image: url(imagens/fundologin.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+
+/*Agendar consulta*/
+
+
+.btn-consulta button {
+    width: 60%;
+    display: block; /* Torna o botão um elemento de bloco */
+    margin: 0 auto; /* Define as margens laterais automáticas para centralizá-lo */
+    padding: 10px;
+    color: white;
+    background-color: #2cb3f1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn-consulta button:hover {
+    transform: scale(1.05);
+}
+
+.container-agendarConsulta {
+    width: 30%;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.81);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.formulario-consulta {
+    justify-content: center;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(2, 1fr); 
+    align-items: center;
+    
+}
+
+.container-agendarConsulta h2{
+    text-align: center;
+}
+
+
+/* Cadastro Médico */
+
+.container-cadastroMedico {
+    width: 80%; /* Reduzi a largura para 80% para se adequar melhor em telas menores */
+    max-width: 600px; /* Limita a largura máxima do formulário */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.81);
+    margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+
+}
+
+.container-cadastroMedico h2{
+    text-align: center;
+}
+
+.formulario-cadastroMedico {
+    gap: 12px;
+}
+
+.formulario-cadastroMedico label {
+    grid-column: 1 / span 2; /* As labels ocupam duas colunas */
+}
+
+.formulario-cadastroMedico input,
+.formulario-cadastroMedico select {
+    width: calc(100% - 20px); /* Reduzi a largura para compensar o padding de 10px em cada lado */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}

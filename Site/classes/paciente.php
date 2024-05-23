@@ -9,9 +9,9 @@ class Paciente{
     public $nascimento;
     public $telefone;
     public $email;
-    public $necessidadeEspecial;
-    public $necessidade;
-    public $idoso;
+    public ?int $necessidadeEspecial;
+    public ?string $necessidade;
+    public ?int $idoso;
     public $genero;
     public $senha;
 
@@ -110,20 +110,27 @@ class Paciente{
     public function setSenha($senha) {
         $this->senha = $senha;
     }
-    public function preencheRetorno($nome, $cpf, $email, $telefone, $nascimento, $sexo, $pcd = NULL, $idoso = NULL, $deficiencia = NULL){
-        $this->setNome($nome);
-        $this->setCpf($cpf);
-        $this->setEmail($email);
-        $this->setTelefone($telefone);
-        $this->setNascimento($nascimento);
-        $this->setGenero($sexo);
-        if($pcd != NULL){
-            $this->setNecessidadeEspecial(1);
-            $this->setNecessidade($deficiencia);
+    public static function novoPaciente($nome, $cpf, $data_nascimento, $telefone, $email, $senha, $sexo, $pcd = NULL, $deficiencia = NULL, $idoso = NULL){
+        $paciente = new Paciente();
+        $paciente->setNome($nome);
+        $paciente->setCpf($cpf);
+        $paciente->setNascimento($data_nascimento);
+        $paciente->setTelefone($telefone);
+        $paciente->setEmail($email);
+        $paciente->setSenha($senha);
+        $paciente->setGenero($sexo);
+        if(isset($pcd) && $pcd == 1){
+            $paciente->setNecessidadeEspecial(1);
+            $paciente->setNecessidade($deficiencia);   
+        }else{
+            $paciente->setNecessidadeEspecial(0);
         }
-        if($idoso != NULL){
-            $this->setIdoso(1);
+        if(isset($idoso) && $idoso == 1){
+            $paciente->setIdoso(1);
+        }else{
+            $paciente->setIDoso(0);
         }
+        $_SESSION["paciente"] = $paciente;
     }
 }
 

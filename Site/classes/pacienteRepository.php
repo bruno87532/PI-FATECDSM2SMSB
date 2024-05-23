@@ -1,19 +1,31 @@
 <?php
 
-require_once "C:\xampp\htdocs\PI-FATECDSM2SMSB\Site\banco/conexao.php";
-require_once "../classes/Paciente";
+require_once "C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/banco/conexao.php";
+require_once __DIR__ . '/paciente.php';
+
 class PacienteRepository
 {
     private $conexao;
 
-   public function  __construct()
-   {
-       $this->conexao = new Conexao();
+    public function  __construct()
+    {
+        try 
+        {
+            $this->conexao = new Conexao();
+        } 
+        catch (Exception $e)
+        {
+            throw new Exception("Não foi possível conectar-se ao banco de dados: " . $e->getMessage());
+        }
+    }
 
-       if(!$this->conexao){
-           throw new Exception("Não foi possível conectar-se ao banco de dados");
-       }
-   }
+    public function __destruct()
+    {
+        if ($this->conexao) {
+            $this->conexao = null;
+        }
+    }
+
     public function SelecionaPaciente($id)
     {
         try
@@ -40,37 +52,74 @@ class PacienteRepository
         {
             throw new Exception("Erro ao selecionar paciente: ".$e->getMessage());
         }
-
-        //exemplo de uso
-
-        // $pacienteRepo = new PacienteRepository();
-        // $paciente = $pacienteRepo->SelecionaPaciente(1); // Passando o ID do paciente desejado
-        // if($paciente){
-        //     echo "Nome do paciente: " . $paciente->getNome() . "<br>";
-        //     echo "Senha do paciente: " . $paciente->getSenha() . "<br>";
-        // } else {
-        //     echo "Paciente não encontrado.";
-        // }
     }
 
-    public function createPaciente(Paciente $paciente)
+    public function CreateEndereco(Endereco $endereco)
     {
         try
         {
-            $sql = "INSERT INTO pacientes (nome, cpf, nascimento, telefone, email, necessidadeEspecial, necessidade, idoso, genero, senha) 
-                    VALUES (:nome, :cpf, :nascimento, :telefone, :email, :necessidadeEspecial, :necessidade, :idoso, :genero, :senha)";
+            $sql = "INSERT INTO enderecos (cep, estado, cidade, bairro, rua, numeroCasa, complemento) 
+                    VALUES (:cep, :estado, :cidade, :bairro, :rua, :numero, :complemento)";
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+
+            $cep = $endereco->getCep();
+            $estado = $endereco->getEstado();
+            $cidade = $endereco->getCidade();
+            $bairro = $endereco->getBairro();
+            $rua = $endereco->getRua();
+            $numero = $endereco->getNumero();
+            $complemento = $endereco->getComplemento();
+
+            $stmt->bindParam(':cep', $cep);
+            $stmt->bindParam(':estado', $estado);
+            $stmt->bindParam(':cidade', $cidade);
+            $stmt->bindParam(':bairro', $bairro);
+            $stmt->bindParam(':rua', $rua);
+            $stmt->bindParam(':numero', $numero);
+            $stmt->bindParam(':complemento', $complemento);
+
+            $stmt->execute();
+            return $this->conexao->getConexao()->lastInsertId();
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception("Erro ao criar paciente: ".$e->getMessage());
+        }
+    }
+
+    public function CreatePaciente(Paciente $paciente, $id)
+    {
+        try
+        {
+            $sql = "INSERT INTO pacientes (nome, cpf, nascimento, telefone, email, necessidadeEspecial, necessidadeTipo, idoso, genero, id_endereco, senha) 
+                    VALUES (:nome, :cpf, :nascimento, :telefone, :email, :necessidadeEspecial, :necessidade, :idoso, :genero, :id, :senha)";
             $stmt = $this->conexao->getConexao()->prepare($sql);
             // Bind dos parâmetros
-            $stmt->bindParam(':nome', $paciente->getNome());
-            $stmt->bindParam(':cpf', $paciente->getCpf());
-            $stmt->bindParam(':nascimento', $paciente->getNascimento());
-            $stmt->bindParam(':telefone', $paciente->getTelefone());
-            $stmt->bindParam(':email', $paciente->getEmail());
-            $stmt->bindParam(':necessidadeEspecial', $paciente->getNecessidadeEspecial());
-            $stmt->bindParam(':necessidade', $paciente->getNecessidade());
-            $stmt->bindParam(':idoso', $paciente->getIdoso());
-            $stmt->bindParam(':genero', $paciente->getGenero());
-            $stmt->bindParam(':senha', $paciente->getSenha());
+           // Atribua os valores de retorno dos métodos às variáveis
+            $nome = $paciente->getNome();
+            $cpf = $paciente->getCpf();
+            $nascimento = $paciente->getNascimento();
+            $telefone = $paciente->getTelefone();
+            $email = $paciente->getEmail();
+            $necessidadeEspecial = $paciente->getNecessidadeEspecial();
+            $necessidade = $paciente->getNecessidade();
+            $idoso = $paciente->getIdoso();
+            $genero = $paciente->getGenero();
+            $senha = $paciente->getSenha();
+
+            // Passe as variáveis como argumentos para bindParam()
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':cpf', $cpf);
+            $stmt->bindParam(':nascimento', $nascimento);
+            $stmt->bindParam(':telefone', $telefone);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':necessidadeEspecial', $necessidadeEspecial);
+            $stmt->bindParam(':necessidade', $necessidade);
+            $stmt->bindParam(':idoso', $idoso);
+            $stmt->bindParam(':genero', $genero);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':senha', $senha);
+
             // Execução da consulta
             $stmt->execute();
         }
@@ -78,25 +127,6 @@ class PacienteRepository
         {
             throw new Exception("Erro ao criar paciente: ".$e->getMessage());
         }
-
-        //exemplo de uso
-
-        // $pacienteRepo = new PacienteRepository();
-
-        // Criando um novo objeto Paciente
-        // $paciente = new Paciente();
-        // $paciente->setNome("Nome do Paciente");
-        // $paciente->setCpf("123.456.789-00");
-        // Setar outros atributos do paciente conforme necessário
-
-        // Chamando o método createPaciente() para inserir o paciente no banco de dados
-        // try {
-        //     $pacienteRepo->createPaciente($paciente);
-        //     echo "Paciente criado com sucesso!";
-        // } catch (Exception $e) {
-        //     echo "Erro ao criar paciente: " . $e->getMessage();
-        // }
-
     }
 }
 ?>

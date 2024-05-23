@@ -7,7 +7,7 @@ class Endereco {
     public $bairro;
     public $rua;
     public $numero;
-    public $complemento;
+    public ?string $complemento;
 
     // Métodos getters
     public function getId() {
@@ -74,15 +74,18 @@ class Endereco {
     public function setComplemento($complemento) {
         $this->complemento = $complemento;
     }
-    public function preencheRetorno($cep, $estado, $cidade, $bairro, $rua, $numero, $complemento = NULL){
-        $this->setCep($cep);
-        $this->setEstado($estado);
-        $this->setCidade($cidade);
-        $this->setBairro($bairro);
-        $this->setRua($rua);
-        $this->setNumero($numero);
-        if($complemento != NULL){
-            $this->setComplemento($complemento);
+
+    public static function novoEndereco($cep, $estado, $cidade, $bairro, $rua, $numero_casa, $complemento = NULL){
+        $endereco = new Endereco();
+        $endereco->setCep($cep);
+        $endereco->setEstado($estado);
+        $endereco->setCidade($cidade);
+        $endereco->setBairro($bairro);
+        $endereco->setRua($rua);
+        $endereco->setNumero($numero_casa);
+        if(isset($rua) && $rua != ""){
+            $endereco->setComplemento($complemento);
         }
+        $_SESSION["endereco"] = $endereco;
     }
 }

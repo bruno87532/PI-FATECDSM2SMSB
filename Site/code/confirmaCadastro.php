@@ -1,102 +1,59 @@
 <?php
-require_once("funcoes.php");
-require_once("../classes/validadora.php");
-require_once("retorno.php");
 require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/paciente.php");
+require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/pacienteRepository.php");
 require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/endereco.php");
-$validacao_existe = new valida_cadastro();
-$validacao_existe->destroi_sessao();
+require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/funcoes.php");
+require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/validadora.php");
+$valida_campo = new Funcionalidade();
+$destroi_sessao = new Validador();
+$destroi_sessao->destroi_sessao();
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if($_POST["nome"] == NULL){
-        exit();
-    }
-    if($_POST["cpf"] == NULL){
-        exit();
-    }
-    if($_POST["email"] == NULL){
-        exit();
-    }
-    if($_POST["telefone"] == NULL){
-        exit();
-    }
-    if($_POST["data_nascimento"] == NULL){
-        exit();
-    }
-    if($_POST["cep"] == NULL){
-        exit();
-    }
-    if($_POST["estado"] == NULL){
-        exit();
-    }
-    if($_POST["cidade"] == NULL){
-        exit();
-    }
-    if($_POST["bairro"] == NULL){
-        exit();
-    }
-    if($_POST["rua"] == NULL){
-        exit();
-    }
-    if($_POST["numero_casa"] == NULL){
-        exit();
-    }
-    if($_POST["sexo"] == NULL){
-        exit();
-    } 
-    if(isset($_POST["pcd"])){
-        if($_POST["deficiencia"] == ""){
+    $post = ["nome", "cpf", "email", "senha", "telefone", "data_nascimento", "cep", "estado", "cidade", "bairro", "rua", "numero_casa", "sexo"];
+    foreach($post as $campo){
+        if($_POST[$campo] == ""){
             exit();
         }
     }
-    $boolTesteNome = validaNome($_POST["nome"]);
-    if(!($boolTesteNome)){
-        $_SESSION["nome"] = true;
+    if($_POST["idoso"] == 0 && $_POST["pcd"] == 0){
+        $_SESSION["pid"] = true;
         header("Location: ../Cadastre-se.php");
         exit();
     }
-    $boolTesteCpf = validaCpf($_POST["cpf"]);
-    if(!($boolTesteCpf)){
-        $_SESSION["cpf"] = true;
+    if($_POST["pcd"] == 1 && $_POST["deficiencia"] == ""){
+        $_SESSION["deficiencia"] = true;
         header("Location: ../Cadastre-se.php");
         exit();
     }
-    $boolTesteTelefone = validaTelefone($_POST["telefone"]);
-    if(!($boolTesteTelefone)){
-        $_SESSION["telefone"] = true;
-        header("Location: ../Cadastre-se.php");
-        exit();
+    $parametros_paciente = [$_POST["nome"], $_POST["cpf"], $_POST["data_nascimento"], $_POST["telefone"], $_POST["email"], $_POST["senha"], $_POST["sexo"]];
+    if(isset($_POST["pcd"], $_POST["deficiencia"], $_POST["idoso"]) && $_POST["pcd"] == 1 && $_POST["deficiencia"] != "" && $_POST["idoso"] == 1){
+        $todos_parametros = array_merge($parametros_paciente, [$_POST["pcd"], $_POST["deficiencia"], $_POST["idoso"]]);
+        call_user_func_array(["Paciente", "novoPaciente"], $todos_parametros);
+    }else if(isset($_POST["pcd"], $_POST["deficiencia"]) && $_POST["pcd"] == 1 && $_POST["deficiencia"] != ""){
+        $todos_parametros = array_merge($parametros_paciente, [$_POST["pcd"], $_POST["deficiencia"]]);
+        call_user_func_array(["Paciente", "novoPaciente"], $todos_parametros);
+    }else if(isset($_POST["idoso"]) && $_POST["idoso"] == 1){
+        $todos_parametros = array_merge($parametros_paciente, [$_POST["idoso"]]);
+        call_user_func_array(["Paciente", "novoPaciente"], $todos_parametros);
     }
-    $boolTesteNascimento = validaNascimento($_POST["nascimento"]);
-    if(!($boolTesteNascimento)){
-        $_SESSION["nascimento"] = true;
-        header("Location: ../Cadastre-se.php");
+    $parametros_endereco = [$_POST["cep"], $_POST["estado"], $_POST["cidade"], $_POST["bairro"], $_POST["rua"], $_POST["numero_casa"]];
+    if(isset($_POST["complemento"]) && $_POST["complemento"] != ""){
+        $todos_parametros = array_merge($parametros_endereco, [$_POST["complemento"]]);
+        call_user_func_array(["Endereco", "novoEndereco"], $todos_parametros);
+    }else{
+        call_user_func_array(["Endereco", "novoEndereco"], $parametros_endereco);
     }
-    $paciente = new Paciente();
-    $paciente->setNome($_POST["nome"]);
-    $paciente->setCpf($_POST["cpf"]);
-    $paciente->setEmail($_POST["email"]);
-    $paciente->setTelefone($_POST["telefone"]);
-    $paciente->setNascimento($_POST["data_nascimento"]);
-    $paciente->setGenero($_POST["sexo"]);
-    if(isset($_POST["idoso"])){
-        $paciente->setIdoso(1);
-    }
-    if(isset($_POST["pcd"])){
-        $paciente->setPCD(1);
-        $paciente->setNecessidade($necessidade);
-    }
-    $endereco = new Endereco();
-    $endereco->setCep($_POST["cep"]);
-    $endereco->setEstado($_POST["estado"]);
-    $endereco->setCidade($_POST["cidade"]);
-    $endereco->setBairro($_POST["bairro"]);
-    $endereco->setRua($_POST["rua"]);
-    $endereco->setNumero($_POST["numero_casa"]);
-    if($_POST["complemento"] != ""){
-        $endereco->complemento = $_POST["complemento"];
-    } 
 }else{
     exit();
 }
+$campos_validado = $valida_campo->validaCampos($_POST["nome"], $_POST["cpf"], $_POST["senha"], $_POST["telefone"], $_POST["data_nascimento"]);
+if(!$campos_validado){
+    header("Location: ../Cadastre-se.php");
+    exit();
+}
 
+$insere_paciente = new PacienteRepository();
+$id = $insere_paciente->createEndereco($_SESSION["endereco"]);
+$insere_paciente->createPaciente($_SESSION["paciente"], $id);
+unset($_SESSION["paciente"]);
+unset($_SESSION["endereco"]);
 ?>

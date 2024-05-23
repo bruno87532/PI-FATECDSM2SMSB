@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <img src="imagens/logo.png" width="85px" alt="" class="logo-login">
                         <label for="username">Usuário:</label>
-                        <input type="text" placeholder="Digite seu nome" id="username" name="username" class="form-control" required>
+                        <input type="text" placeholder="Digite seu email" id="username" name="username" class="form-control" required>
                     </div><br>
                     <div class="form-group">
                         <label for="password">Senha:</label>

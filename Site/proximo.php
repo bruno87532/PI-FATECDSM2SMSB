@@ -1,21 +1,14 @@
 <?php
-
-$nome = $_POST["nome"];
-$cpf = $_POST["cpf"];
-$email = $_POST["email"];
-$telefone = $_POST["telefone"];
-$data_nascimento = $_POST["data_nascimento"];
-$sexo = $_POST["sexo"];
+require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/paciente.php");
+require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/endereco.php");
+session_start();
 if(isset($_POST["pcd"])){
     $pcd = $_POST["pcd"];
 }
 if(isset($_POST["idoso"])){
     $idoso = $_POST["idoso"];
-    if($_POST["deficiencia"] = ""){
-        header("Location: Cadastre-se.php");
-        exit();
-    }
 }
+$deficiencia = $_POST["deficiencia"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,57 +27,57 @@ if(isset($_POST["idoso"])){
                 <input type="hidden" name="nome" value="<?php echo $_POST["nome"] ?>">
                 <input type="hidden" name="cpf" value="<?php echo $_POST["cpf"]?>">
                 <input type="hidden" name="email" value="<?php echo $_POST["email"]?>">
+                <input type="hidden" name="senha" value="<?php echo $_POST["senha"]?>">
                 <input type="hidden" name="telefone" value="<?php echo $_POST["telefone"]?>">
                 <input type="hidden" name="data_nascimento" value="<?php echo $_POST["data_nascimento"]?>"> 
                 <input type="hidden" name="sexo" value="<?php echo $_POST["sexo"]?>">
-                <input type="hidden" name="idoso" value="<?php echo $idoso?>">
-                <input type="hidden" name="deficiencia" value="<?php echo $deficiencia?>">
-                <input type="hidden" name="valida_entrada" value=1>
+                <input type="hidden" name="idoso" value="<?php echo isset($_POST["idoso"]) ? 1 : 0?>">
+                <input type="hidden" name="pcd" value="<?php echo isset($_POST["pcd"]) ? 1 : 0?>">
+                <input type="hidden" name="deficiencia" value="<?php echo isset($_POST["pcd"]) ? $_POST["deficiencia"] : ""; ?>">
                 <label for="cidade">Cidade:</label>
-                <input type="text" id="cidade" name="cidade" required>
+                <input type="text" id="cidade" name="cidade" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getCidade() : ""; ?>">
                 
                 <label for="numero_casa">Nº:</label>
-                <input type="text" id="numero_casa" name="numero_casa" required>
+                <input type="text" id="numero_casa" name="numero_casa" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getNumero() : ""; ?>">
                 
                 <label for="rua">Rua:</label>
-                <input type="text" id="rua" name="rua" required>
+                <input type="text" id="rua" name="rua" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getRua() : ""; ?>">
                 
                 <label for="complemento">Complemento:</label>
-                <input type="text" id="complemento" name="complemento" required>
+                <input type="text" id="complemento" name="complemento" value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getComplemento() : ""; ?>">
                 
                 <label for="cep">CEP:</label>
-                <input type="text" id="cep" name="cep" required>
+                <input type="text" id="cep" name="cep" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getCep() : ""; ?>"> 
                 
                 <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" name="bairro" required>
+                <input type="text" id="bairro" name="bairro" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getBairro() : ""; ?>">
                 
                 <label for="estado">Estado:</label>
                 <select id="estado" name="estado" required>
-                    <option value="" disabled selected>Selecione um estado</option>
+                    <option disabled selected>Selecione um estado</option>
+                    <?php
+                        $estados = [
+                            "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
+                            "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais",
+                            "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte",
+                            "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
+                        ];
+                        foreach($estados as $estado){
+                            echo '<option value="'.$estado.'">'.$estado.'</option>';
+                        }
+                        if(isset($_SESSION["endereco"])){
+                            echo '<option selected value="'.$_SESSION["endereco"]->getEstado().'">'.$_SESSION["endereco"]->getEstado().'</option>';
+                        }
+                    ?>
                 </select>
                 <input type="submit" value="Cadastrar" class="btn-proximo">
             </form>
-            
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        const estados = [
-            "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
-            "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais",
-            "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte",
-            "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
-        ];
-
-        const selectEstado = document.getElementById('estado');
-        
-        estados.forEach(estado => {
-            const option = document.createElement('option');
-            option.text = estado;
-            option.value = estado;
-            selectEstado.add(option);
-        });
-    </script>
 </body>
 </html>
+<?php
+if(isset($_SESSION["endereco"])){
+    unset($_SESSION["endereco"]);
+}
+?>

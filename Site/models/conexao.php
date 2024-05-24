@@ -17,7 +17,7 @@ class Conexao {
             echo "Erro de conexão: " . $e->getMessage();
         }
     }
-
+    
     public function getConexao() {
         return $this->conexao;
     }

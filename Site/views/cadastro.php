@@ -1,11 +1,11 @@
 <?php
-require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/paciente.php");
-require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/endereco.php");
+require_once __DIR__."/../class/Patient.php";
+require_once __DIR__."/../class/Address.php";
 session_start();
-require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/validadora.php");
+require_once __DIR__."/../class/Validator.php";
 $pcd = (isset($_SESSION["paciente"]) && $_SESSION["paciente"]->necessidadeEspecial == 1) ? 1 : 0; 
 $idoso = (isset($_SESSION["paciente"]) && $_SESSION["paciente"]->idoso == 1) ? 1 : 0; 
-$valida = new Validador();
+$valida = new Validator();
 $estilocpf = $valida->cpf_valido();
 $estiloemail = $valida->email_valido();
 $estilotelefone = $valida->telefone_valido();
@@ -21,7 +21,7 @@ $estilosenha = $valida->senha_valido();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/style/style.css">
+    <link rel="stylesheet" href="public/styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Cadastro</title>
@@ -32,7 +32,7 @@ $estilosenha = $valida->senha_valido();
     <div class="imgfundocadastro">
     <div class="container-cadastro">
         <h2>Cadastre-se</h2><br>
-        <form class="formulario-cadastro" method="POST" action="proximo.php">
+        <form class="formulario-cadastro" method="POST" action="proximo/validador">
             <label for="nome">Nome:</label>
             <p style="<?php echo $estilonome?>">Nome inválido!</p>
             <input type="text" id="nome" name="nome" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getNome() : ""; ?>">

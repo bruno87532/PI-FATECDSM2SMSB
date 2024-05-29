@@ -1,6 +1,6 @@
 <?php
-require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/paciente.php");
-require_once("C:/xampp/htdocs/PI-FATECDSM2SMSB/Site/classes/endereco.php");
+require_once __DIR__."/../class/Patient.php";
+require_once __DIR__."/../class/Address.php";
 session_start();
 if(isset($_POST["pcd"])){
     $pcd = $_POST["pcd"];
@@ -17,7 +17,7 @@ $deficiencia = $_POST["deficiencia"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../public/styles/style.css">
 </head>
 <body>
     <div class="imgfundocadastro">

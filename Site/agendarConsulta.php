@@ -26,9 +26,6 @@
                 <option value="Traumatologia">Traumatologia</option>
                 <option value="Infectologia">Infectologia</option>
             </select>
-            <select name="medicos" id="medicos">
-                
-            </select>
             <label for="cpf">Médico:</label>
             <input type="text" id="cpf" name="cpf" required>
             <label for="email">Data:</label>

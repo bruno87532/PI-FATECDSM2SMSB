@@ -1,5 +1,9 @@
 <?php 
+require __DIR__."/../class/Validator.php";
 $path = "http://127.0.0.1/PI-FATECDSM2SMSB/";
+$ValidatorHome = new Validator;
+$estilologin = $ValidatorHome->login();
+$estilologout = $ValidatorHome->logout();
 ?>
 
 <!DOCTYPE html>
@@ -27,11 +31,12 @@ $path = "http://127.0.0.1/PI-FATECDSM2SMSB/";
                     </ul>
                 </nav>
                 <div class="btn-contato">
-                    <a href="agendarConsulta.php"><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="consulta"><button class="btnhover">Agendar Consulta</button></a>
                 </div>
                 <nav>
                     <ul class="link-login">
-                        <li><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""><a href="login"> Login </a></li>
+                        <li><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""><a style="<?php echo $estilologin ?>" href="login"> Login </a></li>
+                        <a style="<?php echo $estilologout ?>" href="home">Logout</a>
                     </ul>
                 </nav>
             </div>

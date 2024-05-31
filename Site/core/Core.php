@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__."/../class/Patient.php";
+require_once __DIR__."/../class/Address.php";
+
 class Core {
   public function run($routes){
     $url = '/';

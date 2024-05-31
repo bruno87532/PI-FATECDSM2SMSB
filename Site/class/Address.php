@@ -76,7 +76,7 @@ class Address {
     }
 
     public static function novoEndereco($cep, $estado, $cidade, $bairro, $rua, $numero_casa, $complemento = NULL){
-        $endereco = new Endereco();
+        $endereco = new Address();
         $endereco->setCep($cep);
         $endereco->setEstado($estado);
         $endereco->setCidade($cidade);
@@ -86,6 +86,6 @@ class Address {
         if(isset($rua) && $rua != ""){
             $endereco->setComplemento($complemento);
         }
-        $_SESSION["endereco"] = $endereco;
+        $_SESSION["address"] = $endereco;
     }
 }

@@ -1,14 +1,9 @@
 <?php
 require_once __DIR__."/../class/Patient.php";
 require_once __DIR__."/../class/Address.php";
-session_start();
-if(isset($_POST["pcd"])){
-    $pcd = $_POST["pcd"];
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
 }
-if(isset($_POST["idoso"])){
-    $idoso = $_POST["idoso"];
-}
-$deficiencia = $_POST["deficiencia"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,56 +12,45 @@ $deficiencia = $_POST["deficiencia"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/styles/style.css">
+    <link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
     <div class="imgfundocadastro">
         <div class="container-cadastro">
             <h2>Cadastre-se</h2>
-            <form class="formulario-cadastro" id="form" action="code/confirmaCadastro.php" method="POST">
-                <input type="hidden" name="nome" value="<?php echo $_POST["nome"] ?>">
-                <input type="hidden" name="cpf" value="<?php echo $_POST["cpf"]?>">
-                <input type="hidden" name="email" value="<?php echo $_POST["email"]?>">
-                <input type="hidden" name="senha" value="<?php echo $_POST["senha"]?>">
-                <input type="hidden" name="telefone" value="<?php echo $_POST["telefone"]?>">
-                <input type="hidden" name="data_nascimento" value="<?php echo $_POST["data_nascimento"]?>"> 
-                <input type="hidden" name="sexo" value="<?php echo $_POST["sexo"]?>">
-                <input type="hidden" name="idoso" value="<?php echo isset($_POST["idoso"]) ? 1 : 0?>">
-                <input type="hidden" name="pcd" value="<?php echo isset($_POST["pcd"]) ? 1 : 0?>">
-                <input type="hidden" name="deficiencia" value="<?php echo isset($_POST["pcd"]) ? $_POST["deficiencia"] : ""; ?>">
-                <label for="cidade">Cidade:</label>
-                <input type="text" id="cidade" name="cidade" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getCidade() : ""; ?>">
-                
-                <label for="numero_casa">Nº:</label>
-                <input type="text" id="numero_casa" name="numero_casa" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getNumero() : ""; ?>">
-                
-                <label for="rua">Rua:</label>
-                <input type="text" id="rua" name="rua" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getRua() : ""; ?>">
-                
-                <label for="complemento">Complemento:</label>
-                <input type="text" id="complemento" name="complemento" value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getComplemento() : ""; ?>">
-                
+            <form class="formulario-cadastro" id="form" action="acesso" method="POST">
                 <label for="cep">CEP:</label>
-                <input type="text" id="cep" name="cep" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getCep() : ""; ?>"> 
+                <input type="text" id="cep" name="cep" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getCep() : ""; ?>"> 
+                <p id="invalid" style='color: red; display: none;'>Cep inválido.</p>
+                <p id="exists" style='color: red; display: none;'>Cep não existe.</p>
+                
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getCidade() : ""; ?>">
                 
                 <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" name="bairro" required value="<?php echo isset($_SESSION["endereco"]) ? $_SESSION["endereco"]->getBairro() : ""; ?>">
+                <input type="text" id="bairro" name="bairro" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getBairro() : ""; ?>">
                 
+                <label for="rua">Rua:</label>
+                <input type="text" id="rua" name="rua" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getRua() : ""; ?>">
+                
+                <label for="numero_casa">Nº:</label>
+                <input type="text" id="numero_casa" name="numero_casa" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getNumero() : ""; ?>">
+                
+                <label for="complemento">Complemento:</label>
+                <input type="text" id="complemento" name="complemento" value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getComplemento() : ""; ?>">
+                 
                 <label for="estado">Estado:</label>
                 <select id="estado" name="estado" required>
                     <option disabled selected>Selecione um estado</option>
                     <?php
                         $estados = [
-                            "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
-                            "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais",
-                            "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte",
-                            "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
+                            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ",  "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
                         ];
                         foreach($estados as $estado){
                             echo '<option value="'.$estado.'">'.$estado.'</option>';
                         }
-                        if(isset($_SESSION["endereco"])){
-                            echo '<option selected value="'.$_SESSION["endereco"]->getEstado().'">'.$_SESSION["endereco"]->getEstado().'</option>';
+                        if(isset($_SESSION["address"])){
+                            echo '<option selected value="'.$_SESSION["address"]->getEstado().'">'.$_SESSION["address"]->getEstado().'</option>';
                         }
                     ?>
                 </select>
@@ -76,8 +60,40 @@ $deficiencia = $_POST["deficiencia"];
     </div>
 </body>
 </html>
-<?php
-if(isset($_SESSION["endereco"])){
-    unset($_SESSION["endereco"]);
-}
-?>
+<script>
+    document.getElementById('cep').addEventListener('blur', function() {
+        var cep = this.value.replace(/\D/g, '');
+        if (cep.length != 8) {
+            document.getElementById('invalid').style.display = "block";
+            return;
+        }else{
+            document.getElementById('invalid').style.display = "none";
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://viacep.com.br/ws/' + cep + '/json/', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                if (!("erro" in data)) {
+                    document.getElementById('rua').value = data.logradouro;
+                    document.getElementById('bairro').value = data.bairro;
+                    document.getElementById('cidade').value = data.localidade;
+                    var selecionaEstado = document.getElementById('estado');
+                    for (var x = 0; x < selecionaEstado.options.length; x++) {
+                        console.log(data.uf);
+                        if (selecionaEstado.options[x].textContent === data.uf) {
+                        selecionaEstado.selectedIndex = x;
+                        break;
+                        }
+                    }
+                    if(document.getElementById('exists').style.display == "block"){
+                        document.getElementById('exists').style.display = "none"
+                    }
+                } else {
+                    document.getElementById('exists').style.display = "block";
+                }
+            }
+        };
+        xhr.send();
+    });
+</script>

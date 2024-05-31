@@ -6,5 +6,8 @@ $routes = [
     '/login/auth'  => 'LoginController@autenthication',
     '/cadastro' => 'CadastroController@index',
     '/proximo/validador' => 'ProximoController@validator',
-    '/proximo' => 'ProximoController@index'
+    '/proximo' => 'ProximoController@index',
+    '/acesso' => 'CadastraFinalController@insert',
+    '/home' => 'LogoutController@index',
+    '/consulta' => 'ConsultaController@index'
 ];

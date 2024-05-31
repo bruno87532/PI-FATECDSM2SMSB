@@ -1,4 +1,7 @@
 <?php
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
 class Functions
 {
     public function validaCpf($cpf){
@@ -70,6 +73,15 @@ class Functions
         }
         return true;
     }
+    public function validaCEP($cep) {
+        $url = "https://viacep.com.br/ws/{$cep}/json/";
+        $resposta = file_get_contents($url);
+        $cepValido = json_decode($resposta, true);
+        if (!(isset($cepValido['cep']))) {
+            return false;
+        }
+        return true;
+    }
     public function validaCampos($nome, $cpf, $senha, $telefone, $nascimento){
         $nome_valido = $this->validaNome($nome);
         if(!$nome_valido){
@@ -91,7 +103,7 @@ class Functions
             $_SESSION["telefone"] = true;
             return false;
         }
-        $nascimento_valido = $this->validaNascimento($data_nascimento);
+        $nascimento_valido = $this->validaNascimento($nascimento);
         if(!$nascimento_valido){
             $_SESSION["nascimento"] = true;
             return false;

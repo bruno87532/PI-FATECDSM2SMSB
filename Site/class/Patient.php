@@ -1,9 +1,11 @@
 <?php
-
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
 class Patient{
 
     public Endereco $endereco;
-    public $id;
+    public ?int $id;
     public $nome;
     public $cpf;
     public $nascimento;
@@ -111,26 +113,26 @@ class Patient{
         $this->senha = $senha;
     }
     public static function novoPaciente($nome, $cpf, $data_nascimento, $telefone, $email, $senha, $sexo, $pcd = NULL, $deficiencia = NULL, $idoso = NULL){
-        $paciente = new Paciente();
-        $paciente->setNome($nome);
-        $paciente->setCpf($cpf);
-        $paciente->setNascimento($data_nascimento);
-        $paciente->setTelefone($telefone);
-        $paciente->setEmail($email);
-        $paciente->setSenha($senha);
-        $paciente->setGenero($sexo);
+        $patient = new Patient();
+        $patient->setNome($nome);
+        $patient->setCpf($cpf);
+        $patient->setNascimento($data_nascimento);
+        $patient->setTelefone($telefone);
+        $patient->setEmail($email);
+        $patient->setSenha($senha);
+        $patient->setGenero($sexo);
         if(isset($pcd) && $pcd == 1){
-            $paciente->setNecessidadeEspecial(1);
-            $paciente->setNecessidade($deficiencia);   
+            $patient->setNecessidadeEspecial(1);
+            $patient->setNecessidade($deficiencia);   
         }else{
-            $paciente->setNecessidadeEspecial(0);
+            $patient->setNecessidadeEspecial(0);
         }
         if(isset($idoso) && $idoso == 1){
-            $paciente->setIdoso(1);
+            $patient->setIdoso(1);
         }else{
-            $paciente->setIDoso(0);
+            $patient->setIDoso(0);
         }
-        $_SESSION["paciente"] = $paciente;
+        $_SESSION["patient"] = $patient;
     }
 }
 

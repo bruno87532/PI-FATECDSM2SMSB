@@ -1,5 +1,7 @@
 <?php
-
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
 require_once __DIR__."/../models/conexao.php";
 require_once __DIR__ ."/Patient.php";
 
@@ -37,10 +39,10 @@ class PatientRepository
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
             if($resultado)
             {
-                $paciente = new Patient();
-                $paciente->setNome($resultado['nome']);
-                $paciente->setSenha($resultado['senha']);
-                return $paciente;
+                $patient = new Patient();
+                $patient->setNome($resultado['nome']);
+                $patient->setSenha($resultado['senha']);
+                return $patient;
             }
             else
             {
@@ -54,7 +56,7 @@ class PatientRepository
         }
     }
 
-    public function CreateEndereco(Endereco $endereco)
+    public function CreateEndereco(Address $endereco)
     {
         try
         {
@@ -87,7 +89,7 @@ class PatientRepository
         }
     }
 
-    public function CreatePaciente(Paciente $paciente, $id)
+    public function CreatePaciente(Patient $patient, $id)
     {
         try
         {
@@ -96,16 +98,21 @@ class PatientRepository
             $stmt = $this->conexao->getConexao()->prepare($sql);
             // Bind dos parâmetros
            // Atribua os valores de retorno dos métodos às variáveis
-            $nome = $paciente->getNome();
-            $cpf = $paciente->getCpf();
-            $nascimento = $paciente->getNascimento();
-            $telefone = $paciente->getTelefone();
-            $email = $paciente->getEmail();
-            $necessidadeEspecial = $paciente->getNecessidadeEspecial();
-            $necessidade = $paciente->getNecessidade();
-            $idoso = $paciente->getIdoso();
-            $genero = $paciente->getGenero();
-            $senha = $paciente->getSenha();
+            $nome = $patient->getNome();
+            $cpf = $patient->getCpf();
+            $nascimento = $patient->getNascimento();
+            $telefone = $patient->getTelefone();
+            $email = $patient->getEmail();
+            if(isset($patient->necessidadeEspecial) && $patient->necessidadeEspecial == 1){
+                $necessidadeEspecial = $patient->getNecessidadeEspecial();
+                $necessidade = $patient->getNecessidade();
+            }
+            if(isset($patient->idoso) && $patient->idoso == 1){
+                $idoso = $patient->getIdoso();
+            }
+            $genero = $patient->getGenero();
+            $senha = $patient->getSenha();
+            $hash = password_hash($senha, PASSWORD_DEFAULT);
 
             // Passe as variáveis como argumentos para bindParam()
             $stmt->bindParam(':nome', $nome);
@@ -118,7 +125,7 @@ class PatientRepository
             $stmt->bindParam(':idoso', $idoso);
             $stmt->bindParam(':genero', $genero);
             $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':senha', $senha);
+            $stmt->bindParam(':senha', $hash);
 
             // Execução da consulta
             $stmt->execute();

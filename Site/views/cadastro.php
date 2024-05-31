@@ -1,19 +1,22 @@
 <?php
-require_once __DIR__."/../class/Patient.php";
 require_once __DIR__."/../class/Address.php";
-session_start();
+require_once __DIR__."/../class/Patient.php";
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
 require_once __DIR__."/../class/Validator.php";
-$pcd = (isset($_SESSION["paciente"]) && $_SESSION["paciente"]->necessidadeEspecial == 1) ? 1 : 0; 
-$idoso = (isset($_SESSION["paciente"]) && $_SESSION["paciente"]->idoso == 1) ? 1 : 0; 
-$valida = new Validator();
-$estilocpf = $valida->cpf_valido();
-$estiloemail = $valida->email_valido();
-$estilotelefone = $valida->telefone_valido();
-$estilonascimento = $valida->nascimento_valido();
-$estilonome = $valida->nome_valido();
-$estilopid = $valida->pid_valido();
-$estilodeficiencia = $valida->deficiencia_valido();
-$estilosenha = $valida->senha_valido();
+$pcd = (isset($_SESSION["patient"]) && $_SESSION["patient"]->getNecessidadeEspecial() == 1) ? 1 : 0; 
+$idoso = (isset($_SESSION["patient"]) && $_SESSION["patient"]->getIdoso() == 1) ? 1 : 0; 
+$ValidatorHCad = new  Validator();
+$estilocpf = $ValidatorHCad->cpf_valido();
+$estiloemail = $ValidatorHCad->email_valido();
+$estilotelefone = $ValidatorHCad->telefone_valido();
+$estilonascimento = $ValidatorHCad->nascimento_valido();
+$estilonome = $ValidatorHCad->nome_valido();
+$estilopid = $ValidatorHCad->pid_valido();
+$estilodeficiencia = $ValidatorHCad->deficiencia_valido();
+$estilosenha = $ValidatorHCad->senha_valido();
+// $ValidatorHCad->destroi_sessao();
 ?>
 
 <!DOCTYPE html>
@@ -33,34 +36,47 @@ $estilosenha = $valida->senha_valido();
     <div class="container-cadastro">
         <h2>Cadastre-se</h2><br>
         <form class="formulario-cadastro" method="POST" action="proximo/validador">
-            <label for="nome">Nome:</label>
-            <p style="<?php echo $estilonome?>">Nome inválido!</p>
-            <input type="text" id="nome" name="nome" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getNome() : ""; ?>">
-            <label for="cpf">CPF:</label>
-            <p style="<?php echo $estilocpf?>">CPF inválido!</p>
-            <input type="text" id="cpf" name="cpf" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getCpf() : ""; ?>">
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getEmail() : ""; ?>">
-            <label for="senha">Senha:</label>
-            <p style="<?php echo $estilosenha?>">A senha deve ter pelo menos oito caracteres!</p>
-            <input type="password" id="senha" name="senha" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getSenha() : ""; ?>">
-            <label for="telefone">Telefone:</label>
-            <p style="<?php echo $estilotelefone ?>">Telefone inválido!</p>
-            <input type="tel" id="telefone" name="telefone" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getTelefone() : ""; ?>">
-            <label for="data_nascimento">Data de Nascimento:</label>
-            <p style="<?php echo $estilonascimento?>">Data de nascimento inválida!</p>
-            <input type="date" id="data_nascimento" name="data_nascimento" required value="<?php echo isset($_SESSION["paciente"]) ? $_SESSION["paciente"]->getNascimento() : ""; ?>">
+            <div class="">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getNome() : ""; ?>">
+                <p style="<?php echo $estilonome?>">Nome inválido!</p>
+            </div>
+            <div>
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getCpf() : ""; ?>">
+                <p style="<?php echo $estilocpf?>">CPF inválido!</p>    
+            </div>
+            <div>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getEmail() : ""; ?>">
+            </div>
+            <div>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getSenha() : ""; ?>">
+                <p style="<?php echo $estilosenha?>">A senha deve ter pelo menos oito caracteres!</p>
+            </div>
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getTelefone() : ""; ?>">
+                <p style="<?php echo $estilotelefone ?>">Telefone inválido!</p>
+            </div>
+            <div>
+                <label for="data_nascimento">Data de Nascimento:</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getNascimento() : ""; ?>">     
+                <p style="<?php echo $estilonascimento?>">Data de nascimento inválida!</p>           
+            </div>
             <label for="sexo">Sexo:</label>
             <select id="sexo" name="sexo" required>
                 <?php
                     $generos = ["Masculino", "Feminino", "Outro"];
                     foreach($generos as $genero){
-                        echo '<option value="'.$genero.'">'.$genero.'</option>';
+                        if(isset($_SESSION['patient']) && $_SESSION['patient']->getGenero() == $genero){
+                            echo '<option selected value="'.$genero.'">'.$genero.'</option>';
+                        }else{
+                            echo '<option value="'.$genero.'">'.$genero.'</option>';
+                        }
                     }
-                    if(isset($_SESSION["paciente"])){
-                        echo '<option selected value="'.$_SESSION["paciente"]->getGenero().'">'.$_SESSION["paciente"]->getGenero().'</option>';
-                    }
-                ?>
+                ?> 
             </select>
             <div class="checkbox-group">
                 <input type="checkbox" id="pcd" name="pcd" <?php if($pcd == 1) echo "checked" ?>>
@@ -73,7 +89,7 @@ $estilosenha = $valida->senha_valido();
             <p style="<?php echo $estilopid?>">A clínica é especializa para idoso e PCD.</p>
             <div id="areaDeficiencia" style="display: none;">
                 <label for="deficiencia">Tipo de Deficiência:</label>
-                <input type="text" id="deficiencia" name="deficiencia" value="<?php echo (isset($_SESSION["paciente"]) && $_SESSION["paciente"]->necessidade != NULL) ? $_SESSION["paciente"]->getNecessidade() : ""; ?>">
+                <input type="text" id="deficiencia" name="deficiencia" value="<?php if((isset($_SESSION["patient"]) && $_SESSION["patient"]->getNecessidadeEspecial() == 1)) echo $_SESSION["patient"]->getNecessidade()?>">
                 <p style="<?php echo $estilodeficiencia?>">O campo não pode ser vazio.</p>
             </div>
             <div class="btn-cadastro">
@@ -82,12 +98,13 @@ $estilosenha = $valida->senha_valido();
         </form>
     </div>
 </div>
-
+</body>
+</html>
 <script>
-    function verificarChecked() {
+   function verificarChecked() {
         var pcdChecked = document.getElementById('pcd');
         var areaDeficiencia = document.getElementById('areaDeficiencia');
-        areaDeficiencia.style.display = pcdChecked.checked ? 'block' : 'none';
+       areaDeficiencia.style.display = pcdChecked.checked ? 'block' : 'none';
     }
     verificarChecked();
     document.getElementById('pcd').addEventListener('click', function() {
@@ -95,11 +112,3 @@ $estilosenha = $valida->senha_valido();
         areaDeficiencia.style.display = this.checked ? 'block' : 'none';
     });
 </script>
-</body>
-</html>
-<?php
-$valida->destroi_sessao();
-if(isset($_SESSION["paciente"])){
-    unset($_SESSION["paciente"]);
-}
-?>

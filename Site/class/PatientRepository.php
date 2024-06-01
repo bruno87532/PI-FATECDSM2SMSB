@@ -4,6 +4,7 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 }
 require_once __DIR__."/../models/conexao.php";
 require_once __DIR__ ."/Patient.php";
+require_once __DIR__."/Login.php";
 
 class PatientRepository
 {
@@ -28,31 +29,30 @@ class PatientRepository
         }
     }
 
-    public function SelecionaPaciente($id)
+    public function SelecionaPaciente($email, $password)
     {
-        try
-        {
-            $sql = "SELECT nome, senha FROM pacientes WHERE id = $id";
-            $stmt = $this->conexao->prepare($sql);
-            $stmt->execute();
+        $pdo = $this->conexao->getConexao();
+        $sql = "SELECT id, email, nome, senha FROM pacientes WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
 
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($resultado)
-            {
-                $patient = new Patient();
-                $patient->setNome($resultado['nome']);
-                $patient->setSenha($resultado['senha']);
-                return $patient;
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            if (password_verify($password, $result['senha'])) {
+                $loginPatient = new Login;
+                $loginPatient->login($result['id'], $result['nome']);
+                header("Location: ../../Site");
+                exit();
+            } else {
+                $_SESSION['login_error'] = true;
+                header("Location: ../login");
+                exit();
             }
-            else
-            {
-                return null;
-            }
-
-        }
-        catch (PDOException $e)
-        {
-            throw new Exception("Erro ao selecionar paciente: ".$e->getMessage());
+        } else {
+            $_SESSION['login_error'] = true;
+            header("Location: ../login");
+            exit();
         }
     }
 

@@ -129,11 +129,6 @@ if(!(class_exists('Validator'))){
             if(isset($_SESSION['address'])){
                 unset($_SESSION['address']);
             }
-            if(isset($_SESSION['login']) && $_SESSION['login'] == true){
-                unset($_SESSION['login']);
-                unset($_SESSION['login_id']);
-                unset($_SESSION['login_nome']);
-            }
         }
     }
 }

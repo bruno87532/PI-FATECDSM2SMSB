@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/../utils/autoload.php";
 class Address {
     public $id;
     public $cep;

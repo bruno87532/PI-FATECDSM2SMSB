@@ -2,9 +2,7 @@
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
-require_once __DIR__."/../models/conexao.php";
-require_once __DIR__ ."/Patient.php";
-require_once __DIR__."/Login.php";
+require_once __DIR__."/../utils/autoload.php";
 
 class PatientRepository
 {
@@ -36,23 +34,50 @@ class PatientRepository
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             if (password_verify($password, $result['senha'])) {
-                $loginPatient = new Login;
+                $loginPatient = new Login();
                 $loginPatient->login($result['id'], $result['nome']);
-                header("Location: ../../Site");
-                exit();
+                return true;
             } else {
                 $_SESSION['login_error'] = true;
-                header("Location: ../login");
-                exit();
+                return false;
             }
         } else {
             $_SESSION['login_error'] = true;
-            header("Location: ../login");
-            exit();
+            return false;
+        }
+    }
+    public function SelecionaEmail($email)
+    {
+        $pdo = $this->conexao->getConexao();
+        $sql = "SELECT email FROM pacientes WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function SelecionaCPF($cpf)
+    {
+        $pdo = $this->conexao->getConexao();
+        $sql = "SELECT cpf FROM pacientes WHERE cpf = :cpf";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':cpf', $cpf);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return false;
+        } else {
+            return true;
         }
     }
 

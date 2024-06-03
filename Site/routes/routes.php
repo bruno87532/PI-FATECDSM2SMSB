@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/../utils/autoload.php";
 
 $routes = [
     '/' => 'HomeController@index',
@@ -8,6 +9,10 @@ $routes = [
     '/proximo/validador' => 'ProximoController@validator',
     '/proximo' => 'ProximoController@index',
     '/acesso' => 'CadastraFinalController@insert',
+    '/acessomed' => 'CadastramedFinalController@insert',
     '/home' => 'LogoutController@index',
-    '/consulta' => 'ConsultaController@index'
+    '/cadastromed' => 'CadastromedController@index',
+    '/consulta' => 'ConsultaController@index',
+    '/proximomed/validador' => 'ProximoMedController@validator',
+    '/proximomed' => 'ProximoMedController@index'
 ];

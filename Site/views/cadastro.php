@@ -1,13 +1,13 @@
 <?php
-require_once __DIR__."/../class/Address.php";
-require_once __DIR__."/../class/Patient.php";
+require_once __DIR__."/../utils/autoload.php";
+
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
-require_once __DIR__."/../class/Validator.php";
+require_once __DIR__."/../class/ValidatorPatient.php";
 $pcd = (isset($_SESSION["patient"]) && $_SESSION["patient"]->getNecessidadeEspecial() == 1) ? 1 : 0; 
 $idoso = (isset($_SESSION["patient"]) && $_SESSION["patient"]->getIdoso() == 1) ? 1 : 0; 
-$ValidatorHCad = new  Validator();
+$ValidatorHCad = new  ValidatorPatient();
 $estilocpf = $ValidatorHCad->cpf_valido();
 $estiloemail = $ValidatorHCad->email_valido();
 $estilotelefone = $ValidatorHCad->telefone_valido();
@@ -16,7 +16,8 @@ $estilonome = $ValidatorHCad->nome_valido();
 $estilopid = $ValidatorHCad->pid_valido();
 $estilodeficiencia = $ValidatorHCad->deficiencia_valido();
 $estilosenha = $ValidatorHCad->senha_valido();
-// $ValidatorHCad->destroi_sessao();
+$estilocpfexist = $ValidatorHCad->cpfexist();
+$estiloemailexist = $ValidatorHCad->emailexist();
 ?>
 
 <!DOCTYPE html>
@@ -44,11 +45,13 @@ $estilosenha = $ValidatorHCad->senha_valido();
             <div>
                 <label for="cpf">CPF:</label>
                 <input type="text" id="cpf" name="cpf" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getCpf() : ""; ?>">
-                <p style="<?php echo $estilocpf?>">CPF inválido!</p>    
+                <p style="<?php echo $estilocpf?>">CPF inválido!</p>
+                <p style="<?php echo $estilocpfexist ?>">Já existe um usuário cadastrado com este CPF</p>
             </div>
             <div>
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getEmail() : ""; ?>">
+                <p style="<?php echo $estiloemailexist ?>">Já existe um usuário cadastrado com este email</p>
             </div>
             <div>
                 <label for="senha">Senha:</label>

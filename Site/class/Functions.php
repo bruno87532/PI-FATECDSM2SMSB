@@ -2,6 +2,7 @@
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
+require_once __DIR__."/../utils/autoload.php";
 class Functions
 {
     public function validaCpf($cpf){
@@ -82,35 +83,23 @@ class Functions
         }
         return true;
     }
-    public function validaCampos($nome, $cpf, $senha, $telefone, $nascimento){
-        $nome_valido = $this->validaNome($nome);
-        if(!$nome_valido){
-            $_SESSION["nome"] = true;
-            return false;
+    public function verifyInsert($cep, $estado, $cidade, $bairro, $rua, $numero_casa){
+        $post = [$cep, $estado, $cidade, $bairro, $rua, $numero_casa];
+        foreach($post as $campo){
+            if($campo == ""){
+                header('Location: proximo');
+                exit();
+            }
         }
-        $cpf_valido = $this->validaCpf($cpf);
-        if(!$cpf_valido){
-            $_SESSION["cpf"] = true;
-            return false;
+
+        $ParamAddress = [$cep, $estado, $cidade, $bairro, $rua, $numero_casa];
+        if(isset($complemento) && $complemento != ''){
+            $allParametersAddress = array_merge($ParamAddress, [$complemento]);
+            call_user_func_array(['Address', 'novoEndereco'], $allParametersAddress);
+        }else{
+            call_user_func_array(['Address', 'novoEndereco'], $ParamAddress);
         }
-        $senha_valido = $this->validaSenha($senha);
-        if(!$senha_valido){
-            $_SESSION["senha"] = true;
-            return false;
-        }
-        $telefone_valido = $this->validaTelefone($telefone);
-        if(!$telefone_valido){
-            $_SESSION["telefone"] = true;
-            return false;
-        }
-        $nascimento_valido = $this->validaNascimento($nascimento);
-        if(!$nascimento_valido){
-            $_SESSION["nascimento"] = true;
-            return false;
-        }
-        return true;
-    }
-            
+    }  
 }
 
 ?>

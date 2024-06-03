@@ -1,7 +1,6 @@
 <?php
 
-require_once __DIR__."/../models/conexao.php";
-require_once __DIR__ ."/Appointment.php";
+require_once __DIR__."/../utils/autoload.php";
 
 class AppointmentRepository
 {

@@ -4,9 +4,7 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
 require_once __DIR__."/../utils/RenderView.php";
-require_once __DIR__."/../class/Functions.php";
-require_once __DIR__."/../class/Validator.php";
-require_once __DIR__."/../class/Patient.php";
+require_once __DIR__."/../utils/autoload.php";
 
 class ProximoController extends RenderView{
 public function index(){
@@ -27,7 +25,7 @@ public function index(){
     );
 }
 public function validator(){
-    $ValidatorProx = new Validator();
+    $ValidatorProx = new ValidatorPatient();
     $ValidatorProx->destroi_sessao();
 
     $post = ['nome', 'cpf', 'email', 'senha', 'telefone', 'data_nascimento', 'senha', 'sexo'];
@@ -65,8 +63,8 @@ public function validator(){
         header('Location: ../cadastro');
         exit();
     }
-    $FunctionsValid = new Functions();
-    $returnOrNot = $FunctionsValid->validaCampos($_POST['nome'], $_POST['cpf'], $_POST['senha'], $_POST['telefone'], $_POST['data_nascimento']);
+    $FunctionsValid = new FunctionsPatient();
+    $returnOrNot = $FunctionsValid->validaCampos($_POST['nome'], $_POST['cpf'], $_POST['senha'], $_POST['telefone'], $_POST['data_nascimento'], $_POST['email']);
     if(!$returnOrNot){
         header('Location: ../cadastro');
         exit();

@@ -1,7 +1,5 @@
 <?php
-
-require_once __DIR__."/../class/Patient.php";
-require_once __DIR__."/../class/Address.php";
+require_once __DIR__."/../utils/autoload.php";
 
 class Core {
   public function run($routes){

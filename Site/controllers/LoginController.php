@@ -1,8 +1,7 @@
 <?php
 ob_start();
 require_once __DIR__."/../utils/RenderView.php";
-require_once __DIR__."/../models/conexao.php";
-require_once __DIR__."/../class/PatientRepository.php";
+require_once __DIR__."/../utils/autoload.php";
 
 class LoginController extends RenderView {
     public function index() {
@@ -15,8 +14,21 @@ class LoginController extends RenderView {
         if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
             unset($_SESSION['login_error']);
         }
-        $loginUser = new PatientRepository;
-        $loginUser->SelecionaPaciente($_POST['email'], $_POST['password']);
-        
+        $loginEmployee = new EmployeeRepository();
+        if($loginEmployee->SelecionaFuncionario($_POST['email'], $_POST['password'])){
+            header('Location: ../');
+            exit();
+        }
+        $loginDoctor = new DoctorRepository();
+        if($loginDoctor->SelecionaMedico($_POST['email'], $_POST['password'])){
+            header('Location: ../');
+            exit();
+        }
+        $loginUser = new PatientRepository();
+        if($loginUser->SelecionaPaciente($_POST['email'], $_POST['password'])){
+            header('Location: ../');
+            exit();
+        }
+        header('Location: ../login');
     }
 }

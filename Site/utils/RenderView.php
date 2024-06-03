@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/../utils/autoload.php";
 
 class RenderView {
     public function loadView($view, $args) {

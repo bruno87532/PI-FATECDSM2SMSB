@@ -1,14 +1,18 @@
 <?php
-
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
+require_once __DIR__."/../utils/autoload.php";
 class Doctor
 {
-    private $Id;
-    private $IdEndereco;
-    private $IdFuncionario;
+    private ?int $Id;
+    private ?int $IdEndereco;
+    private ?int $IdFuncionario;
     private $Cpf;
     private $Nome;
     private $Nascimento;
     private $Email;
+    private $Senha;
     private $Telefone;
     private $Crm;
     private $DisponibilidadeInicio;
@@ -64,6 +68,16 @@ class Doctor
     public function setNome($Nome)
     {
         $this->Nome = $Nome;
+    }
+
+    public function getSenha()
+    {
+        return $this->Senha;
+    }
+
+    public function setSenha($Senha)
+    {
+        $this->Senha = $Senha;
     }
 
     public function getNascimento()
@@ -144,6 +158,22 @@ class Doctor
     public function setEspecialidade($Especialidade)
     {
         $this->Especialidade = $Especialidade;
+    }
+
+    public static function novoDoctor($cpf, $nome, $nascimento, $email, $senha, $telefone, $crm, $inicio, $fim, $genero, $especialidade){
+        $doctor = new Doctor();
+        $doctor->setCpf($cpf);
+        $doctor->setNome($nome);
+        $doctor->setNascimento($nascimento);
+        $doctor->setEmail($email);
+        $doctor->setSenha($senha);
+        $doctor->setTelefone($telefone);
+        $doctor->setCrm($crm);
+        $doctor->setDisponibilidadeInicio($inicio);
+        $doctor->setDisponibilidadeFim($fim);
+        $doctor->setGenero($genero);
+        $doctor->setEspecialidade($especialidade);
+        $_SESSION['doctor'] = $doctor;
     }
 }
 

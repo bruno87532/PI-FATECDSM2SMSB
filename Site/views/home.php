@@ -1,9 +1,15 @@
 <?php 
-require __DIR__."/../class/Validator.php";
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
+require_once __DIR__."/../utils/autoload.php";
+
 $path = "http://127.0.0.1/PI-FATECDSM2SMSB/";
-$ValidatorHome = new Validator;
+$ValidatorHome = new Validator();
 $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
+$estilofunc = $ValidatorHome->employee();
+
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +38,7 @@ $estilologout = $ValidatorHome->logout();
                 </nav>
                 <div class="btn-contato">
                     <a href="consulta"><button class="btnhover">Agendar Consulta</button></a>
+                    <a style="<?php echo $estilofunc ?>" href="cadastromed">Cadastrar médico</a>
                 </div>
                 <nav>
                     <ul class="link-login">

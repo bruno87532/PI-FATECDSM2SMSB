@@ -1,9 +1,10 @@
 <?php
-require_once __DIR__."/../class/Patient.php";
-require_once __DIR__."/../class/Address.php";
+require_once __DIR__."/../utils/autoload.php";
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
+$ceperror = new Validator();
+$estilocep = $ceperror->cep_valido();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,11 +19,11 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
     <div class="imgfundocadastro">
         <div class="container-cadastro">
             <h2>Cadastre-se</h2>
-            <form class="formulario-cadastro" id="form" action="acesso" method="POST">
+            <form class="formulario-cadastro" id="form" action="<?php echo (isset($_SESSION['doctor'])) ? 'acessomed' : 'acesso' ?>" method="POST">
                 <label for="cep">CEP:</label>
                 <input type="text" id="cep" name="cep" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getCep() : ""; ?>"> 
-                <p id="invalid" style='color: red; display: none;'>Cep inválido.</p>
-                <p id="exists" style='color: red; display: none;'>Cep não existe.</p>
+                <p id="invalid" style='<?php echo $estilocep ?>'>Cep inválido.</p>
+                <p id="exists" style='display: none;'>Cep não existe.</p>
                 
                 <label for="cidade">Cidade:</label>
                 <input type="text" id="cidade" name="cidade" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getCidade() : ""; ?>">
@@ -65,6 +66,7 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
         var cep = this.value.replace(/\D/g, '');
         if (cep.length != 8) {
             document.getElementById('invalid').style.display = "block";
+            document.getElementById('invalid').style.color = "red";
             return;
         }else{
             document.getElementById('invalid').style.display = "none";
@@ -91,6 +93,7 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
                     }
                 } else {
                     document.getElementById('exists').style.display = "block";
+                    document.getElementById('exists').style.color = "red";
                 }
             }
         };

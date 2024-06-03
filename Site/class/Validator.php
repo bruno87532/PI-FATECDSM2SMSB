@@ -2,6 +2,7 @@
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
+require_once __DIR__."/../utils/autoload.php";
 if(!(class_exists('Validator'))){
     class Validator{
         
@@ -16,6 +17,9 @@ if(!(class_exists('Validator'))){
         public $controla_cep;
         public $controla_login;
         public $controla_logout;
+        public $controla_emailexist;
+        public $controla_cpfexist;
+        public $controla_funcionario;
 
         public function cpf_valido(){
             if(isset($_SESSION['cpf']) && $_SESSION['cpf'] == true){
@@ -98,6 +102,24 @@ if(!(class_exists('Validator'))){
                 return $this->controla_cep;
             }
         }
+        public function emailexist(){
+            if(isset($_SESSION['emailexist']) && $_SESSION['emailexist'] == true){
+                $this->controla_emailexist = 'color: red; display: block';
+                return $this->controla_emailexist;
+            }else{
+                $this->controla_emailexist = 'color: red; display: none';
+                return $this->controla_emailexist;
+            }
+        }
+        public function cpfexist(){
+            if(isset($_SESSION['cpfexist']) && $_SESSION['cpfexist'] == true){
+                $this->controla_cpfexist = 'color: red; display: block';
+                return $this->controla_cpfexist;
+            }else{
+                $this->controla_cpfexist = 'color: red; display: none';
+                return $this->controla_cpfexist;
+            }
+        }
         public function login(){
             if(isset($_SESSION['login'])){
                 $this->controla_login = 'display: none';
@@ -116,8 +138,17 @@ if(!(class_exists('Validator'))){
                 return $this->controla_logout;
             }
         }
+        public function employee(){
+            if(isset($_SESSION['employee'])){
+                $this->controla_funcionario = 'display: block';
+                return $this->controla_funcionario;
+            }else{
+                $this->controla_funcionario = 'display: none';
+                return $this->controla_funcionario;
+            }
+        }
         public function destroi_sessao(){
-            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep'];
+            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', ];
             foreach($sections as $section){
                 if(isset($_SESSION[$section]) && $section == true){
                     unset($_SESSION[$section]);

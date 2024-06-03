@@ -7,11 +7,11 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
 
-class CadastraFinalController extends RenderView {
+class CadastramedFinalController extends RenderView {
 
     public function index() {
         $this->loadView( 
-            'login', []
+            'home', []
         );
         
     }
@@ -27,10 +27,10 @@ class CadastraFinalController extends RenderView {
             exit();
         }
 
-        $insertPatient = new PatientRepository();
-        $id = $insertPatient->createEndereco($_SESSION["address"]);
-        $insertPatient->createPaciente($_SESSION["patient"], $id);
-        unset($_SESSION["patient"]);
+        $insertDoctor = new DoctorRepository();
+        $id = $insertDoctor->createEndereco($_SESSION["address"]);
+        $insertDoctor->createDoctor($_SESSION["doctor"], $id, $_SESSION['login_id']);
+        unset($_SESSION["doctor"]);
         unset($_SESSION["address"]);
         $this->index();
     }

@@ -148,7 +148,7 @@ if(!(class_exists('Validator'))){
             }
         }
         public function destroi_sessao(){
-            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', ];
+            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist', 'login_error'];
             foreach($sections as $section){
                 if(isset($_SESSION[$section]) && $section == true){
                     unset($_SESSION[$section]);
@@ -156,6 +156,9 @@ if(!(class_exists('Validator'))){
             }
             if(isset($_SESSION['patient'])){
                 unset($_SESSION['patient']);
+            }
+            if(isset($_SESSION['doctor'])){
+                unset($_SESSION['doctor']);
             }
             if(isset($_SESSION['address'])){
                 unset($_SESSION['address']);

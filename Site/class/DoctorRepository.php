@@ -62,11 +62,11 @@ class DoctorRepository
         $stmtM->execute();
         $resultM = $stmtM->fetch(PDO::FETCH_ASSOC);
         if($resultM){
-            if($resultF['senha'] == $password){
+            if (password_verify($password, $resultM['senha'])) {
                 $loginDoctor = new Login();
-                $loginDoctor->loginDoctor($resultM['id'], $resultM['nome']);
+                $loginDoctor->login($resultM['id'], $resultM['nome']);
                 return true;
-            }else{
+            } else {
                 $_SESSION['login_error'] = true;
                 return false;
             }

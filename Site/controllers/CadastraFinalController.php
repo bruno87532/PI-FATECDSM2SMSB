@@ -10,12 +10,22 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 class CadastraFinalController extends RenderView {
 
     public function index() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+            header('Location: ../Site');
+            exit();
+        }
         $this->loadView( 
             'login', []
         );
         
     }
     public function insert(){
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+        }
         $cepPatient = new FunctionsPatient();
         $cepPatient->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa']);
 

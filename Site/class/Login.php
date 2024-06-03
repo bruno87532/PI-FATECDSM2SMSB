@@ -14,7 +14,7 @@ class Login{
     }
     public function loginDoctor($id, $nome){
         $_SESSION['login'] = true;
-        $_SESSION['doctor'] = true;
+        $_SESSION['login_doctor'] = true;
         $_SESSION['login_id'] = $id;
         $_SESSION['login_nome'] = $nome;
     }
@@ -29,10 +29,17 @@ class Login{
             if(isset($_SESSION['doctor']) && $_SESSION['doctor'] == true){
                 unset($_SESSION['doctor']);
             }
+            session_destroy();
         }
     }
     public function verifyLogin(){
         if(!isset($_SESSION['login'])){                                  
+            return false;
+        }
+        return true;
+    }
+    public function verifyLoginEmployee(){
+        if(!isset($_SESSION['employee'])){                                  
             return false;
         }
         return true;

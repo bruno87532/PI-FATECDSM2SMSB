@@ -5,12 +5,22 @@ require_once __DIR__."/../utils/autoload.php";
 
 class LoginController extends RenderView {
     public function index() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+        }
         $this->loadView( 
             'login', []
         );
     }
 
     public function autenthication() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+            header('Location: ../');
+            exit();
+        }
         if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
             unset($_SESSION['login_error']);
         }

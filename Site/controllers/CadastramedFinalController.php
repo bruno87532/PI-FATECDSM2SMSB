@@ -8,14 +8,31 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 }
 
 class CadastramedFinalController extends RenderView {
-
     public function index() {
+        $verifiyLoginEmployee = new Login();
+        if(!$verifiyLoginEmployee->verifyLoginEmployee()){
+            header('Location: ../Site');
+            exit();
+        }
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+        }
         $this->loadView( 
             'home', []
         );
         
     }
     public function insert(){
+        $verifiyLoginEmployee = new Login();
+        if(!$verifiyLoginEmployee->verifyLoginEmployee()){
+            header('Location: ../Site');
+            exit();
+        }
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+        }
         $cepPatient = new FunctionsPatient();
         $cepPatient->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa']);
 

@@ -23,14 +23,6 @@ if(!(class_exists('ValidatorMed'))){
                 return $this->controla_crmexist;
             }
         }
-        public function destroi_sessao(){
-            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist'];
-            foreach($sections as $section){
-                if(isset($_SESSION[$section]) && $section == true){
-                    unset($_SESSION[$section]);
-                }
-            }
-        }
     }
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__."/../utils/autoload.php";
 spl_autoload_register(function($class){
     $file = __DIR__."/../class/{$class}.php";
     if(file_exists($file)){

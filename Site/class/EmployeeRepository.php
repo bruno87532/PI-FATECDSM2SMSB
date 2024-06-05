@@ -4,18 +4,30 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 }
 require_once __DIR__."/../utils/autoload.php";
 
-class EmployeeRepository extends Repository{
+class EmployeeRepository{
+    private $conexao;
+    public function  __construct()
+    {
+        try 
+        {
+            $this->conexao = new Conexao();
+        } 
+        catch (Exception $e)
+        {
+            throw new Exception("Não foi possível conectar-se ao banco de dados: " . $e->getMessage());
+        }
+    }
     public function SelecionaFuncionario($email, $password){
         $pdo = $this->conexao->getConexao();
-        $sql = "SELECT id, email, nome, senha FROM funcionarios WHERE email = :email";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($result){
-            if($result['senha'] == $password){
+        $sqlF = "SELECT id, email, nome, senha FROM funcionarios WHERE email = :email";
+        $stmtF = $pdo->prepare($sqlF);
+        $stmtF->bindParam(':email', $email);
+        $stmtF->execute();
+        $resultF = $stmtF->fetch(PDO::FETCH_ASSOC);
+        if($resultF){
+            if($resultF['senha'] == $password){
                 $loginEmployee = new Login();
-                $loginEmployee->loginEmployee($result['id'], $result['nome']);
+                $loginEmployee->loginEmployee($resultF['id'], $resultF['nome']);
                 return true;
             }else{
                 $_SESSION['login_error'] = true;

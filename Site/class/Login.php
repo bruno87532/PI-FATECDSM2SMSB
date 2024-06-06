@@ -26,8 +26,8 @@ class Login{
             if(isset($_SESSION['employee']) && $_SESSION['employee'] == true){
                 unset($_SESSION['employee']);
             }
-            if(isset($_SESSION['login_doctor']) && $_SESSION['login_doctor'] == true){
-                unset($_SESSION['login_doctor']);
+            if(isset($_SESSION['doctor']) && $_SESSION['doctor'] == true){
+                unset($_SESSION['doctor']);
             }
             session_destroy();
         }

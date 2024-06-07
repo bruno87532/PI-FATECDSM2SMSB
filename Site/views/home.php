@@ -9,7 +9,7 @@ $ValidatorHome = new Validator();
 $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
 $estilofunc = $ValidatorHome->employee();
-
+$estilomed = $ValidatorHome->doctor();
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +39,7 @@ $estilofunc = $ValidatorHome->employee();
                 <div class="btn-contato">
                     <a href="consulta"><button class="btnhover">Agendar Consulta</button></a>
                     <a style="<?php echo $estilofunc ?>" href="cadastromed">Cadastrar médico</a>
+                    <a style="<?php echo $estilomed ?>" href="editaconsulta">Editar consulta</a>
                 </div>
                 <nav>
                     <ul class="link-login">

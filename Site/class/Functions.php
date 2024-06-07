@@ -83,7 +83,7 @@ class Functions
         }
         return true;
     }
-    public function verifyInsert($cep, $estado, $cidade, $bairro, $rua, $numero_casa){
+    public function verifyInsert($cep, $estado, $cidade, $bairro, $rua, $numero_casa, $complemento = NULL){
         $post = [$cep, $estado, $cidade, $bairro, $rua, $numero_casa];
         foreach($post as $campo){
             if($campo == ""){

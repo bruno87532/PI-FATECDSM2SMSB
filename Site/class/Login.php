@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__."/../utils/autoload.php";
 class Login{
-    public function login($id, $nome){
+    public function loginPatient($id, $nome){
         $_SESSION['login'] = true;
         $_SESSION['login_id'] = $id;
         $_SESSION['login_nome'] = $nome;
@@ -26,8 +26,8 @@ class Login{
             if(isset($_SESSION['employee']) && $_SESSION['employee'] == true){
                 unset($_SESSION['employee']);
             }
-            if(isset($_SESSION['doctor']) && $_SESSION['doctor'] == true){
-                unset($_SESSION['doctor']);
+            if(isset($_SESSION['login_doctor']) && $_SESSION['login_doctor'] == true){
+                unset($_SESSION['login_doctor']);
             }
             session_destroy();
         }

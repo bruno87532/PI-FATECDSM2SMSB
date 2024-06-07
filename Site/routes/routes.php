@@ -14,5 +14,7 @@ $routes = [
     '/cadastromed' => 'CadastromedController@index',
     '/consulta' => 'ConsultaController@index',
     '/proximomed/validador' => 'ProximoMedController@validator',
-    '/proximomed' => 'ProximoMedController@index'
+    '/proximomed' => 'ProximoMedController@index',
+    '/editaconsulta' => 'EditaconsultaController@index',
+    '/buscapaciente' => 'EditaconsultaController@buscapaciente'
 ];

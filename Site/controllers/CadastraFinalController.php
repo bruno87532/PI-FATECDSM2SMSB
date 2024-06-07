@@ -26,17 +26,18 @@ class CadastraFinalController extends RenderView {
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
         }
-        $cepPatient = new FunctionsPatient();
-        $cepPatient->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa']);
-
-        $ValidatorCadFinal = new FunctionsPatient();
-        $validaCEP = $ValidatorCadFinal->validaCEP($_POST['cep']);
+        $Pat = new FunctionsPatient();
+        if(isset($_POST['complemento']) && $_POST['complemento'] != ''){
+            $Pat->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa'], $_POST['complemento']);
+        }else{
+            $Pat->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa']);
+        }
+        $validaCEP = $Pat->validaCEP($_POST['cep']);
         if(!$validaCEP){
             $_SESSION['cep'] = true;
             header('Location: proximo');
             exit();
         }
-
         $insertPatient = new PatientRepository();
         $id = $insertPatient->createEndereco($_SESSION["address"]);
         $insertPatient->createPaciente($_SESSION["patient"], $id);

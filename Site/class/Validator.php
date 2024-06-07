@@ -147,6 +147,15 @@ if(!(class_exists('Validator'))){
                 return $this->controla_funcionario;
             }
         }
+        public function doctor(){
+            if(isset($_SESSION['login_doctor'])){
+                $this->controla_medico = 'display: block';
+                return $this->controla_medico;
+            }else{
+                $this->controla_medico = 'display: none';
+                return $this->controla_medico;
+            }
+        }
         public function destroi_sessao(){
             $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist', 'login_error'];
             foreach($sections as $section){

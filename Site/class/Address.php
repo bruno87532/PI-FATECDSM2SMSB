@@ -84,7 +84,7 @@ class Address {
         $endereco->setBairro($bairro);
         $endereco->setRua($rua);
         $endereco->setNumero($numero_casa);
-        if(isset($rua) && $rua != ""){
+        if(isset($complemento) && $complemento != ""){
             $endereco->setComplemento($complemento);
         }
         $_SESSION["address"] = $endereco;

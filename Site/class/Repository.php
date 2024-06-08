@@ -47,8 +47,25 @@ class Repository{
             throw new Exception("Erro ao inserir dados: ".$e->getMessage());
         }
     }
-    public function prepareUpdate($campos, $tabela, $valores){
-        
+    public function prepareUpdate($campos, $tabela, $valores, $id){
+        try{
+            $update = '';
+            $x = 0;
+            foreach($campos as $campo){
+                $update .= $campo.' = :'.$campo.', ';
+            }   
+            $update = rtrim($update, ', ');
+            $sql = 'UPDATE '.$tabela.' SET '.$update.' WHERE id = :id';
+            $stmt = $this->conexao->getConexao()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            foreach($campos as $campo){
+                $stmt->bindParam(':'.$campo, $valores[$x]);
+                $x++;
+            } 
+            $stmt->execute();
+        }catch(PDOException $e){
+            throw new Exception('Erro ao atualizar dados: '. $e->getMessage());
+        }
     }
     public function selecionaCampo($campo, $tabela, $valor){
         try{

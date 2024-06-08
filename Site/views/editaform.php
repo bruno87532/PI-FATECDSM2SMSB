@@ -14,22 +14,22 @@
         <h2>Editar Consulta</h2><br>
         <form class="formulario-cadastro" method="POST" action="<?php echo '../atualizapaciente/'.$consultas[0]['id']?>">
             <label for="dataC">Data da consulta</label>
-            <input type="date" value="<?php echo $consultas[0]['dataC'] ?>" name="dataC" id="dataC">
+            <input required type="date" value="<?php echo $consultas[0]['dataC'] ?>" name="dataC" id="dataC">
             <label for="hInicio">Horário</label>
-            <input type="time" value="<?php echo $consultas[0]['horarioInicio'] ?>" id="hInicio" name="hInicio">
+            <input required type="time" value="<?php echo $consultas[0]['horarioInicio'] ?>" id="hInicio" name="hInicio">
             <label for="hFim">Horário de término</label>
-            <input type="time" value="<?php echo $consultas[0]['horarioFim'] ?>" id="hFim" name="hFim">
+            <input required type="time" value="<?php echo $consultas[0]['horarioFim'] ?>" id="hFim" name="hFim">
             <label for="diagnostico">Diagnóstico</label>
             <input type="text" value="<?php echo $consultas[0]['diagnostico'] ?>" name="diagnostico" id="diagnostico">
             <label for="tratamento">Tratamento</label>
             <input type="text" value="<?php echo $consultas[0]['tratamento'] ?>" name="tratamento" id="tratamento">
             <label for="valor">Valor da consultas</label>
-            <input type="text" value="<?php echo $consultas[0]['valor'] ?>" name="valor" id="valor">
+            <input required type="text" value="<?php echo $consultas[0]['valor'] ?>" name="valor" id="valor">
             <label for="statusC">Status da consulta</label>
-            <select name="statusC" id="statusC">
-                <option <?php echo ($consultas[0]['statusC'] == 'a') ? 'selected' : '' ?> value="Agendada">Agendada</option>
-                <option <?php echo ($consultas[0]['statusC'] == 'o') ? 'selected' : '' ?> value="Concluida">Concluida</option>''
-                <option <?php echo ($consultas[0]['statusC'] == 'c') ? 'selected' : '' ?> value="Cancelada">Cancelada</option>
+            <select required name="statusC" id="statusC">
+                <option <?php echo ($consultas[0]['statusC'] == 'a') ? 'selected' : '' ?> value="a">Agendada</option>
+                <option <?php echo ($consultas[0]['statusC'] == 'd') ? 'selected' : '' ?> value="d">Concluida</option>''
+                <option <?php echo ($consultas[0]['statusC'] == 'c') ? 'selected' : '' ?> value="c">Cancelada</option>
             </select>
             <div class="btn-consulta">
                 <a><input type="submit" value="Atualizar consulta"></a>

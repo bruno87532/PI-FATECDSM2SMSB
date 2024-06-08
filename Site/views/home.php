@@ -10,6 +10,11 @@ $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
 $estilofunc = $ValidatorHome->employee();
 $estilomed = $ValidatorHome->doctor();
+if(isset($_SESSION['login_id'])){
+    echo 'teste';
+}else{
+    echo 'pao';
+}
 ?>
 
 <!DOCTYPE html>

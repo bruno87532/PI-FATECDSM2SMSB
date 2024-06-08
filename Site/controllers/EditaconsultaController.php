@@ -28,4 +28,15 @@ class EditaconsultaController extends RenderView {
             'editarConsulta', ['consultas' => $consultas]
         );
     }
+    public function editapaciente(){
+        $selecionaConsulta = new AppointmentRepository;
+        $link = $_SERVER['REQUEST_URI'];
+        $partelink = explode('/', $link);
+        $id = end($partelink);
+        $sql = 'SELECT statusC, horarioInicio, horarioFim, diagnostico, tratamento, valor, dataC FROM consultas WHERE id = '.$id;
+        $consultas = $selecionaConsulta->selecionaTudo($sql);
+        $this->loadView(
+            'editaform', ['consultas' => $consultas]
+        );
+    }
 }

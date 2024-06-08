@@ -19,6 +19,11 @@
         .mostra-texto{
             background-color: red;
         }
+        .form{
+            width: 50%;
+            height: 50%;
+            background-color: #6ab1eb;
+        }
     </style>
 </head>
 <body>
@@ -52,13 +57,13 @@
                             $valor = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
                             if(strlen($valor) > 50){
                                 $limite_string = substr($valor, 0, 50).'...';
-                                echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" id="'.$linha['id'].$string.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
+                                echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
                             }else{
                                 echo '<td>'.$valor.'</td>';
                             }
                         }
                     }
-                    echo '<td><img width="30px" src="public/images/edit.png" alt="Editar usuario"></td>';
+                    echo '<td><a href="buscapaciente/' . $linha['id'] . '"><img width="30px" src="public/images/edit.png" class="editar" alt="Editar usuário"></a></td>';
                     echo '</tr>';
                 } 
                 ?>
@@ -66,7 +71,8 @@
         </table>
     </div>
     <div id="textoCompleto" class="mostra-texto" style="display: none;">
-        <p id="close">CLIQUE AQUI PARA FECHAR</p>
+        <p id="texto"></p>
+        <button type="button" id="closeText">Fechar</button>
     </div>
 </body>
 </html>
@@ -80,17 +86,21 @@
                 exibeTexto(texto);
             });
         });
-
-        document.querySelector('.close').addEventListener('click', function(){
+        function exibeTexto(texto){
+            document.getElementById('textoCompleto').style.display = 'block';
+            var paragraph = document.getElementById('texto');
+            paragraph.textContent = texto;
+        }
+        // var imgsedit = document.querySelectorAll('.editar');
+        // imgsedit.forEach(function(imgsedit){
+        //     imgsedit.addEventListener('click', function(){
+        //         var editaPaciente = document.getElementById('editarPaciente');
+        //         editaPaciente.style.display = 'block';
+        //     })
+        // })
+        document.querySelector('#closeText').addEventListener('click', function(){
             var div = document.getElementById('textoCompleto');
             div.style.display = 'none';
         });
-
-        function exibeTexto(texto){
-            var div = document.getElementById('textoCompleto');
-            var p = document.getElementById('close');
-            div.textContent = texto;
-            div.style.display = 'block';
-        }
     });
 </script>

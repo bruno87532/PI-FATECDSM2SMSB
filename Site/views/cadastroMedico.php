@@ -40,11 +40,11 @@ $estilocrmexist = $ValidatorMCad->crmexist();
             <label for="cpfm">CPF:</label>
             <input type="text" id="cpfm" name="cpfm" value="<?php echo isset($_SESSION["doctor"]) ? $_SESSION["doctor"]->getCpf() : ""; ?>" required><br>
             <p style="<?php echo $estilocpfm?>">CPF inválido!</p>
-            <p style="<?php echo $estilocpfexistm ?>">Já existe um médico com este CPF</p>
+            <p style="<?php echo $estilocpfexistm ?>">Já existe um usuário com este CPF</p>
 
             <label for="emailm">E-mail:</label>
             <input type="email" id="emailm" name="emailm" value="<?php echo isset($_SESSION["doctor"]) ? $_SESSION["doctor"]->getEmail() : ""; ?>" required><br>
-            <p style="<?php echo $estiloemailexistm ?>">Já existe um médico com este email</p>
+            <p style="<?php echo $estiloemailexistm ?>">Já existe um usuário com este email</p>
 
             <label for="senham">Senha:</label>
             <input type="password" id="senham" name="senham" value="<?php echo isset($_SESSION["doctor"]) ? $_SESSION["doctor"]->getSenha() : ""; ?>" required><br>
@@ -78,7 +78,19 @@ $estilocrmexist = $ValidatorMCad->crmexist();
             <p style="<?php echo $estilocrmexist ?>">Já existe um médico com este CRM!</p>
         
             <label for="especialidade">Especialidade:</label>
-            <input type="text" id="especialidade" name="especialidade" value="<?php echo isset($_SESSION["doctor"]) ? $_SESSION["doctor"]->getEspecialidade() : ""; ?>" required><br>
+            <select id="especialidade" name="especialidade" required>
+                <option value="#">.......</option>
+                <?php
+                $especialidades = ["Cardiologia", "Ginecologia", "Dermatologia", "Oftalmologia", "Nutricionista", "Fisioterapia", "Traumatologia", "Infectologia"];
+                foreach($especialidades as $especialidade){
+                    if(isset($_SESSION["doctor"]) && $_SESSION["doctor"]->getEspecialidade() == $especialidade){
+                        echo '<option selected value ="'.$especialidade.'">'.$especialidade.'</option>';
+                    }else{
+                        echo '<option value ="'.$especialidade.'">'.$especialidade.'</option>';
+                    }
+                }
+                ?>
+            </select>
         
             <label for="disponibilidadeInicio">Disponibilidade de Início:</label>
             <input type="time" id="disponibilidadeInicio" name="disponibilidadeInicio" value="<?php echo isset($_SESSION["doctor"]) ? $_SESSION["doctor"]->getDisponibilidadeInicio() : ""; ?>" required><br>

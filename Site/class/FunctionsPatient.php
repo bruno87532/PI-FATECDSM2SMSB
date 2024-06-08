@@ -9,7 +9,9 @@ class FunctionsPatient extends Functions{
     {
         $cpfexist = new PatientRepository();
         $cpfexistr = $cpfexist->SelecionaCPF($cpf);
-        if(!$cpfexistr){
+        $cpfexistm = new DoctorRepository();
+        $cpfexistmr = $cpfexistm->SelecionaCPF($cpf);
+        if(!($cpfexistr && $cpfexistmr)){
             return false;
         }
         return true;
@@ -17,7 +19,9 @@ class FunctionsPatient extends Functions{
     public function valida_emailexist($email){
         $emailexist = new PatientRepository();
         $emailexistr = $emailexist->SelecionaEmail($email);
-        if(!$emailexistr){
+        $emailexistm = new DoctorRepository();
+        $emailexistmr = $emailexistm->SelecionaEmail($email);
+        if(!($emailexistr && $emailexistmr)){
             return false;
         }
         return true;

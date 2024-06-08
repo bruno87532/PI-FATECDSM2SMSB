@@ -32,7 +32,9 @@ class FunctionsMed extends Functions{
     {
         $cpfexist = new DoctorRepository();
         $cpfexistr = $cpfexist->SelecionaCPF($cpf);
-        if(!$cpfexistr){
+        $cpfexistp = new PatientRepository();
+        $cpfexistpr = $cpfexistp->selecionaCPF($cpf);
+        if(!($cpfexistr && $cpfexistpr)){
             return false;
         }
         return true;
@@ -40,7 +42,9 @@ class FunctionsMed extends Functions{
     public function valida_emailexist($email){
         $emailexist = new DoctorRepository();
         $emailexistr = $emailexist->SelecionaEmail($email);
-        if(!$emailexistr){
+        $emailexistp = new PatientRepository();
+        $emailexistpr = $emailexistp->selecionaEmail($email);
+        if(!($emailexistr && $emailexistpr)){
             return false;
         }
         return true;

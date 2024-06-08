@@ -38,7 +38,7 @@ $estilocep = $ceperror->cep_valido();
                 <input type="text" id="numero_casa" name="numero_casa" required value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getNumero() : ""; ?>">
                 
                 <label for="complemento">Complemento:</label>
-                <input type="text" id="complemento" name="complemento" value="<?php echo isset($_SESSION["address"]) ? $_SESSION["address"]->getComplemento() : ""; ?>">
+                <input type="text" id="complemento" name="complemento" value="<?php echo isset($_SESSION["address"]) && isset($_SESSION["address"]->complemento) ? $_SESSION["address"]->getComplemento() : ""; ?>">
                  
                 <label for="estado">Estado:</label>
                 <select id="estado" name="estado" required>

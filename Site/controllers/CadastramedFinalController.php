@@ -33,12 +33,8 @@ class CadastramedFinalController extends RenderView {
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
         }
-        $Med = new FunctionsMed();
-        if(isset($_POST['complemento']) && $_POST['complemento'] != ''){
-            $Med->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa'], $_POST['complemento']);
-        }else{
-            $Med->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa']);
-        }
+        $Med = new functionsMed();
+        $Med->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa'], $_POST['complemento']);
 
         $validaCEP = $Med->validaCEP($_POST['cep']);
         if(!$validaCEP){

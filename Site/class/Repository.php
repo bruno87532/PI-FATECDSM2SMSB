@@ -47,6 +47,9 @@ class Repository{
             throw new Exception("Erro ao inserir dados: ".$e->getMessage());
         }
     }
+    public function prepareUpdate($campos, $tabela, $valores){
+        
+    }
     public function selecionaCampo($campo, $tabela, $valor){
         try{
             $pdo = $this->conexao->getConexao();
@@ -60,26 +63,6 @@ class Repository{
             throw new Exception("Erro ao consultar campo: ".$e->getMessage());
         }
     }
-    public function selecionaCampos($campos, $tabelas, $campoValor, $valor){
-        try{
-            $pdo = $this->conexao->getConexao();
-            $atributo = '';
-            foreach($campos as $campo){
-                $atributo .= $campo.', ';
-            }
-            $atributo = rtrim($atributo, ', ');
-            $sql = 'SELECT '.$atributo.' FROM '.$tabelas.' WHERE '.$campoValor.' LIKE LOWER(:valor)';
-            $valor = ($valor.'%');
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':valor', $valor);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-            return $sql;
-        }catch(PDOException $e){
-            throw new Exception("Erro ao executar consuta ".$e->getMessage());
-        }
-    }
     public function selecionaTudo($sql){
         try{
             $pdo = $this->conexao->getConexao();
@@ -89,6 +72,25 @@ class Repository{
             return $result;
         }catch(PDOException $e){
             throw new Exception("Erro ao executar consulta: ".$e->getMessage());
+        }
+    }
+    public function selecionaCampos($campos, $tabelas, $filtro, $valor){
+        try{
+            $atributo = '';
+            foreach($campos as $campo){
+                $atributo .= $campo.', ';
+            }
+            $pdo = $this->conexao->getConexao();
+            $atributo = rtrim($atributo, ', ');
+            $sql = 'SELECT '.$atributo.' FROM '.$tabelas.' WHERE '.$filtro.' LIKE :valor';
+            $stmt = $pdo->prepare($sql);
+            $valor .= '%';
+            $stmt->bindParam(':valor', $valor);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(PDOException $e){
+            throw new Exception("Erro ao executar consulta: ". $e->getMessage());
         }
     }
     public function selecionaUsuario($tabela, $email, $senha){
@@ -101,7 +103,7 @@ class Repository{
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 if (password_verify($senha, $result['senha'])) {
-                    $dados = ['exist' => true, 'dados' => $result];
+                    $dados = ['encontrado' => true, 'resultado' => $result];
                     return $dados;
                 } else {
                     return false;

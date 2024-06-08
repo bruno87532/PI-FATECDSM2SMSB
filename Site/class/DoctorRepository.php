@@ -35,9 +35,9 @@ class DoctorRepository extends Repository
     }
     public function SelecionaMedico($email, $password){
         $resultado = $this->selecionaUsuario('medicos', $email, $password);
-        if($resultado['exist']){
+        if($resultado['encontrado']){
             $loginDoctor = new Login();
-            $dados = $resultado['dados'];
+            $dados = $resultado['resultado'];
             $loginDoctor->loginDoctor($dados['id'], $dados['nome']);
             return true;
         }else{
@@ -67,7 +67,9 @@ class DoctorRepository extends Repository
         $bairro = $endereco->getBairro();
         $rua = $endereco->getRua();
         $numero = $endereco->getNumero();
-        $complemento = $endereco->getComplemento();
+        if(isset($endereco->complemento)){
+            $complemento = $endereco->getComplemento();
+        }
         $array_campos = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numeroCasa', 'complemento'];
         $array_valores = [$cep, $estado, $cidade, $bairro, $rua, $numero, $complemento];
         $id = $this->prepareInsert($array_campos, 'enderecos', $array_valores);

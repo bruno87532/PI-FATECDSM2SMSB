@@ -27,7 +27,7 @@ class CadastraFinalController extends RenderView {
             $clearSessions->destroi_sessao();
         }
         $Pat = new FunctionsPatient();
-        if(isset($_POST['complemento']) && $_POST['complemento'] != ''){
+        if(isset($_POST['complemento'])){
             $Pat->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa'], $_POST['complemento']);
         }else{
             $Pat->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa']);
@@ -38,6 +38,7 @@ class CadastraFinalController extends RenderView {
             header('Location: proximo');
             exit();
         }
+
         $insertPatient = new PatientRepository();
         $id = $insertPatient->createEndereco($_SESSION["address"]);
         $insertPatient->createPaciente($_SESSION["patient"], $id);

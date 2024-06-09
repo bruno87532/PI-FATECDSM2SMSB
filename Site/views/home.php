@@ -10,7 +10,9 @@ $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
 $estilofunc = $ValidatorHome->employee();
 $estilomed = $ValidatorHome->doctor();
-if(isset($_SESSION['login_id'])){
+$estilonotmed = $ValidatorHome->notdoctor();
+$estilopatient = $ValidatorHome->patient();
+if(isset($_SESSION['login'])){
     echo 'teste';
 }else{
     echo 'pao';
@@ -42,9 +44,10 @@ if(isset($_SESSION['login_id'])){
                     </ul>
                 </nav>
                 <div class="btn-contato">
-                    <a href="consulta"><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
                     <a style="<?php echo $estilofunc ?>" href="cadastromed">Cadastrar médico</a>
-                    <a style="<?php echo $estilomed ?>" href="editaconsulta">Editar consulta</a>
+                    <a style="<?php echo $estilomed ?>" href="editaconsulta">Editar consultas</a>
+                    <a style="<?php echo $estilopatient ?>" href="visualizaconsulta">Visualizar consultas</a>
                 </div>
                 <nav>
                     <ul class="link-login">
@@ -122,7 +125,7 @@ if(isset($_SESSION['login_id'])){
                 <br>
                 <p>A Clínica <b>Saúde Sem Barreiras</b> é especialistano cuidado das dores físicas e emocionais. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate minus veniam ab natus at, temporibus magni tempora, repellendus  a. </p><br>
                 <div class="btn-contato2">
-                    <a href="/login"><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="consulta" style="<?php echo $estilonotmed ?>><button class="btnhover">Agendar Consulta</button></a>
                 </div>
             </div>
 

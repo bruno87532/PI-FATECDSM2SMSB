@@ -11,14 +11,36 @@ class AtualizaconsultaController extends RenderView {
         $this->id = end($parts);
     }
     public function index() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+            header('Location: ../');
+            exit();
+        }
+        $verifyLogin = new Login();
+        if(!($verifyLogin->verifyLoginDoctor())){
+            header('Location: ../');
+            exit();
+        }
         $selecionaConsulta = new AppointmentRepository;
-        $sql = 'SELECT id, statusC, horarioInicio, horarioFim, diagnostico, tratamento, valor, dataC FROM consultas WHERE id = '.$this->id;
-        $consultas = $selecionaConsulta->selecionaTudo($sql);
+        $array_valores = [':id' => $this->id];
+        $sql = 'SELECT id, statusC, horarioInicio, horarioFim, diagnostico, tratamento, valor, dataC FROM consultas WHERE id = :id';
+        $consultas = $selecionaConsulta->retornaConsulta($sql, $array_valores);
         $this->loadView(
             'editaform', ['consultas' => $consultas]
         );
     }
     public function atualizapaciente() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+            header('Location: ../');
+            exit();
+        }
+        $verifyLogin = new Login();
+        if(!($verifyLogin->verifyLoginDoctor())){
+            header('Location: ../Site');
+        }
         $tratamento = (isset($_POST['tratamento'])) ? $_POST['tratamento'] : NULL;
         $diagnostico = (isset($_POST['diagnostico'])) ? $_POST['diagnostico'] : NULL;
         $array_campos = ['dataC', 'horarioInicio', 'horarioFim', 'diagnostico', 'tratamento', 'valor', 'statusC'];

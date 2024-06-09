@@ -20,6 +20,7 @@ if(!(class_exists('Validator'))){
         public $controla_emailexist;
         public $controla_cpfexist;
         public $controla_funcionario;
+        public $controla_patient;
 
         public function cpf_valido(){
             if(isset($_SESSION['cpf']) && $_SESSION['cpf'] == true){
@@ -154,6 +155,24 @@ if(!(class_exists('Validator'))){
             }else{
                 $this->controla_medico = 'display: none';
                 return $this->controla_medico;
+            }
+        }
+        public function notdoctor(){
+            if(isset($_SESSION['login_doctor'])){
+                $this->controla_medico = 'display: none';
+                return $this->controla_medico;
+            }else{
+                $this->controla_medico = 'display: block';
+                return $this->controla_medico;
+            }
+        }
+        public function patient(){
+            if(isset($_SESSION['login_patient'])){
+                $this->controla_patient = 'display: block';
+                return $this->controla_patient;
+            }else{
+                $this->controla_patient = 'display: none';
+                return $this->controla_patient;
             }
         }
         public function destroi_sessao(){

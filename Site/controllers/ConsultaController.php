@@ -18,6 +18,10 @@ class ConsultaController extends RenderView{
             header('Location: ../Site');
             exit();
         }
+        if($loginConsulta->verifyLoginDoctor()){
+            header('Location: ../Site');
+            exit();
+        }
         $this->loadView(
             'agendarConsulta', []
         );

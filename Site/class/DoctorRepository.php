@@ -4,34 +4,56 @@ require_once __DIR__."/../utils/autoload.php";
 
 class DoctorRepository extends Repository
 {
-    public function getById($id)
+    public function getByEspecialidade($especialidade)
     {
-        try
-        {
-            $sql = "SELECT * FROM medicos WHERE id = :id";
+        try {
+            $sql = "SELECT * FROM medicos WHERE especialidade = :especialidade";
             $stmt = $this->conexao->getConexao()->prepare($sql);
-            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':especialidade', $especialidade);
             $stmt->execute();
 
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($resultado)
-            {
+            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $medicos = [];
+
+            foreach ($resultados as $resultado) {
                 $doctor = new Doctor();
                 $doctor->setId($resultado['id']);
                 $doctor->setNome($resultado['nome']);
-                
+                $doctor->setEspecialidade($resultado['especialidade']);
+                $doctor->setDisponibilidadeInicio($resultado['disponibilidadeInicio']);
+                $doctor->setDisponibilidadeFim($resultado['disponibilidadeFim']);
+                $medicos[] = $doctor;
+            }
 
-                return $doctor;
-            }
-            else
-            {
-                return null; 
-            }
+            return $medicos;
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao selecionar médico: " . $e->getMessage());
         }
-        catch (PDOException $e)
-        {
-            throw new Exception("Erro ao selecionar médico: ".$e->getMessage());
+    }
+    public function getHorarios($medico, $data){
+        $array_valores = [':nome' => $medico]; 
+        $sql = 'SELECT disponibilidadeInicio, disponibilidadeFim FROM medicos WHERE id = :nome';
+        $resultado = $this->retornaConsulta($sql, $array_valores);
+        $horaInicio = new DateTime($resultado[0]['disponibilidadeInicio']);
+        $horaFim = new DateTime($resultado[0]['disponibilidadeFim']);
+        $horariosConsulta = [];
+        while($horaInicio <= $horaFim){
+            $horariosConsulta[] = $horaInicio->format("H:i");
+            $horaInicio->modify('+30 minutes');
         }
+        $horariosConsulta = array_values($horariosConsulta);
+        array_pop($horariosConsulta);
+        $array_valores = [':dataC' => $data, ':nome' => $medico];
+        $sql = 'SELECT c.horarioInicio FROM consultas c INNER JOIN medicos m ON m.id = c.id_medico WHERE dataC = :dataC and m.id = :nome';
+        $resultado = $this->retornaConsulta($sql, $array_valores);
+        $resultado = array_values($resultado);
+        $resultadoFormatado = [];
+        foreach($resultado as $result){
+            $resultadoFormatado[] = (new DateTime($result['horarioInicio']))->format('H:i');
+        }
+        $horariosDisponiveis = array_diff($horariosConsulta, $resultadoFormatado);
+        $horariosDisponiveis = array_values($horariosDisponiveis);
+        return $horariosDisponiveis;
     }
     public function SelecionaMedico($email, $password){
         $resultado = $this->selecionaUsuario('medicos', $email, $password);

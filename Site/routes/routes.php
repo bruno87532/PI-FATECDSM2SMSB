@@ -19,6 +19,6 @@ $routes = [
     '/buscapaciente' => 'EditaconsultaController@buscapaciente',
     '/buscapaciente/{id}' => 'AtualizaconsultaController@index',
     '/atualizapaciente/{id}' => 'AtualizaconsultaController@atualizapaciente',
-    '/visualizaconsulta' => 'VisualizaconsultaController@index'
-
+    '/visualizaconsulta' => 'VisualizaconsultaController@index',
+    '/agendaconsulta/confirma' => 'ConfirmaconsultaController@index'
 ];

@@ -24,7 +24,7 @@
             <label for="tratamento">Tratamento</label>
             <input type="text" value="<?php echo $consultas[0]['tratamento'] ?>" name="tratamento" id="tratamento">
             <label for="valor">Valor da consultas</label>
-            <input required type="text" value="<?php echo $consultas[0]['valor'] ?>" name="valor" id="valor">
+            <input required type="text" name="valor" id="valor">
             <label for="statusC">Status da consulta</label>
             <select required name="statusC" id="statusC">
                 <option <?php echo ($consultas[0]['statusC'] == 'a') ? 'selected' : '' ?> value="a">Agendada</option>

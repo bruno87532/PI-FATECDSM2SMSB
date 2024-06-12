@@ -89,7 +89,7 @@ class Repository{
             $stmt = $pdo->prepare($sql);
             if($valores != NULL){
                 foreach($valores as $campo => $valor){
-                    $stmt->bindParam($campo, $valor);
+                    $stmt->bindValue($campo, $valor);
                 }
             }
             $stmt->execute();

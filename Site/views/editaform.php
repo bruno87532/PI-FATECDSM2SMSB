@@ -19,12 +19,16 @@
             <input required type="time" value="<?php echo $consultas[0]['horarioInicio'] ?>" id="hInicio" name="hInicio">
             <label for="hFim">Horário de término</label>
             <input required type="time" value="<?php echo $consultas[0]['horarioFim'] ?>" id="hFim" name="hFim">
-            <label for="diagnostico">Diagnóstico</label>
-            <input type="text" value="<?php echo $consultas[0]['diagnostico'] ?>" name="diagnostico" id="diagnostico">
-            <label for="tratamento">Tratamento</label>
-            <input type="text" value="<?php echo $consultas[0]['tratamento'] ?>" name="tratamento" id="tratamento">
-            <label for="valor">Valor da consultas</label>
-            <input required type="text" name="valor" id="valor">
+            <?php
+                if(isset($_SESSION['login_doctor'])){
+                    echo '<label for="diagnostico">Diagnóstico</label>';
+                    echo '<input type="text" value="'.$consultas[0]['diagnostico'].'" name="diagnostico" id="diagnostico">';
+                    echo '<label for="tratamento">Tratamento</label>';
+                    echo '<input type="text" value="'.$consultas[0]['tratamento'] .'" name="tratamento" id="tratamento">';
+                }
+            ?>
+            <label for="valor">Valor da consulta</label>
+            <input required type="text" value="<?php echo (empty($consultas[0]['valor'])) ? '' : $consultas[0]['valor'] ?>" name="valor" id="valor">
             <label for="statusC">Status da consulta</label>
             <select required name="statusC" id="statusC">
                 <option <?php echo ($consultas[0]['statusC'] == 'a') ? 'selected' : '' ?> value="a">Agendada</option>

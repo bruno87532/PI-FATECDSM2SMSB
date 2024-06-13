@@ -18,7 +18,7 @@ class AtualizaconsultaController extends RenderView {
             exit();
         }
         $verifyLogin = new Login();
-        if(!($verifyLogin->verifyLoginDoctor())){
+        if(!($verifyLogin->verifyLoginDoctor()) && !($verifyLogin->verifyLoginEmployee())){
             header('Location: ../');
             exit();
         }
@@ -38,7 +38,7 @@ class AtualizaconsultaController extends RenderView {
             exit();
         }
         $verifyLogin = new Login();
-        if(!($verifyLogin->verifyLoginDoctor())){
+        if(!($verifyLogin->verifyLoginDoctor()) && !($verifyLogin->verifyLoginEmployee())){
             header('Location: ../Site');
         }
         $tratamento = (isset($_POST['tratamento'])) ? $_POST['tratamento'] : NULL;

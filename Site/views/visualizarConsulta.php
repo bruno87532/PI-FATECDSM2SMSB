@@ -52,12 +52,15 @@
                                 $limite_string = substr($valor, 0, 50).'...';
                                 echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
                             }else{
+                                // if($string == 'valor' && $valor!)
                                 if($string == 'statusC' && $valor == 'a'){
                                     echo '<td>Agendada</td>';
                                 }else if($string == 'statusC' && $valor == 'd'){
                                     echo '<td>Concluída</td>';
                                 }else if($string == 'statusC' && $valor == 'c'){
                                     echo '<td>Cancelada</td>';
+                                }else if($string == 'valor' && $valor == '0'){
+                                    echo '<td></td>';
                                 }else{
                                     echo '<td>'.$valor.'</td>';
                                 }

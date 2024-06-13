@@ -65,6 +65,8 @@
                                     echo '<td>Concluída</td>';
                                 }else if($string == 'statusC' && $valor == 'c'){
                                     echo '<td>Cancelada</td>';
+                                }else if($string == 'valor' && $valor == '0'){
+                                    echo '<td></td>';
                                 }else{
                                     echo '<td>'.$valor.'</td>';
                                 }

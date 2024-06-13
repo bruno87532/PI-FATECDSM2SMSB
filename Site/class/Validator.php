@@ -148,8 +148,8 @@ if(!(class_exists('Validator'))){
                 return $this->controla_funcionario;
             }
         }
-        public function doctor(){
-            if(isset($_SESSION['login_doctor'])){
+        public function docemp(){
+            if(isset($_SESSION['login_doctor']) || isset($_SESSION['employee'])){
                 $this->controla_medico = 'display: block';
                 return $this->controla_medico;
             }else{

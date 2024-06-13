@@ -8,7 +8,7 @@ function verificaLogin(){
         $clearSessions->destroi_sessao();
     }
     $verifyLogin = new Login();
-    if(!($verifyLogin->verifyLoginDoctor())){
+    if(!($verifyLogin->verifyLoginDoctor()) && !($verifyLogin->verifyLoginEmployee())){
         header('Location: ../Site');
         exit();
     }

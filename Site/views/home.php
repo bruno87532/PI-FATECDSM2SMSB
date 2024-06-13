@@ -9,7 +9,7 @@ $ValidatorHome = new Validator();
 $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
 $estilofunc = $ValidatorHome->employee();
-$estilomed = $ValidatorHome->doctor();
+$estilomed = $ValidatorHome->docemp();
 $estilonotmed = $ValidatorHome->notdoctor();
 $estilopatient = $ValidatorHome->patient();
 if(isset($_SESSION['login'])){

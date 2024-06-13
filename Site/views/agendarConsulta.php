@@ -31,6 +31,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
         exit;
     }
 }
+
+$validaCampo = new ValidatorPatient();
+$estilocpf = $validaCampo->cpf_existpat();
+
 ?>
 
 <!DOCTYPE html>
@@ -48,9 +52,15 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
         <div class="container-cadastro">
             <h2>Agendar Consulta</h2><br>
             <form class="formulario-cadastro" action="agendaconsulta/confirma" method="POST">
+                <?php if(isset($_SESSION['employee'])){
+                    echo '<label for="cpfpat">CPF do paciente:</label>';
+                    echo '<input type="text" id="cpfpat" name="cpfpat" required>';
+                    echo '<p style="'.$estilocpf.'">Não há um paciente cadastrado com este CPF!</p>';
+                } ?>
+            
                 <label for="especializacao">Especialização:</label>
                 <select id="especializacao" name="especializacao" required onchange="CarregarMedicos(this.value)">
-                    <option value="#">Especialidades</option>
+                    <option value="">Especialidades</option>
                     <option value="Cardiologia">Cardiologia</option>
                     <option value="Ginecologia">Ginecologia</option>
                     <option value="Dermatologia">Dermatologia</option>
@@ -61,10 +71,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
                     <option value="Traumatologia">Traumatologia</option>
                     <option value="Infectologia">Infectologia</option>
                 </select>
-
+                
                 <label for="medicos">Médico:</label>
                 <select name="medicos" id="medicos" disabled onchange="habilitaData()"required>
-                    <option value="#">Selecione um medico</option>
+                    <option value="">Selecione um medico</option>
                 </select>
 
                 <label for="data">Data:</label>
@@ -72,7 +82,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
 
                 <label for="horario">Horário:</label>
                 <select name="horario" id="horario" required disabled>
-                    <option value="#">Selecione um horário</option>
+                    <option value="">Selecione um horário</option>
                 </select>
                 <div class="btn-consulta">
                     <button type="submit">Agendar Consulta</button>
@@ -84,7 +94,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
 </html>
 <script>
     async function CarregarMedicos(especializacao) {
-        if (especializacao && especializacao !== "#") {
+        if (especializacao && especializacao !== "") {
             try {
                 const response = await fetch(`?action=getMedicos&especializacao=${especializacao}`);
                 const jsonData = await response.json();
@@ -92,7 +102,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
                 if (Array.isArray(jsonData)) {
                     const medicosSelect = document.getElementById('medicos');
                     medicosSelect.disabled = false;
-                    medicosSelect.innerHTML = '<option value="#">Selecione um médico</option>';
+                    medicosSelect.innerHTML = '<option value="">Selecione um médico</option>';
 
                     jsonData.forEach(medico => {
                         const option = document.createElement('option');
@@ -108,7 +118,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
             }
         }else{
             const option = document.createElement('option');
-            option.value = "#";
+            option.value = "";
             option.textContent = "Selecione um médico";
             const medico = document.getElementById('medicos');
             while(medico.length > 0){
@@ -124,7 +134,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
                 const horario = document.getElementById('horario');
                 if(horario.value != ''){
                     const option = document.createElement('option');
-                    option.value = '#';
+                    option.value = '';
                     option.textContent = 'Selecione um horário';
                     while(horario.length > 0){
                         horario.remove(0);
@@ -140,7 +150,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
         const medico = document.getElementById('medicos').value;
         const dataC = document.getElementById('data').value;
         const dataFormatada = dataC.replace(/-/g, '/');
-        if(dataFormatada != "" && medico != "#"){
+        if(dataFormatada != "" && medico != ""){
             try{
                 const input = document.getElementById('horario');
                 input.disabled = false;
@@ -169,9 +179,9 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
         const data = document.getElementById('data');
         data.disabled = false;
         const horario = document.getElementById('horario');
-        if(horario.value != '#'){
+        if(horario.value != ''){
             const option = document.createElement('option');
-            option.value = '#';
+            option.value = '';
             option.textContent = 'Selecione um horário';
             while(horario.length > 0){
                 horario.remove(0);
@@ -180,7 +190,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getHorarios' && isset($_GET['me
             horario.value = option.value;
             horario.disabled = true;
         }
-        if(medico.value == "#"){
+        if(medico.value == ""){
             data.disabled = true;
             data.value = '';
         }

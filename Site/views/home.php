@@ -2,6 +2,7 @@
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
+
 require_once __DIR__."/../utils/autoload.php";
 
 $path = "http://127.0.0.1/PI-FATECDSM2SMSB/";
@@ -9,15 +10,19 @@ $ValidatorHome = new Validator();
 $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
 $estilofunc = $ValidatorHome->employee();
-$estilomed = $ValidatorHome->docemp();
-$estilonotmed = $ValidatorHome->notdoctor();
-$estilopatient = $ValidatorHome->patient();
-if(isset($_SESSION['login'])){
+$estilomed = $ValidatorHome->doctor();
+if(isset($_SESSION['login_id'])){
     echo 'teste';
 }else{
     echo 'pao';
 }
+
+
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,17 +49,29 @@ if(isset($_SESSION['login'])){
                     </ul>
                 </nav>
                 <div class="btn-contato">
-                    <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
-                    <a style="<?php echo $estilofunc ?>" href="cadastromed">Cadastrar médico</a>
-                    <a style="<?php echo $estilomed ?>" href="editaconsulta">Editar consultas</a>
-                    <a style="<?php echo $estilopatient ?>" href="visualizaconsulta">Visualizar consultas</a>
+                    <a href="consulta"><button class="btnhover">Agendar Consulta</button></a>
                 </div>
                 <nav>
-                    <ul class="link-login">
-                        <li><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""><a style="<?php echo $estilologin ?>" href="login"> Login </a></li>
-                        <a style="<?php echo $estilologout ?>" href="home">Logout</a>
-                    </ul>
+    <ul class="link-login">
+    <div class="nome-echo">
+        <?php
+     
+        if(isset($_SESSION['login_nome'])) {
+        
+            $trimmed_name = trim($_SESSION['login_nome']);
+           
+            echo '<div class="nome-echo"><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""> Olá, ' . explode(" ", $trimmed_name)[0] . ' |   </div>';
+        }
+    ?>
+    </div>
+        <div class="logout">
+       
+            <a style="<?php echo $estilologout; ?>" href="home">    Sair</a>
+        </div> 
+        <li><a style="<?php echo $estilologin; ?>" href="login"><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""> Login </a></li>
+    </ul>
                 </nav>
+
             </div>
         </div>
     </header>
@@ -125,7 +142,7 @@ if(isset($_SESSION['login'])){
                 <br>
                 <p>A Clínica <b>Saúde Sem Barreiras</b> é especialistano cuidado das dores físicas e emocionais. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate minus veniam ab natus at, temporibus magni tempora, repellendus  a. </p><br>
                 <div class="btn-contato2">
-                    <a href="consulta" style="<?php echo $estilonotmed ?>><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="/login"><button class="btnhover">Agendar Consulta</button></a>
                 </div>
             </div>
 

@@ -9,17 +9,17 @@ class LoginController extends RenderView {
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
         }
-        if(isset($_SESSION['login'])){
-            header('Location: ../Site');
-        }
         $this->loadView( 
             'login', []
         );
     }
 
     public function autenthication() {
-        if(isset($_SESSION['login'])){
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
             header('Location: ../');
+            exit();
         }
         if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
             unset($_SESSION['login_error']);

@@ -1,8 +1,8 @@
 <?php
-ob_start();
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
+ob_start();
 require_once __DIR__."/../utils/RenderView.php";
 require_once __DIR__."/../utils/autoload.php";
 
@@ -28,7 +28,8 @@ class ProximoMedController extends RenderView {
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
-            header('Location: ../cadastromed');
+            header('Location: ../../Site');
+            exit();
         }
         $verifiyLoginEmployee = new Login();
         if(!$verifiyLoginEmployee->verifyLoginEmployee()){

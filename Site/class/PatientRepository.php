@@ -39,12 +39,9 @@ class PatientRepository extends Repository
         $numero = $endereco->getNumero();
         if(isset($endereco->complemento)){
             $complemento = $endereco->getComplemento();
-            $array_campos = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numeroCasa', 'complemento'];
-            $array_valores = [$cep, $estado, $cidade, $bairro, $rua, $numero, $complemento];
-        }else{
-            $array_campos = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numeroCasa'];
-            $array_valores = [$cep, $estado, $cidade, $bairro, $rua, $numero];
         }
+        $array_campos = ['cep', 'estado', 'cidade', 'bairro', 'rua', 'numeroCasa', 'complemento'];
+        $array_valores = [$cep, $estado, $cidade, $bairro, $rua, $numero, $complemento];
         $id = $this->prepareInsert($array_campos, 'enderecos', $array_valores);
         return $id;
     }

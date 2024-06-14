@@ -8,13 +8,12 @@ require_once __DIR__."/../utils/autoload.php";
 
 class ProximoController extends RenderView{
 public function index(){
-    if(!(isset($_SESSION['proximo']))){
+    if(empty($_SERVER['HTTP_REFERER'])){
         $clearSessions = new Validator();
         $clearSessions->destroi_sessao();
         header('Location: cadastro');
         exit();
     }
-    unset($_SESSION['proximo']);
     $this->loadView(
         'proximo',
         [
@@ -80,7 +79,7 @@ public function validator(){
         header('Location: ../cadastro');
         exit();
     }
-    $_SESSION['proximo'] = true;
+    
     header('Location: ../proximo');
 }
 }

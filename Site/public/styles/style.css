@@ -7,7 +7,7 @@
 
 .container-top{
     width: 100% ;
-
+    border-bottom: 0.1875rem solid rgb(0, 217, 255);
 }
 
 
@@ -29,7 +29,6 @@
 }
 header{
     width: 100%;
-    padding: 2px  !important;
     top: 0;
     left: 0;
     position: fixed;
@@ -39,12 +38,14 @@ header{
 }
 
 
+
 /* Estilos padrão para o navbar */
 header ul {
     margin-bottom: 0 !important;
     list-style-type: none;
     padding: 0;
     text-align: center; 
+    
    
 }
 
@@ -90,6 +91,22 @@ header ul :hover{
     }
 }
 
+
+.logout a{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    list-style-type: none;
+    color: rgb(100, 100, 100);
+}
+
+.logout:hover{
+    transform: scale(1.1); 
+}
+
+.nome-echo{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 
 .btn-contato button{
     width: 160px;
@@ -212,10 +229,13 @@ header ul :hover{
 .link-login {
     display: flex; 
     align-items: center; 
+    
 }
 
 .link-login img {
     margin-right: 5px; 
+
+    
 }
 .row {
     display: flex; 
@@ -472,6 +492,24 @@ header ul :hover{
 
 
 /*=-================================Login *=-==========================*/
+@media (max-width: 768px) {
+    .form-container {
+        width: 80%;
+        max-width: 400px; 
+    }
+
+    .btn {
+        width: 100%; 
+        margin-top: 10px; 
+    }
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        width: 90%; 
+        max-width: 300px; 
+    }
+}
 .imgfundologin {
     background-image: url(../images/fundologin.jpg);
     background-size: cover; 
@@ -481,16 +519,16 @@ header ul :hover{
 }
 
 .container-login {
+   
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center; 
-
 }
 
 .form-container {
-    width: 22%; 
-    padding: 30px; 
+    width: 400px;
+    padding: 50px; 
     background-color: rgba(255, 255, 255, 0.61); 
     border-radius: 10px; 
 }
@@ -519,50 +557,44 @@ header ul :hover{
 .btn{
     width: 49%;
     padding: 10px;
- 
 }
 
 .logo-login{
     display: block;
     margin: 0 auto;
- 
-    
 }
 
 .register-link p{
     text-align: center;
-
 }
 
 
-/* Cadastre-se =========================================*/
 
+/* Cadastre-se =========================================*/
 .container-cadastro {
-    width: 35%;
+    width: 550px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.81);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
-.container-cadastro h2{
+
+.container-cadastro h2 {
     text-align: center;
 }
 
 .formulario-cadastro {
     justify-content: center;
-    display: grid;
     gap: 12px;
-    grid-template-columns: repeat(2, 1fr); 
     align-items: center;
-    
+    width: 100%;
 }
-
 
 input[type="text"],
 input[type="email"],
@@ -571,11 +603,32 @@ input[type="date"],
 input[type="password"],
 input[type="date"],
 select {
-    width: 100%; 
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+}
+
+@media (max-width: 576px) {
+    .container-cadastro {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-cadastro {
+        width: 60%;
+        max-width: 768px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container-cadastro {
+        width: 50%;
+        max-width: 768px;
+    }
 }
 
 label {
@@ -625,22 +678,23 @@ input[type="checkbox"] {
 
 .imgfundocadastro {
     background-image: url(../images/fundologin.jpg);
-    background-size: cover; 
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
 }
 
 /*Agendar consulta*/
 
 
 .btn-consulta button {
-    width: 60%;
-    display: block; /* Torna o botão um elemento de bloco */
-    margin: 0 auto; /* Define as margens laterais automáticas para centralizá-lo */
+    width: 100%;
     padding: 10px;
-    color: white;
     background-color: #2cb3f1;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -649,12 +703,14 @@ input[type="checkbox"] {
     margin-top: 25px;
 }
 
+
+
 .btn-consulta button:hover {
     transform: scale(1.05);
 }
 
 .container-agendarConsulta {
-    width: 30%;
+    width: 25%;
     padding: 25px;
     background-color: #fff;
     border-radius: 10px;
@@ -679,6 +735,26 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+@media (max-width: 576px) {
+    .container-agendarConsulta {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-agendarConsulta {
+        width: 60%;
+        max-width: 768px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container-agendarConsulta {
+        width: 50%;
+        max-width: 768px;
+    }
+}
 
 /* Cadastro Médico */
 
@@ -718,4 +794,37 @@ input[type="checkbox"] {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+}
+
+
+/*Aba do funcionario ==============*/
+
+.fundoFuncionario{
+    background-image: url(../images/fundoFuncionario.jpg);
+    background-color: rgba(255, 255, 255, 0.5);
+    background-size: cover; 
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh; /* Define a altura total da tela */
+    display: flex; /* Torna o container flexível */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+
+}
+
+.linksFuncionario {
+    height: 400px; /* Defina a altura desejada para as imagens */
+    
+}
+
+.linksFuncionario img {
+    width: 100%; /* Garante que a largura seja ajustada automaticamente */
+    height: 100%; /* Garante que a altura seja ajustada automaticamente */
+    object-fit: cover; /* Mantém a proporção da imagem */
+
+}
+
+
+.linksFuncionario:hover {
+    transform: scale(1.05);
 }

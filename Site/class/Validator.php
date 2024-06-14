@@ -20,7 +20,6 @@ if(!(class_exists('Validator'))){
         public $controla_emailexist;
         public $controla_cpfexist;
         public $controla_funcionario;
-        public $controla_patient;
 
         public function cpf_valido(){
             if(isset($_SESSION['cpf']) && $_SESSION['cpf'] == true){
@@ -148,35 +147,17 @@ if(!(class_exists('Validator'))){
                 return $this->controla_funcionario;
             }
         }
-        public function docemp(){
-            if(isset($_SESSION['login_doctor']) || isset($_SESSION['employee'])){
-                $this->controla_medico = 'display: block';
-                return $this->controla_medico;
-            }else{
-                $this->controla_medico = 'display: none';
-                return $this->controla_medico;
-            }
-        }
-        public function notdoctor(){
+        public function doctor(){
             if(isset($_SESSION['login_doctor'])){
-                $this->controla_medico = 'display: none';
-                return $this->controla_medico;
-            }else{
                 $this->controla_medico = 'display: block';
                 return $this->controla_medico;
-            }
-        }
-        public function patient(){
-            if(isset($_SESSION['login_patient'])){
-                $this->controla_patient = 'display: block';
-                return $this->controla_patient;
             }else{
-                $this->controla_patient = 'display: none';
-                return $this->controla_patient;
+                $this->controla_medico = 'display: none';
+                return $this->controla_medico;
             }
         }
         public function destroi_sessao(){
-            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist', 'login_error', 'cpfpat'];
+            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist', 'login_error'];
             foreach($sections as $section){
                 if(isset($_SESSION[$section]) && $section == true){
                     unset($_SESSION[$section]);

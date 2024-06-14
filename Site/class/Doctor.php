@@ -5,20 +5,20 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 require_once __DIR__."/../utils/autoload.php";
 class Doctor
 {
-    public ?int $Id;
-    public ?int $IdEndereco;
-    public ?int $IdFuncionario;
-    public $Cpf;
-    public $Nome;
-    public $Nascimento;
-    public $Email;
-    public $Senha;
-    public $Telefone;
-    public $Crm;
-    public $DisponibilidadeInicio;
-    public $DisponibilidadeFim;
-    public $Genero;
-    public $Especialidade;
+    private ?int $Id;
+    private ?int $IdEndereco;
+    private ?int $IdFuncionario;
+    private $Cpf;
+    private $Nome;
+    private $Nascimento;
+    private $Email;
+    private $Senha;
+    private $Telefone;
+    private $Crm;
+    private $DisponibilidadeInicio;
+    private $DisponibilidadeFim;
+    private $Genero;
+    private $Especialidade;
 
     public function getId()
     {

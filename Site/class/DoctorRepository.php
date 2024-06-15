@@ -31,29 +31,22 @@ class DoctorRepository extends Repository
         }
     }
     public function getHorarios($medico, $data){
-        $array_valores = [':nome' => $medico]; 
-        $sql = 'SELECT disponibilidadeInicio, disponibilidadeFim FROM medicos WHERE id = :nome';
+        $array_valores = [':id' => $medico];
+        $sql = "SELECT disponibilidadeInicio, disponibilidadeFim FROM medicos WHERE id = :id";
         $resultado = $this->retornaConsulta($sql, $array_valores);
-        $horaInicio = new DateTime($resultado[0]['disponibilidadeInicio']);
-        $horaFim = new DateTime($resultado[0]['disponibilidadeFim']);
-        $horariosConsulta = [];
-        while($horaInicio <= $horaFim){
-            $horariosConsulta[] = $horaInicio->format("H:i");
-            $horaInicio->modify('+30 minutes');
-        }
-        $horariosConsulta = array_values($horariosConsulta);
-        array_pop($horariosConsulta);
-        $array_valores = [':dataC' => $data, ':nome' => $medico];
-        $sql = 'SELECT c.horarioInicio FROM consultas c INNER JOIN medicos m ON m.id = c.id_medico WHERE dataC = :dataC and m.id = :nome';
+        $array_valores = [':horaInicio' => $resultado[0]['disponibilidadeInicio'], ':horaFim' => $resultado[0]['disponibilidadeFim'], ':id' => $medico]; 
+        $sql = "CALL CalculaIntervalos(:horaInicio, :horaFim, :id)";
+        $this->retornaConsulta($sql, $array_valores);
+        $array_valores = [':data' => $data];
+        $sql = "SELECT h.horario FROM horariosmedicos h LEFT JOIN medicos m ON m.id = h.idMedico LEFT JOIN consultas c ON h.idMedico = c.id_medico AND h.horario = c.horarioInicio AND c.dataC = :data
+        WHERE c.id_medico IS NULL AND h.horario <> m.disponibilidadeFim ORDER BY h.horario";
         $resultado = $this->retornaConsulta($sql, $array_valores);
         $resultado = array_values($resultado);
-        $resultadoFormatado = [];
+        $retornaResultado = [];
         foreach($resultado as $result){
-            $resultadoFormatado[] = (new DateTime($result['horarioInicio']))->format('H:i');
+            $retornaResultado[] = $result['horario'];
         }
-        $horariosDisponiveis = array_diff($horariosConsulta, $resultadoFormatado);
-        $horariosDisponiveis = array_values($horariosDisponiveis);
-        return $horariosDisponiveis;
+        return $retornaResultado;
     }
     public function SelecionaMedico($email, $password){
         $resultado = $this->selecionaUsuario('medicos', $email, $password);

@@ -148,24 +148,6 @@ if(!(class_exists('Validator'))){
                 return $this->controla_funcionario;
             }
         }
-        public function docemp(){
-            if(isset($_SESSION['login_doctor']) || isset($_SESSION['employee'])){
-                $this->controla_medico = 'display: block';
-                return $this->controla_medico;
-            }else{
-                $this->controla_medico = 'display: none';
-                return $this->controla_medico;
-            }
-        }
-        public function notdoctor(){
-            if(isset($_SESSION['login_doctor'])){
-                $this->controla_medico = 'display: none';
-                return $this->controla_medico;
-            }else{
-                $this->controla_medico = 'display: block';
-                return $this->controla_medico;
-            }
-        }
         public function patient(){
             if(isset($_SESSION['login_patient'])){
                 $this->controla_patient = 'display: block';

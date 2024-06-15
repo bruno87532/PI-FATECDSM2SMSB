@@ -5,7 +5,6 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 require_once __DIR__."/../utils/autoload.php";
 class Patient{
 
-    public Endereco $endereco;
     public ?int $id;
     public $nome;
     public $cpf;

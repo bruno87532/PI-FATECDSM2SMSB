@@ -9,6 +9,9 @@ class CadastromedController extends RenderView {
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
+        }
+        $verifyLogin = new Login();
+        if(!($verifyLogin->verifyLoginEmployee())){
             header('Location: ../Site');
             exit();
         }

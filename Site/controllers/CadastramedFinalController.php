@@ -9,14 +9,17 @@ if(!(session_status() == PHP_SESSION_ACTIVE)){
 
 class CadastramedFinalController extends RenderView {
     public function index() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+        }
         $verifiyLoginEmployee = new Login();
         if(!$verifiyLoginEmployee->verifyLoginEmployee()){
             header('Location: ../Site');
             exit();
-        }
-        if(empty($_SERVER['HTTP_REFERER'])){
-            $clearSessions = new Validator();
-            $clearSessions->destroi_sessao();
+        }else{
+            header('Location: cadastromed');
+            exit();
         }
         $this->loadView( 
             'home', []

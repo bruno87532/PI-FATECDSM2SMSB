@@ -8,6 +8,17 @@ require_once __DIR__."/../utils/autoload.php";
 
 class ConfirmaconsultaController extends RenderView {
     public function index(){
+        $verifyLogin = new Login();
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+            header('Location: ../consulta');
+            exit();
+        }
+        if(!$verifyLogin->verifyLoginPatient() && !$verifyLogin->verifyLoginEmployee()){
+            header('Location: ../../Site');
+            exit();
+        }
         if(isset($_SESSION['cpfpat'])){
             unset($_SESSION['cpfpat']);
         }
@@ -33,6 +44,6 @@ class ConfirmaconsultaController extends RenderView {
         $array_valores = isset($_SESSION['employee']) ? [$_POST['medicos'], $exist[0]['id'], $_POST['horario'], $_POST['data'], 'a'] : [$_POST['medicos'], $_SESSION['login_id'], $_POST['horario'], $_POST['data'], 'a'];;
         $consulta = new AppointmentRepository();
         $consulta->prepareInsert($array_campos, 'consultas', $array_valores);
-        header('Location: ../../Site');
+        header('Location: ../funcionario');
     }
 }

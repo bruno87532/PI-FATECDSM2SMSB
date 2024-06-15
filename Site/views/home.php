@@ -9,20 +9,8 @@ $path = "http://127.0.0.1/PI-FATECDSM2SMSB/";
 $ValidatorHome = new Validator();
 $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
-$estilofunc = $ValidatorHome->employee();
-$estilomed = $ValidatorHome->doctor();
-if(isset($_SESSION['login_id'])){
-    echo 'teste';
-}else{
-    echo 'pao';
-}
-
-
+$estilonotmed = $ValidatorHome->notdoctor();
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +37,7 @@ if(isset($_SESSION['login_id'])){
                     </ul>
                 </nav>
                 <div class="btn-contato">
-                    <a href="consulta"><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
                 </div>
                 <nav>
     <ul class="link-login">

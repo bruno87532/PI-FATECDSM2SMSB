@@ -16,8 +16,7 @@ $estilocep = $ceperror->cep_valido();
     <link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
-    <body class="imgfundocadastro">
-    <div class="container-externo">
+    <div class="imgfundocadastro">
         <div class="container-cadastro">
             <h2>Cadastre-se</h2>
             <form class="formulario-cadastro" id="form" action="<?php echo (isset($_SESSION['doctor'])) ? 'acessomed' : 'acesso' ?>" method="POST">
@@ -60,8 +59,6 @@ $estilocep = $ceperror->cep_valido();
             </form>
         </div>
     </div>
-    </>
-
 </body>
 </html>
 <script>

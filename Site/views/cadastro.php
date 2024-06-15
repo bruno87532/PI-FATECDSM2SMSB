@@ -33,18 +33,15 @@ $estiloemailexist = $ValidatorHCad->emailexist();
     </style>
 </head>
 <body>
-    <body class="imgfundocadastro">
-    <div class="container-externo">
+    <div class="imgfundocadastro">
     <div class="container-cadastro">
-       
+        <h2>Cadastre-se</h2><br>
         <form class="formulario-cadastro" method="POST" action="proximo/validador">
-            
-    
-            <h2>Cadastre-se</h2><br>
+            <div class="">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getNome() : ""; ?>">
                 <p style="<?php echo $estilonome?>">Nome inválido!</p>
-
+            </div>
             <div>
                 <label for="cpf">CPF:</label>
                 <input type="text" id="cpf" name="cpf" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getCpf() : ""; ?>">
@@ -71,8 +68,6 @@ $estiloemailexist = $ValidatorHCad->emailexist();
                 <input type="date" id="data_nascimento" name="data_nascimento" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getNascimento() : ""; ?>">     
                 <p style="<?php echo $estilonascimento?>">Data de nascimento inválida!</p>           
             </div>
-            
-            <div>
             <label for="sexo">Sexo:</label>
             <select id="sexo" name="sexo" required>
                 <?php
@@ -85,20 +80,15 @@ $estiloemailexist = $ValidatorHCad->emailexist();
                         }
                     }
                 ?> 
-                </div>
             </select>
-
-        <br>
-            <div class="checkbox-group">        <br>
+            <div class="checkbox-group">
+                <input type="checkbox" id="pcd" name="pcd" <?php if($pcd == 1) echo "checked" ?>>
+                <label for="pcd">Sou PCD</label>
+            </div>
             <div class="checkbox-group">
                 <input type="checkbox" id="idoso" name="idoso" <?php if($idoso == 1) echo "checked" ?>>
                 <label for="idoso">Sou Idoso</label>
             </div>
-            <br>
-                <input type="checkbox" id="pcd" name="pcd" <?php if($pcd == 1) echo "checked" ?>>
-                <label for="pcd">Sou PCD</label>
-            </div>
-           <br>
             <p style="<?php echo $estilopid?>">A clínica é especializa para idoso e PCD.</p>
             <div id="areaDeficiencia" style="display: none;">
                 <label for="deficiencia">Tipo de Deficiência:</label>
@@ -124,4 +114,5 @@ $estiloemailexist = $ValidatorHCad->emailexist();
         var areaDeficiencia = document.getElementById('areaDeficiencia');
         areaDeficiencia.style.display = this.checked ? 'block' : 'none';
     });
+
 </script>

@@ -5,14 +5,19 @@ require_once __DIR__."/../utils/autoload.php";
 
 class FuncionarioController extends RenderView {
 
-    public function index($match) {
+    public function index() {
+        if(empty($_SERVER['HTTP_REFERER'])){
+            $clearSessions = new Validator();
+            $clearSessions->destroi_sessao();
+        }
+        $verifyLogin = new Login();
+        if(!($verifyLogin->verifyLoginEmployee() || $verifyLogin->verifyLoginDoctor())){
+            header('Location: ../Site');
+            exit();
+        }
         $this->loadView( 
             'funcionario', []
         );
-      
-      
         
     }
-
 }
-?>

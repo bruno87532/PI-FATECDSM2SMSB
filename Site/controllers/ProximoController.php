@@ -8,12 +8,13 @@ require_once __DIR__."/../utils/autoload.php";
 
 class ProximoController extends RenderView{
 public function index(){
-    if(empty($_SERVER['HTTP_REFERER'])){
+    if(!(isset($_SESSION['proximo']))){
         $clearSessions = new Validator();
         $clearSessions->destroi_sessao();
-        header('Location: cadastro');
+        header('Location: '.$_SERVER['HTTP_REFERER']);
         exit();
     }
+    unset($_SESSION['proximo']);
     $this->loadView(
         'proximo',
         [
@@ -42,7 +43,7 @@ public function validator(){
     
     foreach($post as $campo){
         if(!isset($_POST[$campo])){
-            header('Location: ../cadastro');
+            header('Location: '.$_SERVER['HTTP_REFERER']);
             exit();
         }
     }
@@ -65,21 +66,21 @@ public function validator(){
 
     if(!(isset($_POST['pcd']) || isset($_POST['idoso']))){
         $_SESSION['pid'] = true;
-        header('Location: ../cadastro');
+        header('Location: '.$_SERVER['HTTP_REFERER']);
         exit();
     }    
     if(isset($_POST['pcd']) && $_POST['deficiencia'] == ''){
         $_SESSION['deficiencia'] = true;
-        header('Location: ../cadastro');
+        header('Location: '.$_SERVER['HTTP_REFERER']);
         exit();
     }
     $FunctionsValid = new FunctionsPatient();
     $returnOrNot = $FunctionsValid->validaCampos($_POST['nome'], $_POST['cpf'], $_POST['senha'], $_POST['telefone'], $_POST['data_nascimento'], $_POST['email']);
     if(!$returnOrNot){
-        header('Location: ../cadastro');
+        header('Location: '.$_SERVER['HTTP_REFERER']);
         exit();
     }
-    
+    $_SESSION['proximo'] = true;
     header('Location: ../proximo');
 }
 }

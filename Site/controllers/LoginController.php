@@ -9,29 +9,35 @@ class LoginController extends RenderView {
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
         }
+        if(isset($_SESSION['login'])){
+            $loginVerify = new Login();
+            if($loginVerify->verifyLoginDoctor() || $loginVerify->verifyLoginEmployee()){
+                header('Location: funcionario');
+                exit();
+            }
+            header('Location: ../Site');
+            exit();
+        }
         $this->loadView( 
             'login', []
         );
     }
 
     public function autenthication() {
-        if(empty($_SERVER['HTTP_REFERER'])){
-            $clearSessions = new Validator();
-            $clearSessions->destroi_sessao();
+        if(isset($_SESSION['login'])){
             header('Location: ../');
-            exit();
         }
         if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
             unset($_SESSION['login_error']);
         }
         $loginEmployee = new EmployeeRepository();
         if($loginEmployee->SelecionaFuncionario($_POST['email'], $_POST['password'])){
-            header('Location: ../');
+            header('Location: ../funcionario');
             exit();
         }
         $loginDoctor = new DoctorRepository();
         if($loginDoctor->SelecionaMedico($_POST['email'], $_POST['password'])){
-            header('Location: ../');
+            header('Location: ../funcionario');
             exit();
         }
         $loginUser = new PatientRepository();

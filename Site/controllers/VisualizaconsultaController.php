@@ -13,7 +13,7 @@ class VisualizaconsultaController extends RenderView {
             $clearSessions->destroi_sessao();
         }
         $verifyLogin = new Login();
-        if(!($verifyLogin->verifyLogin()) || $verifyLogin->verifyLoginDoctor()){
+        if(!$verifyLogin->verifyLoginPatient()){
             header('Location: ../Site');
             exit();
         }

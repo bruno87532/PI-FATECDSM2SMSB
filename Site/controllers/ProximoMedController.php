@@ -1,8 +1,8 @@
 <?php
+ob_start();
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
-ob_start();
 require_once __DIR__."/../utils/RenderView.php";
 require_once __DIR__."/../utils/autoload.php";
 
@@ -11,12 +11,13 @@ class ProximoMedController extends RenderView {
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
-            header('Location: ../Site');
-            exit();
+            $verifiyLoginEmployee = new Login();
+            if($verifiyLoginEmployee->verifyLoginEmployee()){
+                header('Location: cadastromed');
+            }
         }
-        $verifiyLoginEmployee = new Login();
         if(!$verifiyLoginEmployee->verifyLoginEmployee()){
-            header('Location: ../../Site');
+            header('Location: ../Site');
             exit();
         }
         $this->loadView(
@@ -28,8 +29,7 @@ class ProximoMedController extends RenderView {
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
-            header('Location: ../../Site');
-            exit();
+            header('Location: ../cadastromed');
         }
         $verifiyLoginEmployee = new Login();
         if(!$verifiyLoginEmployee->verifyLoginEmployee()){

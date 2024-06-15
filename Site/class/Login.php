@@ -1,8 +1,12 @@
 <?php
+if(!(session_status() == PHP_SESSION_ACTIVE)){
+    session_start();
+}
 require_once __DIR__."/../utils/autoload.php";
 class Login{
     public function loginPatient($id, $nome){
         $_SESSION['login'] = true;
+        $_SESSION['login_patient'] = true;
         $_SESSION['login_id'] = $id;
         $_SESSION['login_nome'] = $nome;
     }
@@ -38,8 +42,20 @@ class Login{
         }
         return true;
     }
+    public function verifyLoginPatient(){
+        if(!isset($_SESSION['login_patient'])){
+            return false;
+        }
+        return true;
+    }
     public function verifyLoginEmployee(){
         if(!isset($_SESSION['employee'])){                                  
+            return false;
+        }
+        return true;
+    }
+    public function verifyLoginDoctor(){
+        if(!isset($_SESSION['login_doctor'])){
             return false;
         }
         return true;

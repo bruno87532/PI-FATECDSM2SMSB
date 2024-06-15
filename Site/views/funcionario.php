@@ -3,11 +3,8 @@ require_once __DIR__."/../utils/autoload.php";
 if(!(session_status() == PHP_SESSION_ACTIVE)){
     session_start();
 }
-if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
-    $estilologin = "color: red; display: block";
-}else{
-    $estilologin = "color: red; display: none";
-}
+$validator = new Validator();
+$estilofunc = $validator->employee();
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +38,7 @@ if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
                     
                             <a style="<?php echo $estilologout; ?>" href="home">    Sair</a>
                         </div> 
-                        <li><a style="<?php echo $estilologin; ?>" href="login"><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""> Login </a></li>
+                        <li></li>
                     </ul>
                 </nav>
 
@@ -54,7 +51,7 @@ if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
  
     <div class="row justify-content-center mt-5">
         <div class="col-md-4 linksFuncionario">
-            <a href="editarConsulta.php">
+            <a href="editaconsulta">
                 <img src="public/images/editarConsulta.jpg" height="400px" class="img-fluid rounded" alt="Imagem 1">
             </a>
         </div>
@@ -63,8 +60,8 @@ if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
                 <img src="public/images/agendarConsulta.jpg" class="img-fluid rounded" alt="Imagem 2">
             </a>
         </div>
-        <div class="col-md-4 linksFuncionario">
-            <a href="cadastroMedico.php">
+        <div class="col-md-4 linksFuncionario" style="<?php echo $estilofunc ?>">
+            <a href="cadastromed">
               <img src="public/images/cadastrarmedico.jpg" class="img-fluid rounded" alt="Imagem 3">
             </a>
         </div>

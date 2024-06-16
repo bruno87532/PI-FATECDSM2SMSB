@@ -14,6 +14,10 @@ class VisualizaconsultaController extends RenderView {
         }
         $verifyLogin = new Login();
         if(!$verifyLogin->verifyLoginPatient()){
+            if($verifyLogin->verifyLoginDoctor() || $verifyLogin->verifyLoginEmployee()){
+                header('Location: funcionario');
+                exit();
+            }
             header('Location: ../Site');
             exit();
         }

@@ -21,6 +21,7 @@ if(!(class_exists('Validator'))){
         public $controla_cpfexist;
         public $controla_funcionario;
         public $controla_patient;
+        public $controla_doctor;
 
         public function cpf_valido(){
             if(isset($_SESSION['cpf']) && $_SESSION['cpf'] == true){
@@ -74,6 +75,15 @@ if(!(class_exists('Validator'))){
             }else{
                 $this->controla_pid = 'color: red; display: none';
                 return $this->controla_pid;
+            }
+        }
+        public function notdoctor(){
+            if(isset($_SESSION['login_doctor']) && $_SESSION['login_doctor'] == true){
+                $this->controla_doctor = 'color: red; display: none';
+                return $this->controla_doctor;
+            }else{
+                $this->controla_doctor = 'color: red; display: block';
+                return $this->controla_doctor;
             }
         }
         public function senha_valido(){
@@ -158,7 +168,7 @@ if(!(class_exists('Validator'))){
             }
         }
         public function destroi_sessao(){
-            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist', 'login_error', 'cpfpat'];
+            $sections = ['cpf', 'email', 'telefone', 'nascimento', 'nome', 'pid', 'deficiencia', 'senha', 'cep', 'emailexist', 'cpfexist', 'crm', 'crmexist', 'login_error', 'cpfpat', 'cad'];
             foreach($sections as $section){
                 if(isset($_SESSION[$section]) && $section == true){
                     unset($_SESSION[$section]);

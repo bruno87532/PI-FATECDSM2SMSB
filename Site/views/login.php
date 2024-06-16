@@ -8,6 +8,10 @@ if(isset($_SESSION['login_error']) && $_SESSION['login_error'] == true){
 }else{
     $estilologin = "color: red; display: none";
 }
+if(isset($_SESSION['cad']) && $_SESSION['cad'] == true){
+    $destroi_sessao = new Validator();
+    $destroi_sessao->destroi_sessao();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

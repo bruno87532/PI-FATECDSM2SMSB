@@ -10,7 +10,6 @@ class ConsultaController extends RenderView{
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
-            exit();
         }
         $loginConsulta = new Login();
         if(!$loginConsulta->verifyLogin()){

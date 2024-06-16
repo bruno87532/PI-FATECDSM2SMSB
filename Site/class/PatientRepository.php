@@ -26,6 +26,7 @@ class PatientRepository extends Repository
 
     public function SelecionaCPF($cpf)
     {
+        $cpf = preg_replace("/\D/", "", $cpf);
         return $this->selecionaCampo('cpf', 'pacientes', $cpf);
     }
 

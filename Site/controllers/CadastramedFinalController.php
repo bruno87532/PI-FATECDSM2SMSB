@@ -13,8 +13,12 @@ class CadastramedFinalController extends RenderView {
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
         }
-        $verifiyLoginEmployee = new Login();
-        if(!$verifiyLoginEmployee->verifyLoginEmployee()){
+        $verifiyLogin = new Login();
+        if(!$verifiyLogin->verifyLoginEmployee()){
+            if($verifyLogin->verifyLoginDoctor()){
+                header('Location: funcionario');
+                exit();
+            }
             header('Location: ../Site');
             exit();
         }else{
@@ -27,14 +31,22 @@ class CadastramedFinalController extends RenderView {
         
     }
     public function insert(){
-        $verifiyLoginEmployee = new Login();
-        if(!$verifiyLoginEmployee->verifyLoginEmployee()){
+        $verifiyLogin = new Login();
+        if(!$verifiyLogin->verifyLoginEmployee()){
+            if($verifiyLogin->verifyLoginDoctor()){
+                header('Location: funcionario');
+                exit();
+            }
             header('Location: ../Site');
             exit();
         }
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
+            if($verifiyLogin->verifyLoginEmployee()){
+                header('Location: cadastromed');
+                exit();
+            }
         }
         $Med = new functionsMed();
         $Med->verifyInsert($_POST['cep'], $_POST['estado'], $_POST['cidade'], $_POST['bairro'], $_POST['rua'], $_POST['numero_casa'], $_POST['complemento']);

@@ -8,6 +8,12 @@ require_once __DIR__."/../utils/autoload.php";
 
 class ProximoController extends RenderView{
 public function index(){
+    if(empty($_SERVER['HTTP_REFERER'])){
+        $clearSessions = new Validator();
+        $clearSessions->destroi_sessao();
+        header('Location: cadastro');
+        exit();
+    }
     $this->loadView(
         'proximo',
         [
@@ -28,6 +34,15 @@ public function validator(){
     if(empty($_SERVER['HTTP_REFERER'])){
         $clearSessions = new Validator();
         $clearSessions->destroi_sessao();
+        $verifyLogin = new Login();
+        if($verifyLogin->verifyLoginDoctor || $verifyLogin->verifyLoginEmployee()){
+            header('Location: ../funcionario');
+            exit();
+        }else
+        {
+            header('Location: ../cadastro');
+            exit();
+        }
     }
     $ValidatorProx = new ValidatorPatient();
     $ValidatorProx->destroi_sessao();
@@ -36,7 +51,7 @@ public function validator(){
     
     foreach($post as $campo){
         if(!isset($_POST[$campo])){
-            header('Location: '.$_SERVER['HTTP_REFERER']);
+            header('Location: ../cadastro');
             exit();
         }
     }
@@ -59,20 +74,21 @@ public function validator(){
 
     if(!(isset($_POST['pcd']) || isset($_POST['idoso']))){
         $_SESSION['pid'] = true;
-        header('Location: '.$_SERVER['HTTP_REFERER']);
+        header('Location: ../cadastro');
         exit();
     }    
     if(isset($_POST['pcd']) && $_POST['deficiencia'] == ''){
         $_SESSION['deficiencia'] = true;
-        header('Location: '.$_SERVER['HTTP_REFERER']);
+        header('Location: ../cadastro');
         exit();
     }
     $FunctionsValid = new FunctionsPatient();
     $returnOrNot = $FunctionsValid->validaCampos($_POST['nome'], $_POST['cpf'], $_POST['senha'], $_POST['telefone'], $_POST['data_nascimento'], $_POST['email']);
     if(!$returnOrNot){
-        header('Location: '.$_SERVER['HTTP_REFERER']);
+        header('Location: ../cadastro');
         exit();
     }
+    unset($_SESSION['cad']);
     header('Location: ../proximo');
 }
 }

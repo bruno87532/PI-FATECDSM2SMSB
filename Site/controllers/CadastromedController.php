@@ -12,6 +12,10 @@ class CadastromedController extends RenderView {
         }
         $verifyLogin = new Login();
         if(!($verifyLogin->verifyLoginEmployee())){
+            if($verifyLogin->verifyLoginDoctor()){
+                header('Location: funcionario');
+                exit();
+            }
             header('Location: ../Site');
             exit();
         }

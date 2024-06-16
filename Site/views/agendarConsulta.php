@@ -84,15 +84,6 @@ $estilocpf = $validaCampo->cpf_existpat();
                 <select name="horario" id="horario" required disabled>
                     <option value="">Selecione um horário</option>
                 </select>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="consulta" name="consulta" required>
-                    <label for="consulta">Consulta</label>
-                </div>
-                <br>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="retorno" name="retorno" required>
-                    <label for="retorno">Retorno</label>
-                </div>
                 <div class="btn-consulta">
                     <button type="submit">Agendar Consulta</button>
                 </div>

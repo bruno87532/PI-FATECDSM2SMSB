@@ -10,6 +10,7 @@ $ValidatorHome = new Validator();
 $estilologin = $ValidatorHome->login();
 $estilologout = $ValidatorHome->logout();
 $estilonotmed = $ValidatorHome->notdoctor();
+$estilopatient = $ValidatorHome->patient();
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +39,7 @@ $estilonotmed = $ValidatorHome->notdoctor();
                 </nav>
                 <div class="btn-contato">
                     <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="visualizaconsulta" style="<?php echo $estilopatient ?>"><button class="btnhover">Visualiza Consultas</button></a>
                 </div>
                 <nav>
     <ul class="link-login">
@@ -130,7 +132,7 @@ $estilonotmed = $ValidatorHome->notdoctor();
                 <br>
                 <p>A Clínica <b>Saúde Sem Barreiras</b> é especialistano cuidado das dores físicas e emocionais. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate minus veniam ab natus at, temporibus magni tempora, repellendus  a. </p><br>
                 <div class="btn-contato2">
-                    <a href="/login"><button class="btnhover">Agendar Consulta</button></a>
+                    <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
                 </div>
             </div>
 

@@ -12,8 +12,11 @@ class CadastroController extends RenderView {
             $clearSessions->destroi_sessao();
         }
         $verifyLogin = new Login();
-        if($verifyLogin->verifyLogin()){
+        if($verifyLogin->verifyLoginDoctor() || $verifyLogin->verifyLoginEmployee()){
+            header('Location: funcionario');
+        }else if($verifyLogin->verifyLogin()){
             header('Location: ../Site');
+            exit();
         }
         $this->loadView( 
             'cadastro', []

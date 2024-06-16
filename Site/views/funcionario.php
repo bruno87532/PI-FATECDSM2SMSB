@@ -14,7 +14,7 @@ $estilofunc = $validator->employee();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/styles/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <title>Links de Imagens</title>
+    <title>Funcionario</title>
 </head>
 <body>
 <header>
@@ -57,7 +57,7 @@ $estilofunc = $validator->employee();
         </div>
         <div class="col-md-4 linksFuncionario">
             <a href="consulta">
-                <img src="public/images/agendarConsulta.jpg" class="img-fluid rounded" alt="Imagem 2">
+                <img src="public/images/agendarConsulta.jpg" style="<?php echo $estilofunc ?>" class="img-fluid rounded" alt="Imagem 2">
             </a>
         </div>
         <div class="col-md-4 linksFuncionario" style="<?php echo $estilofunc ?>">

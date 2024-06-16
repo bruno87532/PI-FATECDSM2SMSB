@@ -14,8 +14,14 @@ class AtualizaconsultaController extends RenderView {
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
-            header('Location: ../');
-            exit();
+            $verifyLogin = new Login();
+            if($verifyLogin->verifyLoginDoctor() || $verifyLogin->verifyLoginEmployee()){
+                header('Location: ../funcionario');
+                exit();
+            }else{
+                header('Location: ../');
+                exit();
+            }
         }
         $verifyLogin = new Login();
         if(!($verifyLogin->verifyLoginDoctor()) && !($verifyLogin->verifyLoginEmployee())){
@@ -31,13 +37,17 @@ class AtualizaconsultaController extends RenderView {
         );
     }
     public function atualizapaciente() {
+        $verifyLogin = new Login();
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
+            if($verifyLogin->verifyLoginDoctor() || $verifyLogin->verifyLoginEmployee()){
+                header('Location: ../funcionario');
+                exit();
+            }
             header('Location: ../');
             exit();
         }
-        $verifyLogin = new Login();
         if(!($verifyLogin->verifyLoginDoctor()) && !($verifyLogin->verifyLoginEmployee())){
             header('Location: ../Site');
         }
@@ -48,5 +58,6 @@ class AtualizaconsultaController extends RenderView {
         $updateConsulta = new AppointmentRepository;
         $updateConsulta->prepareUpdate($array_campos, 'consultas', $array_valores, $this->id);
         header('Location: ../editaconsulta');
+        exit();
     }
 }

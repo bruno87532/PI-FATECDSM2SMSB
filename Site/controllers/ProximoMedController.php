@@ -11,12 +11,17 @@ class ProximoMedController extends RenderView {
         if(empty($_SERVER['HTTP_REFERER'])){
             $clearSessions = new Validator();
             $clearSessions->destroi_sessao();
-            $verifiyLoginEmployee = new Login();
-            if($verifiyLoginEmployee->verifyLoginEmployee()){
+            $verifiyLogin = new Login();
+            if($verifiyLogin->verifyLoginEmployee()){
                 header('Location: cadastromed');
+                exit();
             }
         }
-        if(!$verifiyLoginEmployee->verifyLoginEmployee()){
+        if(!$verifiyLogin->verifyLoginEmployee()){
+            if($verifiyLogin->verifyLoginDoctor()){
+                header('Location: funcionario');
+                exit();
+            }
             header('Location: ../Site');
             exit();
         }

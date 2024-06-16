@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/06/2024 às 02:03
+-- Tempo de geração: 17/06/2024 às 01:17
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.0.30
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,55 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `banco`
---
-CREATE DATABASE IF NOT EXISTS `banco` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `banco`;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `conta`
---
-
-CREATE TABLE `conta` (
-  `id` int(11) NOT NULL,
-  `descricao` varchar(255) NOT NULL,
-  `saldo` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `conta`
---
-
-INSERT INTO `conta` (`id`, `descricao`, `saldo`) VALUES
-(1, 'Conta A', 800.00),
-(2, 'Conta B', 700.00);
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `conta`
---
-ALTER TABLE `conta`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `conta`
---
-ALTER TABLE `conta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- Banco de dados: `clinica`
 --
-CREATE DATABASE IF NOT EXISTS `clinica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `clinica`;
+
+DELIMITER $$
+--
+-- Procedimentos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CalculaIntervalos` (`horaInicio` TIME, `horaFim` TIME, `id` INT)   BEGIN
+    DECLARE horas TIME;
+    SET horas = horaInicio;
+    DELETE FROM horariosMedicos;
+
+    WHILE horas <= horaFim DO
+        INSERT INTO horariosMedicos (horario, idMedico) VALUES (horas, id);
+        SET horas = ADDTIME(horas, '00:30:00');
+    END WHILE;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -179,6 +149,42 @@ INSERT INTO `funcionarios` (`ID`, `id_endereco`, `cargo`, `nome`, `dataInicio`, 
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `horariosmedicos`
+--
+
+CREATE TABLE `horariosmedicos` (
+  `horario` time DEFAULT NULL,
+  `idMedico` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `horariosmedicos`
+--
+
+INSERT INTO `horariosmedicos` (`horario`, `idMedico`) VALUES
+('09:00:00', 10),
+('09:30:00', 10),
+('10:00:00', 10),
+('10:30:00', 10),
+('11:00:00', 10),
+('11:30:00', 10),
+('12:00:00', 10),
+('12:30:00', 10),
+('13:00:00', 10),
+('13:30:00', 10),
+('14:00:00', 10),
+('14:30:00', 10),
+('15:00:00', 10),
+('15:30:00', 10),
+('16:00:00', 10),
+('16:30:00', 10),
+('17:00:00', 10),
+('17:30:00', 10),
+('18:00:00', 10);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `medicos`
 --
 
@@ -212,7 +218,7 @@ INSERT INTO `medicos` (`id`, `id_endereco`, `id_funcionario`, `cpf`, `nome`, `na
 (7, 87, 1, '580.756.440', 'Gabriel Cardoso Schhranck', '2024-06-02', 'gabrielschranck@gmail.com', '19989429974', 'CRM-DF50421', '19:00:00', '20:00:00', 'M', 'Ortopedista', '$2y$10$WYTZ/0ws8EV4Lhux2a9BN.gIj/jDvJLMNXgYQ665LaFexqDe4WPXm'),
 (8, 104, 1, '417.977.370', 'Bruno Henrique Guinerio', '2003-04-12', 'testeeeeeeeeeeeeeee@gmail.com', '19982869853', 'CRM-RS54931', '00:17:00', '20:17:00', 'M', 'Testeree', '$2y$10$t4sWg.eAOe09h.nh73QvdORXLt4VvmI9XU8CoiKINfOSHPev/vnqO'),
 (9, 105, 1, '120.258.280', 'Bruno Henrique Guinerio', '2003-04-12', 'brunsdaszgoguinerio@gmail.com', '19982869853', 'CRM-RS54930', '12:21:00', '12:21:00', 'M', 'medico', '$2y$10$pGWggnsVsPmc5MEEkd8LWOxCo18NOiVRlkeethX.RTuvNPg3Aw8KO'),
-(10, 106, 1, '552.717.200', 'Bruno Guinerio', '2003-04-12', 'brunomedico@gmail.com', '19982869853', 'CRM-MG54321', '12:12:00', '12:12:00', 'M', 'Ortopedista', '$2y$10$LmvjJaZXo8sNBSurFknm..XZdYF30MTL27WjQtc4nccGAf1fSbmXK'),
+(10, 106, 1, '552.717.200', 'Bruno Guinerio', '2003-04-12', 'brunomedico@gmail.com', '19982869853', 'CRM-MG54321', '09:00:00', '18:00:00', 'M', 'Nutricionista', '$2y$10$LmvjJaZXo8sNBSurFknm..XZdYF30MTL27WjQtc4nccGAf1fSbmXK'),
 (11, 108, 1, '948.583.240', 'Bruno Henrique Guinerio', '2003-04-12', 'brunomedicoteste@gmail.com', '19982869853', 'CRM-DF12385', '12:21:00', '12:01:00', 'M', 'Ortopedista', '$2y$10$R04hAuZ1dMK3KXMz26h1P.jwLFYe6A.Ahl7e4fFVTKBYqmQdnixHu');
 
 -- --------------------------------------------------------
@@ -275,6 +281,12 @@ ALTER TABLE `funcionarios`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `cpf` (`cpf`),
   ADD KEY `id_endereco` (`id_endereco`);
+
+--
+-- Índices de tabela `horariosmedicos`
+--
+ALTER TABLE `horariosmedicos`
+  ADD KEY `idMedico` (`idMedico`);
 
 --
 -- Índices de tabela `medicos`
@@ -345,6 +357,12 @@ ALTER TABLE `funcionarios`
   ADD CONSTRAINT `funcionarios_ibfk_1` FOREIGN KEY (`id_endereco`) REFERENCES `enderecos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Restrições para tabelas `horariosmedicos`
+--
+ALTER TABLE `horariosmedicos`
+  ADD CONSTRAINT `horariosmedicos_ibfk_1` FOREIGN KEY (`idMedico`) REFERENCES `medicos` (`id`);
+
+--
 -- Restrições para tabelas `medicos`
 --
 ALTER TABLE `medicos`
@@ -355,3 +373,8 @@ ALTER TABLE `medicos`
 --
 ALTER TABLE `pacientes`
   ADD CONSTRAINT `pacientes_ibfk_1` FOREIGN KEY (`id_endereco`) REFERENCES `enderecos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

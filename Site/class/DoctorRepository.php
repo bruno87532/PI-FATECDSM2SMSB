@@ -72,7 +72,6 @@ class DoctorRepository extends Repository
 
     public function SelecionaCPF($cpf)
     {
-        $cpf = preg_replace("/\D/", "", $cpf);
         return $this->selecionaCampo('cpf', 'medicos', $cpf);
     }
     public function CreateEndereco(Address $endereco)

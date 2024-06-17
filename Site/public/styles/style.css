@@ -759,7 +759,7 @@ input[type="checkbox"] {
 /* Cadastro Médico */
 
 .container-cadastroMedico {
-    width: 80%; /* Reduzi a largura para 80% para se adequar melhor em telas menores */
+    width: 70%; /* Reduzi a largura para 80% para se adequar melhor em telas menores */
     max-width: 600px; /* Limita a largura máxima do formulário */
     padding: 20px;
     background-color: #fff;
@@ -827,4 +827,25 @@ input[type="checkbox"] {
 
 .linksFuncionario:hover {
     transform: scale(1.05);
+}
+
+
+/* Editar form =====================*/
+
+
+.horarios-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.horarios {
+    margin-bottom: 10px;
+    flex: 1 1 100%; /* Ocupa todo o espaço disponível inicialmente */
+}
+
+@media (min-width: 768px) {
+    .horarios {
+        flex: 1 1 calc(50% - 10px); /* Duas colunas com espaço entre elas */
+        margin-right: 10px;
+    }
 }

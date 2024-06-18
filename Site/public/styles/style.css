@@ -829,6 +829,35 @@ input[type="checkbox"] {
     transform: scale(1.05);
 }
 
+/*  Editar consulta */
+
+.input-search-paciente {
+    margin-right:30px;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    
+    form {
+        margin: 5px 0;
+        margin-right: 10px;
+        display: flex;
+       
+        input {
+            width: 300px;
+            margin-right: 5px;
+        }
+
+        .sb {
+            width: 90px;
+        }
+    }
+}
+
+.edit-consulta {
+    width: 97%;
+    margin: auto;
+    
+}
 
 /* Editar form =====================*/
 

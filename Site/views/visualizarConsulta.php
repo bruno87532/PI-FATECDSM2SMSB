@@ -27,51 +27,83 @@
     </style>
 </head>
 <body>
+<header style="position: relative;">
+        <div class="container-top">
+            <div class="flex">
+                <a href=""><img src="public/images/logo.png" width="80px" height="70px" alt="" class="image-container-top"></a>
+            
+            
+    <ul class="link-login" style=" margin-right: 10px;">
+    <div class="nome-echo">
+        <?php
+     
+        if(isset($_SESSION['login_nome'])) {
+        
+            $trimmed_name = trim($_SESSION['login_nome']);
+           
+            echo '<div class="nome-echo"><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""> Olá, ' . explode(" ", $trimmed_name)[0] . ' |   </div>';
+        }
+    ?>
+    </div>
+        <div class="logout">
+       
+            <a style="<?php echo $estilologout; ?>" href="home">    Sair</a>
+        </div> 
+
+    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </header>
     <div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nome do médico</th>
-                    <th>Data da consulta</th>
-                    <th>Status da consulta</th>
-                    <th>Diagnóstico</th>
-                    <th>Tratamento</th>
-                    <th>Valor da consulta</th>
-                    <th>Horário de início da consulta</th>
-                    <th>Horário de fim da consulta</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach($consultas as $linha){
-                    echo '<tr>';
-                    foreach($linha as $string => $valor){
-                        if(!($string == 'id')){
-                            $valor = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
-                            if(strlen($valor) > 50){
-                                $limite_string = substr($valor, 0, 50).'...';
-                                echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
-                            }else{
-                                // if($string == 'valor' && $valor!)
-                                if($string == 'statusC' && $valor == 'a'){
-                                    echo '<td>Agendada</td>';
-                                }else if($string == 'statusC' && $valor == 'd'){
-                                    echo '<td>Concluída</td>';
-                                }else if($string == 'statusC' && $valor == 'c'){
-                                    echo '<td>Cancelada</td>';
-                                }else if($string == 'valor' && $valor == '0'){
-                                    echo '<td></td>';
+        <section class="edit-consulta">
+            <br>
+            <table class="table table-bordered" >
+                <thead>
+                    <tr>
+                        <th>Médico</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Diagnóstico</th>
+                        <th>Tratamento</th>
+                        <th>Valor</th>
+                        <th>Início</th>
+                        <th>Fim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($consultas as $linha){
+                        echo '<tr>';
+                        foreach($linha as $string => $valor){
+                            if(!($string == 'id')){
+                                $valor = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+                                if(strlen($valor) > 50){
+                                    $limite_string = substr($valor, 0, 50).'...';
+                                    echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
                                 }else{
-                                    echo '<td>'.$valor.'</td>';
+                                    // if($string == 'valor' && $valor!)
+                                    if($string == 'statusC' && $valor == 'a'){
+                                        echo '<td>Agendada</td>';
+                                    }else if($string == 'statusC' && $valor == 'd'){
+                                        echo '<td>Concluída</td>';
+                                    }else if($string == 'statusC' && $valor == 'c'){
+                                        echo '<td>Cancelada</td>';
+                                    }else if($string == 'valor' && $valor == '0'){
+                                        echo '<td></td>';
+                                    }else{
+                                        echo '<td>'.$valor.'</td>';
+                                    }
                                 }
                             }
                         }
-                    }
-                    echo '</tr>';
-                } 
-                ?>
-            </tbody>
-        </table>
+                        echo '</tr>';
+                    } 
+                    ?>
+                </tbody>
+            </table>
+        </section>
     </div>
     <div id="textoCompleto" class="mostra-texto" style="display: none;">
         <p id="texto"></p>

@@ -10,63 +10,95 @@
    
 </head>
 <body>
-    <div>
-        <form action="buscapaciente" method="POST">
-            <label for="busca">Digite o nome do paciente</label>
-            <input type="text" name="busca" id="busca">
-            <input type="submit" value="buscar">
-        </form> 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nome do paciente</th>
-                    <th>Nome do médico</th>
-                    <th>Data da consulta</th>
-                    <th>Status da consulta</th>
-                    <th>Diagnóstico</th>
-                    <th>Tratamento</th>
-                    <th>Valor da consulta</th>
-                    <th>Horário de início da consulta</th>
-                    <th>Horário de fim da consulta</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach($consultas as $linha){
-                    echo '<tr>';
-                    foreach($linha as $string => $valor){
-                        if(!($string == 'id')){
-                            $valor = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
-                            if(strlen($valor) > 50){
-                                $limite_string = substr($valor, 0, 50).'...';
-                                echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
-                            }else{
-                                if($string == 'statusC' && $valor == 'a'){
-                                    echo '<td>Agendada</td>';
-                                }else if($string == 'statusC' && $valor == 'd'){
-                                    echo '<td>Concluída</td>';
-                                }else if($string == 'statusC' && $valor == 'c'){
-                                    echo '<td>Cancelada</td>';
-                                }else if($string == 'valor' && $valor == '0'){
-                                    echo '<td></td>';
+<header style="position: relative;">
+        <div class="container-top">
+            <div class="flex">
+                <a href=""><img src="public/images/logo.png" width="80px" height="70px" alt="" class="image-container-top"></a>
+            
+            
+    <ul class="link-login" style=" margin-right: 10px;">
+    <div class="nome-echo">
+        <?php
+     
+        if(isset($_SESSION['login_nome'])) {
+        
+            $trimmed_name = trim($_SESSION['login_nome']);
+           
+            echo '<div class="nome-echo"><img src="public/images/icons8-male-user-24.png" width="30px" height="30px" alt=""> Olá, ' . explode(" ", $trimmed_name)[0] . ' |   </div>';
+        }
+    ?>
+    </div>
+        <div class="logout">
+       
+            <a style="<?php echo $estilologout; ?>" href="home">    Sair</a>
+        </div> 
+
+    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+    <section class="edit-consulta">
+        <div class="input-search-paciente">
+            <form action="buscapaciente" method="POST">
+                <input type="text" name="busca" id="busca">
+                <input class="btn-entrar-login sb" type="submit" value="buscar">
+            </form> 
+        </div>
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Médico</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Diagnóstico</th>
+                        <th>Tratamento</th>
+                        <th>Valor</th>
+                        <th>Início</th>
+                        <th>Fim</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($consultas as $linha){
+                        echo '<tr>';
+                        foreach($linha as $string => $valor){
+                            if(!($string == 'id')){
+                                $valor = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+                                if(strlen($valor) > 50){
+                                    $limite_string = substr($valor, 0, 50).'...';
+                                    echo '<td>'.$limite_string.'<img width="25px" data-texto="'.$valor.'" class="expandir" src="public/images/expandir.png" alt="Expandir">'.'</td>'; 
                                 }else{
-                                    echo '<td>'.$valor.'</td>';
+                                    if($string == 'statusC' && $valor == 'a'){
+                                        echo '<td>Agendada</td>';
+                                    }else if($string == 'statusC' && $valor == 'd'){
+                                        echo '<td>Concluída</td>';
+                                    }else if($string == 'statusC' && $valor == 'c'){
+                                        echo '<td>Cancelada</td>';
+                                    }else if($string == 'valor' && $valor == '0'){
+                                        echo '<td></td>';
+                                    }else{
+                                        echo '<td>'.$valor.'</td>';
+                                    }
                                 }
                             }
                         }
-                    }
-                    echo '<td><a href="buscapaciente/' . $linha['id'] . '"><img width="30px" src="public/images/edit.png" class="editar" alt="Editar usuário"></a></td>';
-                    echo '</tr>';
-                } 
-                ?>
-            </tbody>
-        </table>
-    </div>
-    <div id="textoCompleto" class="mostra-texto" style="display: none;">
-        <p id="texto"></p>
-        <button type="button" id="closeText">Fechar</button>
-    </div>
+                        echo '<td><a href="buscapaciente/' . $linha['id'] . '"><img width="30px" src="public/images/edit.png" class="editar" alt="Editar usuário"></a></td>';
+                        echo '</tr>';
+                    } 
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <div id="textoCompleto" class="mostra-texto" style="display: none;">
+            <p id="texto"></p>
+            <button type="button" id="closeText">Fechar</button>
+        </div>
+    </section>
 </body>
 </html>
 

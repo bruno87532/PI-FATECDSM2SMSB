@@ -13,7 +13,7 @@
 <header style="position: relative;">
         <div class="container-top">
             <div class="flex">
-                <a href=""><img src="public/images/logo.png" width="80px" height="70px" alt="" class="image-container-top"></a>
+                <a href=""><img src="public/images/logo.jpeg" width="80px" height="70px" alt="" class="image-container-top"></a>
             
             
     <ul class="link-login" style=" margin-right: 10px;">

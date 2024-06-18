@@ -27,7 +27,7 @@ $estilopatient = $ValidatorHome->patient();
     <header>
         <div class="container-top">
             <div class="flex">
-                <a href=""><img src="public/images/logo.png" width="80px" height="70px" alt="" class="image-container-top"></a>
+                <a href=""><img src="public/images/logo.jpeg" width="80px" height="70px" alt="" class="image-container-top"></a>
                 <nav>
                     <ul>
                      
@@ -185,7 +185,7 @@ $estilopatient = $ValidatorHome->patient();
 
 
     <div class="centered-image">
-        <img src="public/images/logo.png" width="120px" alt="Descrição da imagem" id="contato">
+        <img src="public/images/logo.jpeg" width="120px" alt="Descrição da imagem" id="contato">
     </div>
     
     <!-- Título -->

@@ -20,7 +20,7 @@ $estilofunc = $validator->employee();
 <header>
         <div class="container-top">
             <div class="flex">
-                <a href=""><img src="public/images/logo.png" width="80px" height="70px" alt="" class="image-container-top"></a>              
+                <a href=""><img src="public/images/logo.jpeg" width="80px" height="70px" alt="" class="image-container-top"></a>              
                 <nav>
                     <ul class="link-login">
                     <div class="nome-echo">
@@ -51,17 +51,15 @@ $estilofunc = $validator->employee();
  
     <div class="row justify-content-center mt-5">
         <div class="col-md-4 linksFuncionario">
-            <a href="consulta">
-                <img src="public/images/agendarConsulta.jpg" style="<?php echo $estilofunc ?>" class="img-fluid rounded" alt="Imagem 2">
-            </a>
-        </div>
-
-        <div class="col-md-4 linksFuncionario">
             <a href="editaconsulta">
                 <img src="public/images/editarConsulta.jpg" height="400px" class="img-fluid rounded" alt="Imagem 1">
             </a>
         </div>
-        
+        <div class="col-md-4 linksFuncionario">
+            <a href="consulta">
+                <img src="public/images/agendarConsulta.jpg" style="<?php echo $estilofunc ?>" class="img-fluid rounded" alt="Imagem 2">
+            </a>
+        </div>
         <div class="col-md-4 linksFuncionario" style="<?php echo $estilofunc ?>">
             <a href="cadastromed">
               <img src="public/images/cadastrarmedico.jpg" class="img-fluid rounded" alt="Imagem 3">

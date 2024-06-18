@@ -21,12 +21,9 @@ class CadastramedFinalController extends RenderView {
             }
             header('Location: ../Site');
             exit();
-        }else{
-            header('Location: cadastromed');
-            exit();
         }
         $this->loadView( 
-            'home', []
+            'funcionario', []
         );
         
     }

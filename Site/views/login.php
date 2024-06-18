@@ -30,7 +30,7 @@ if(isset($_SESSION['cad']) && $_SESSION['cad'] == true){
             <div class="login-form">
                 <form action="login/auth" method="POST">
                     <div class="form-group">
-                        <img src="public/images/logo.png" width="85px" alt="" class="logo-login">
+                        <img src="public/images/logo.jpeg" width="85px" alt="" class="logo-login">
                         <label for="username">Usuário:</label>
                         <input type="text" placeholder="Digite seu email" id="email" name="email" class="form-control" required>
                     </div><br>

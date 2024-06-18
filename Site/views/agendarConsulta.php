@@ -49,6 +49,7 @@ $estilocpf = $validaCampo->cpf_existpat();
 </head>
 <body>
     <div class="imgfundocadastro">
+        <br><br><br><br><br><br><br><br><br>
         <div class="container-cadastro">
             <h2>Agendar Consulta</h2><br>
             <form class="formulario-cadastro" action="agendaconsulta/confirma" method="POST">
@@ -89,6 +90,7 @@ $estilocpf = $validaCampo->cpf_existpat();
                 </div>
             </form>
         </div>
+        <br><br><br><br><br>
     </div>
 </body>
 </html>

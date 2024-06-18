@@ -50,9 +50,9 @@ $estilofunc = $validator->employee();
 <div class="container">
  
     <div class="row justify-content-center mt-5">
-        <div class="col-md-4 linksFuncionario">
+        <div class="col-md-4 linksFuncionario" style="<?php echo $estilofunc ?>">
             <a href="consulta">
-                <img src="public/images/agendarConsulta.jpg" style="<?php echo $estilofunc ?>" class="img-fluid rounded" alt="Imagem 2">
+                <img src="public/images/agendarConsulta.jpg"  class="img-fluid rounded" alt="Imagem 2">
             </a>
         </div>
 

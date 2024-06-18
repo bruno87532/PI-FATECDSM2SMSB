@@ -38,8 +38,10 @@ $estilopatient = $ValidatorHome->patient();
                     </ul>
                 </nav>
                 <div class="btn-contato">
-                    <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
-                    <a href="visualizaconsulta" style="<?php echo $estilopatient ?>"><button class="btnhover">Visualiza Consultas</button></a>
+                    <div class="btns-home">
+                        <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
+                        <a href="visualizaconsulta" style="<?php echo $estilopatient ?>"><button class="btnhover">Visualiza Consultas</button></a>
+                    </div>
                 </div>
                 <nav>
     <ul class="link-login">
@@ -75,8 +77,8 @@ $estilopatient = $ValidatorHome->patient();
             <img src="public/images/carrocel2.jpg" alt="Descrição da imagem">
         </div>
         <div class="text-container">
-            <h2>Sobre à Clínica</h2>
-            <p>As Clínicas são um espaço de integração de profissionais de saúde altamente qualificados e experientes. Planejado para seu conforto e melhor atendimento. Aqui você encontra várias especialidades e uma série de exames complementares, num ambiente cuidadosamente criado para sua satisfação, Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quo, eveniet sunt et, soluta libero, doloribus maiores laborum at similique hic molestias dignissimos provident laudantium sequi. Voluptas debitis officiis minima!.</p>
+            <h2>Nossa Missão</h2>
+            <p> Nosso missão é oferecer atendimento especializado, humano e de qualidade, reconhecendo que cada pessoa é única. Com o objetivo de proporcionar uma experiência personalizada que promava a melhoria de qualidade de vida de nossos pacientes.</p>
         </div>
     </section>
    <br><br id="especialidades" > 
@@ -130,7 +132,7 @@ $estilopatient = $ValidatorHome->patient();
             <div class="text-container2">
                 <h1>LIVRE-SE DAS <br> <span class="dores">DORES</span> FÍSICAS <br> E EMOCIONAIS.</h1>
                 <br>
-                <p>A Clínica <b>Saúde Sem Barreiras</b> é especialistano cuidado das dores físicas e emocionais. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate minus veniam ab natus at, temporibus magni tempora, repellendus  a. </p><br>
+                <p>A Clínica <b>Saúde Sem Barreiras</b> é especialista no cuidado das dores físicas e emocionais. Livre-se das limitações que impedem seu bem-estar integral, encontrando o caminho para uma vida plena e saudável. Nossa abordagem personalizada e especializada visa não apenas aliviar as dores, mas também fortalecer sua saúde física e emocional, proporcionando-lhe as ferramentas necessárias para viver sem barreiras. </p><br>
                 <div class="btn-contato2">
                     <a href="consulta" style="<?php echo $estilonotmed ?>"><button class="btnhover">Agendar Consulta</button></a>
                 </div>

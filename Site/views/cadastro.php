@@ -29,16 +29,10 @@ $estiloemailexist = $ValidatorHCad->emailexist();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Cadastro</title>
-    <style>
-        .olho{
-            position: absolute;
-            right: 30px;
-            bottom: 353px;
-        }
-    </style>
 </head>
 <body>
     <div class="imgfundocadastro">
+        <br><br><br>
     <div class="container-cadastro">
         <h2>Cadastre-se</h2><br>
         <form class="formulario-cadastro" method="POST" action="proximo/validador">
@@ -61,7 +55,6 @@ $estiloemailexist = $ValidatorHCad->emailexist();
             <div>
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" required value="<?php echo isset($_SESSION["patient"]) ? $_SESSION["patient"]->getSenha() : ""; ?>">
-                <label id="olho" class="olho">&#128065;</label>
                 <p style="<?php echo $estilosenha?>">A senha deve ter pelo menos oito caracteres!</p>
             </div>
             <div>
@@ -87,13 +80,15 @@ $estiloemailexist = $ValidatorHCad->emailexist();
                     }
                 ?> 
             </select>
-            <div class="checkbox-group">
-                <input type="checkbox" id="pcd" name="pcd" <?php if($pcd == 1) echo "checked" ?>>
-                <label for="pcd">Sou PCD</label>
-            </div>
+            <br><br>
             <div class="checkbox-group">
                 <input type="checkbox" id="idoso" name="idoso" <?php if($idoso == 1) echo "checked" ?>>
                 <label for="idoso">Sou Idoso</label>
+            </div>
+            <br>
+            <div class="checkbox-group">
+                <input type="checkbox" id="pcd" name="pcd" <?php if($pcd == 1) echo "checked" ?>>
+                <label for="pcd">Sou PCD</label>
             </div>
             <p style="<?php echo $estilopid?>">A clínica é especializa para idoso e PCD.</p>
             <div id="areaDeficiencia" style="display: none;">
@@ -106,7 +101,10 @@ $estiloemailexist = $ValidatorHCad->emailexist();
             </div>
         </form>
     </div>
+    <br>
 </div>
+
+
 </body>
 </html>
 <script>
@@ -120,13 +118,5 @@ $estiloemailexist = $ValidatorHCad->emailexist();
         var areaDeficiencia = document.getElementById('areaDeficiencia');
         areaDeficiencia.style.display = this.checked ? 'block' : 'none';
     });
-    const senha = document.getElementById('olho');
-    senha.addEventListener('click', function(){
-        const show = document.getElementById('senha');
-        if(show.type == 'password'){
-            show.type = 'text';
-        }else{
-            show.type = 'password';
-        }
-    })
+    
 </script>

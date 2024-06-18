@@ -25,17 +25,11 @@ $estilocrmexist = $ValidatorMCad->crmexist();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Cadastro</title>
-    <style>
-        .olho{
-            position: absolute;
-            right: 50px;
-            bottom: 580px;
-        }
-    </style>
 </head>
 <body>
     <div class="imgfundocadastro">
-    <div class="container-cadastroMedico">
+        <br><br>
+     <div class="container-cadastroMedico">
         <h2>Cadastro Médico</h2><br>
         <form class="formulario-cadastroMedico" method="POST" action="proximomed/validador">
             <label for="nomem">Nome:</label>
@@ -53,7 +47,6 @@ $estilocrmexist = $ValidatorMCad->crmexist();
 
             <label for="senham">Senha:</label>
             <input type="password" id="senham" name="senham" value="<?php echo isset($_SESSION["doctor"]) ? $_SESSION["doctor"]->getSenha() : ""; ?>" required><br>
-            <label id="olho" class="olho">&#128065;</label>
             <p style="<?php echo $estilosenham?>">A senha deve ter pelo menos oito caracteres!</p>
         
             <label for="telefonem">Telefone:</label>
@@ -109,6 +102,7 @@ $estilocrmexist = $ValidatorMCad->crmexist();
             </div>
         </form>
     </div>
+    <br><br>
 </div>
 
 

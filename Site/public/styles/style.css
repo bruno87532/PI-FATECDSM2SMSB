@@ -37,6 +37,15 @@ header{
   
 }
 
+.btns-home{
+    display: flex;
+    margin-right: 20px;
+}
+
+.btns-home .btnhover{
+    margin-right: 20px;
+
+}
 
 
 /* Estilos padrão para o navbar */
@@ -55,6 +64,7 @@ header ul li {
    
     
 }
+
 ul li:hover{
     transform: scale(1.1); 
 }
@@ -171,7 +181,7 @@ header ul :hover{
 }
 
 .text-container h2 {
-    font-size: 54px; 
+    font-size: 58px; 
     color: #d3ad45;
     margin-bottom: 10px; 
 }
@@ -180,7 +190,7 @@ header ul :hover{
     font-family: Georgia, 'Times New Roman', Times, serif;
     width: 450px;
     color: rgb(100, 100, 100);
-    font-size: 16px;
+    font-size: 22px;
 }
 
 
@@ -250,10 +260,10 @@ header ul :hover{
     background-color: transparent; 
     border: 3px solid #706f6f; 
     border-radius: 10px;
-    cursor: pointer;
     margin: 0 80px; 
     color: #595a5a; 
     font-weight: bold;
+    cursor: default;
 }
 
 .especialidades .botoes button span{
@@ -573,15 +583,13 @@ header ul :hover{
 /* Cadastre-se =========================================*/
 .container-cadastro {
     width: 550px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto; /* centraliza horizontalmente */
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.81);
+
 }
 
 
@@ -592,8 +600,10 @@ header ul :hover{
 .formulario-cadastro {
     justify-content: center;
     gap: 12px;
+    flex-direction: column; /* organiza os elementos em coluna */
     align-items: center;
     width: 100%;
+
 }
 
 input[type="text"],
@@ -759,19 +769,13 @@ input[type="checkbox"] {
 /* Cadastro Médico */
 
 .container-cadastroMedico {
-    width: 70%; /* Reduzi a largura para 80% para se adequar melhor em telas menores */
-    max-width: 600px; /* Limita a largura máxima do formulário */
+    width: 550px;
+    margin: 0 auto; /* centraliza horizontalmente */
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.81);
-    margin: 0 auto; /* Centraliza o formulário horizontalmente */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
 
 }
 
@@ -821,6 +825,7 @@ input[type="checkbox"] {
     width: 100%; /* Garante que a largura seja ajustada automaticamente */
     height: 100%; /* Garante que a altura seja ajustada automaticamente */
     object-fit: cover; /* Mantém a proporção da imagem */
+
 
 }
 
